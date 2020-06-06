@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block header %}
+<h1>{% block title %}Sign Up{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+<form method="POST" action="." accept-charset="UTF-8" role="form">
+    {{ form.csrf_token }} {{ render_field(form.email, placeholder="Your Email Address", autofocus="") }} {{ render_field(form.password, placeholder="Password") }}
+    <div>
+        <label>
+            <input type="checkbox" name="remember" value="1"> Remember Me
+        </label>
+        <a role="button" href="">Forgot your password?</a>
+        <span class="clearfix"></span>
+    </div>
+    <button type="submit" name="submit">Sign Up</button>
+</form>
+{% endblock %}

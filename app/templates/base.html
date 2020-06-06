@@ -2,14 +2,15 @@
 <title>{% block title %}{% endblock %} - 朋来堂</title>
 <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 <nav>
-  <h1>朋来堂</h1>
+    <h1>朋来堂</h1>
 </nav>
+
 <section class="content">
-  <header>
-    {% block header %}{% endblock %}
-  </header>
-  {% for message in get_flashed_messages() %}
+    <header>
+        {% block header %}{% endblock %}
+    </header>
+    {% for message in get_flashed_messages() %}
     <div class="flash">{{ message }}</div>
-  {% endfor %}
-  {% block content %}{% endblock %}
+    {% endfor %}
+    {% block content %}{% endblock %}
 </section>
