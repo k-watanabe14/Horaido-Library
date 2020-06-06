@@ -5,15 +5,11 @@
 {% endblock %}
 
 {% block content %}
-<form method="POST" action="." accept-charset="UTF-8" role="form">
-    {{ form.csrf_token }} {{ render_field(form.email, placeholder="Your Email Address", autofocus="") }} {{ render_field(form.password, placeholder="Password") }}
-    <div>
-        <label>
-            <input type="checkbox" name="remember" value="1"> Remember Me
-        </label>
-        <a role="button" href="">Forgot your password?</a>
-        <span class="clearfix"></span>
-    </div>
-    <button type="submit" name="submit">Sign Up</button>
-</form>
+<form method="post">
+    <label for="username">Username</label>
+    <input name="username" id="username" required>
+    <label for="password">Password</label>
+    <input type="password" name="password" id="password" required>
+    <input type="submit" value="Register">
+  </form>
 {% endblock %}
