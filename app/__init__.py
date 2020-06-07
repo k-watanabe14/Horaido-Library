@@ -27,5 +27,4 @@ app.register_blueprint(mod_auth)
 
 
 if __name__ == '__main__':
-    app.debug = True
     app.run()
