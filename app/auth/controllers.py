@@ -19,10 +19,15 @@ def signup():
 
         if not username:
             error = 'Username is required.'
+        elif not email:
+            error = 'email is required.'
         elif not password:
             error = 'Password is required.'
         elif db.session.query(User).filter(User.username == username).count() != 0:
             error = 'User {} is already registered.'.format(username)
+        elif db.session.query(User).filter(User.email == email).count() != 0:
+            error = 'Email {} is already registered.'.format(email)
+
 
         if error is None:
             data = User(username, email, generate_password_hash(password))
@@ -40,22 +45,20 @@ def login():
 
     if request.method == 'POST':
         username = request.form['username']
-        email = request.form['email']
         password = request.form['password']
         error = None
 
-        user = db.execute(
-            'SELECT * FROM user WHERE username = ?', (username,)
-        ).fetchone()
+        user = db.session.query(User).filter(User.username == username).first()
+        print(user)
 
         if user is None:
-            error = 'Incorrect username.'
-        elif not check_password_hash(user['password'], password):
+            error = 'ユーザ名が間違っています。.'
+        elif not check_password_hash(user.password, password):
             error = 'Incorrect password.'
 
         if error is None:
             session.clear()
-            session['user_id'] = user['id']
+            session['user_id'] = user.id
             return redirect(url_for('index'))
 
         flash(error)
@@ -71,9 +74,7 @@ def load_logged_in_user():
     if user_id is None:
         g.user = None
     else:
-        g.user = get_db().execute(
-            'SELECT * FROM user WHERE id = ?', (user_id,)
-        ).fetchone()
+        g.user = db.session.query(User).filter(User.id == user_id).first()
 
 
 @mod_auth.route('/logout')
