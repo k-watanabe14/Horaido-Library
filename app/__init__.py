@@ -19,11 +19,13 @@ def index():
     return render_template('index.html')
 
 
-# Import a module / component using its blueprint handler variable (mod_auth)
+# Import a module / component using its blueprint handler
 from app.auth.controllers import mod_auth
+from app.register.controllers import mod_register
 
 # Register blueprint(s)
 app.register_blueprint(mod_auth)
+app.register_blueprint(mod_register)
 
 
 if __name__ == '__main__':
