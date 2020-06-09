@@ -10,4 +10,12 @@
     <input name="isbn" id="isbn" value="{{ request.form['isbn'] }}" required>
     <input type="submit" value="書籍情報を検索する">
   </form>
-{% endblock %}
+_
+  {% if isbn is none %}
+
+  {% else %}
+    <h2>ISBN defined</h2>
+    
+  {% endif %}
+
+  {% endblock %}
