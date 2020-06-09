@@ -33,6 +33,7 @@ def signup():
             data = User(username, email, generate_password_hash(password))
             db.session.add(data)
             db.session.commit()
+            flash('ユーザーを登録しました')
             return redirect(url_for('auth.login'))
 
         flash(error)
@@ -59,6 +60,7 @@ def login():
         if error is None:
             session.clear()
             session['user_id'] = user.id
+            session['logged_in'] = True
             return redirect(url_for('index'))
 
         flash(error)
@@ -81,6 +83,7 @@ def load_logged_in_user():
 def logout():
 
     session.clear()
+    flash('ログアウトしました')
     return redirect(url_for('index'))
 
 
