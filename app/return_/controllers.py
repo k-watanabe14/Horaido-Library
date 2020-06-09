@@ -4,10 +4,10 @@ from app.auth.controllers import login_required
 from app import db
  
 # Define the blueprint: 'register', set its url prefix: app.url/register
-mod_borrow = Blueprint('borrow', __name__, url_prefix='/borrow')
+mod_return = Blueprint('return', __name__, url_prefix='/return')
 
 
-@mod_borrow.route('/')
+@mod_return.route('/')
 @login_required
 def index():
-    return render_template('borrow/index.html')
+    return render_template('return/index.html')
