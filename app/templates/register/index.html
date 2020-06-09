@@ -6,6 +6,9 @@
 
 {% block content %}
   {% if g.user %}
-    <a class="action" href="{{ url_for('register.auto') }}">Auto</a>
-  {% endif %}
+  <ul>
+    <li><a class="action" href="{{ url_for('register.isbn_auto') }}">ISBN Auto</a>
+    <li><a class="action" href="{{ url_for('register.manual') }}">Manual</a>
+  </ul>
+    {% endif %}
 {% endblock %}
