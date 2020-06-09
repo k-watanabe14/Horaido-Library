@@ -1,5 +1,5 @@
 import os
-from flask import Flask, render_template
+from flask import Flask, render_template, redirect
 from flask_sqlalchemy import SQLAlchemy
 
 
@@ -15,7 +15,10 @@ def not_found(error):
     return render_template('404.html'), 404
 
 
+from app.auth.controllers import login_required
+
 @app.route('/')
+@login_required
 def index():
     return render_template('index.html')
 
