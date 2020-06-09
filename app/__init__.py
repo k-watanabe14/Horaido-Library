@@ -25,11 +25,19 @@ def index():
 
 # Import a module / component using its blueprint handler
 from app.auth.controllers import mod_auth
+from app.account.controllers import mod_account
+from app.search.controllers import mod_search
 from app.register.controllers import mod_register
+from app.borrow.controllers import mod_borrow
+from app.return_.controllers import mod_return
 
 # Register blueprint(s)
 app.register_blueprint(mod_auth)
+app.register_blueprint(mod_account)
+app.register_blueprint(mod_search)
 app.register_blueprint(mod_register)
+app.register_blueprint(mod_borrow)
+app.register_blueprint(mod_return)
 
 
 if __name__ == '__main__':

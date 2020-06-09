@@ -6,6 +6,11 @@
 
 {% block content %}
   {% if g.user %}
-    <a class="action" href="{{ url_for('register.index') }}">Register</a>
+    <ul>
+      <li><a class="action" href="{{ url_for('search.index') }}">本を検索する</a>
+      <li><a class="action" href="{{ url_for('register.index') }}">本を登録する</a>
+      <li><a class="action" href="{{ url_for('borrow.index') }}">本を借りる</a>
+      <li><a class="action" href="{{ url_for('return.index') }}">本を返す</a>
+    </ul>
   {% endif %}
 {% endblock %}
