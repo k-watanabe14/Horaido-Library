@@ -16,7 +16,7 @@ class ProductionConfig(Config):
 class StagingConfig(Config):
     DEVELOPMENT = True
     DEBUG = True
-    SQLALCHEMY_DATABASE_URI = 'postgres://jtwxhkhlqfawzi:ee6255feb4d01b03bc067a8aea5e370a59d21d2d859b5e61abb95e99f396658f@ec2-54-86-170-8.compute-1.amazonaws.com:5432/ddgbjlbb55ob6s'
+    SQLALCHEMY_DATABASE_URI = 'postgres://loydczttqhkyxg:b566b9863c0e45648712543109b794f21064e25aa39a4f4da13da60a4698335c@ec2-52-87-135-240.compute-1.amazonaws.com:5432/dcprltrsdcm3gs'
 
 
 class DevelopmentConfig(Config):

@@ -27,4 +27,4 @@ class Book(db.Model):
         self.donor = donor
 
     def __repr__(self):
-        return '<User %r>' % self.id
+        return '<Book %r>' % self.id
