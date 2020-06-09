@@ -15,9 +15,9 @@ def index():
     return render_template('register/index.html')
 
 
-@mod_register.route('/auto', methods=('GET', 'POST'))
+@mod_register.route('/isbn-auto', methods=('GET', 'POST'))
 @login_required
-def auto():
+def isbn_auto():
     isbn = request.args.get('isbn')
     book_data =[]
 
@@ -31,7 +31,7 @@ def auto():
         if error is not None:
             flash(error)
         else:
-            return redirect(url_for('register.auto', isbn = isbn))
+            return redirect(url_for('register.isbn_auto', isbn = isbn))
 
     if isbn is not None:
         url = 'https://app.rakuten.co.jp/services/api/BooksBook/Search/20170404?applicationId=1053085901834686387&isbn=' + isbn
@@ -52,7 +52,28 @@ def auto():
 
             return redirect(url_for('register.success'))
 
-    return render_template('register/auto.html', isbn = isbn, book_data = book_data)
+    return render_template('register/isbn-auto.html', isbn = isbn, book_data = book_data)
+
+
+@mod_register.route('/manual')
+@login_required
+def manual():
+
+    if request.method == 'POST':
+        title = request.form['title']
+        author = request.form['author']
+        publisher_name = request.form['publisher_name']
+        sales_date = request.form['sales_date']
+        image_url = None
+        donor = request.form['donor']
+
+        data = Book(isbn, title, author, publisher_name, sales_date, image_url, donor)
+        db.session.add(data)
+        db.session.commit()
+
+        return redirect(url_for('register.success'))
+
+    return render_template('register/manual.html')
 
 
 @mod_register.route('/success')
