@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}Auto Register{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+
+  {% if isbn is none %}
+  <form method="post">
+    <label for="isbn">isbn</label>
+    <input name="isbn" id="isbn" value="{{ request.form['isbn'] }}" required>
+    <input type="submit" value="書籍情報を検索する">
+  </form>
+
+  {% else %}
+  <form method="post">
+    
+    <label for="title">Title</label>
+    <input name="title" value="{{ book_data['title'] }}" id="title" required>
+
+    <label for="author">Author</label>
+    <input name="author" value="{{ book_data['author'] }}" id="author">
+    
+    <label for="publisher_name">Publisher Name</label>
+    <input name="publisher_name" value="{{ book_data['publisherName'] }}" id="publisher_name">
+    
+    <label for="sales_date">Sales Date</label>
+    <input name="sales_date" value="{{ book_data['salesDate'] }}" id="sales_date">
+    
+    <label for="image">Image</label>
+    <img alt="{{ book_data['title'] }}" id="image" src="{{ book_data['largeImageUrl'] }}" width="200" height="200">
+    
+    <label for="donor">Donor</label>
+    <input name="donor" id="donor">
+    
+    <input type="submit" value="Register">
+  
+</form>
+
+  {% endif %}
+
+{% endblock %}
