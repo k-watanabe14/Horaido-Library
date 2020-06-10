@@ -16,11 +16,13 @@ def not_found(error):
 
 
 from app.auth.controllers import login_required
+from app.register.models import Book
 
 @app.route('/')
 @login_required
 def index():
-    return render_template('index.html')
+    newbooks = db.session.query(Book).order_by(Book.id.desc()).limit(10)
+    return render_template('index.html', newbooks = newbooks)
 
 
 # Import a module / component using its blueprint handler
