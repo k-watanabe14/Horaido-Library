@@ -13,6 +13,8 @@ mod_book = Blueprint('book', __name__, url_prefix='/book')
 @mod_book.route('/')
 @login_required
 def index():
+
+    # Page for Detail of book
     return render_template('book/index.html')
 
 
@@ -64,3 +66,10 @@ def return_(book_id):
             return redirect(url_for('index'))
 
     return render_template('book/return.html', book=book)
+
+
+@mod_book.route('/edit')
+@login_required
+def edit():
+
+    return render_template('book/edit.html')
