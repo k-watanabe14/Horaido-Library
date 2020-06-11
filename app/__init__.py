@@ -16,8 +16,8 @@ def not_found(error):
     return render_template('404.html'), 404
 
 
-from app.auth.controllers import login_required
-from app.register.models import Book
+from app.auth.views import login_required
+from app.models import Book
 
 mod_index = Blueprint('index', __name__, url_prefix='/')
 
@@ -55,12 +55,12 @@ def index():
 
 
 # Import a module / component using its blueprint handler
-from app.auth.controllers import mod_auth
-from app.account.controllers import mod_account
-from app.search.controllers import mod_search
-from app.register.controllers import mod_register
-from app.borrow.controllers import mod_borrow
-from app.return_.controllers import mod_return
+from app.auth.views import mod_auth
+from app.account.views import mod_account
+from app.search.views import mod_search
+from app.register.views import mod_register
+from app.borrow.views import mod_borrow
+from app.return_.views import mod_return
 
 # Register blueprint(s)
 app.register_blueprint(mod_auth)
