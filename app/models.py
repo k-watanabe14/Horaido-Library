@@ -49,7 +49,7 @@ class Book(db.Model):
         return '<Book %r>' % self.id
 
 
-class HISTORY(db.Model):
+class History(db.Model):
 
     __tablename__ = 'rental_history'
 

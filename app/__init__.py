@@ -1,5 +1,5 @@
 import os
-from flask import Flask, request, render_template, redirect, url_for
+from flask import Flask, request, render_template, session, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
 
 
@@ -28,19 +28,22 @@ app.register_blueprint(mod_book)
 from app.auth import login_required
 
 #Import Book Model
-from app.models import Book
+from app.models import Book, History
 
 
 @app.errorhandler(404)
 def not_found(error):
+
     return render_template('404.html'), 404
 
 
 @app.route('/')
 @login_required
 def index():
-    newbooks = db.session.query(Book).order_by(Book.id.desc()).limit(10)
-    return render_template('index.html', newbooks = newbooks)
+
+    new_books = db.session.query(Book).order_by(Book.id.desc()).limit(10)
+    
+    return render_template('index.html', new_books = new_books)
 
 
 @app.route('/borrow', methods=('GET', 'POST'))
@@ -66,7 +69,11 @@ def borrow():
 @app.route('/return', methods=('GET', 'POST'))
 @login_required
 def return_():
-    return render_template('return.html')
+    
+    # SELECT *  FROM book JOIN rental_history ON book.id = rental_history.book_id WHERE rental_history.user_id = user_id AND rental_history.return_date is NULL
+    rental_books = db.session.query(Book).join(History, Book.id==History.book_id).filter(History.user_id == session.get('user_id'),  History.return_date == None)
+
+    return render_template('return.html', rental_books = rental_books)
 
 
 if __name__ == '__main__':
