@@ -7,9 +7,9 @@
 {% block content %}
   
   <form method="post">
-    <label for="isbn">isbn</label>
+    <label for="isbn">isbnで検索する</label>
     <input name="isbn" id="isbn" value="{{ request.form['isbn'] }}" required>
-    <input type="submit" value="ISBN">
+    <input type="submit" value="検索">
   </form>
 
   <a class="action" href="{{ url_for('search.index') }}">借りたい本を探す</a>
