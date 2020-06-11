@@ -5,5 +5,8 @@
 {% endblock %}
 
 {% block content %}
-
+<ul>
+  <li><a class="action" href="{{ url_for('search.index') }}">キーワード検索</a>
+  <li><a class="action" href="{{ url_for('register.index') }}">register</a>
+</ul>
 {% endblock %}
