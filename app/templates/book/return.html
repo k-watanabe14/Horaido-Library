@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}返す "{{ book['title'] }}"{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+<div>
+  <h3>{{ book['title'] }}</h3>
+  <p class="author">{{ book['author'] }}</p>
+</div>
+
+<form method="post">
+  <input type="submit" value="この本を返す">
+</form>
+
+{% endblock %}

@@ -14,18 +14,19 @@
     </ul>
   {% endif %}
 
-  {% for book in newbooks %}
-  <article class="book">
-    <img alt="{{ book['title'] }}" id="image" src="{{ book['image_url'] }}" width="200" height="200">
-    <div>
-      <h3>{{ book['title'] }}</h3>
-      <p class="author">{{ book['author'] }}</p>
-    </div>
-  </article>
-  {% if not loop.last %}
-    <hr>
-  {% endif %}
+  {% for book in new_books %}
+    <article class="book">
+      <img alt="{{ book['title'] }}" id="image" src="{{ book['image_url'] }}" width="200" height="200">
+      <div>
+        <h3>{{ book['title'] }}</h3>
+        <p class="author">{{ book['author'] }}</p>
+      </div>
+    </article>
 
-{% endfor %}
+    {% if not loop.last %}
+      <hr>
+    {% endif %}
+
+  {% endfor %}
 
 {% endblock %}
