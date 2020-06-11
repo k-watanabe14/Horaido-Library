@@ -1,6 +1,6 @@
 from flask import Blueprint, request, render_template, flash, redirect, url_for, g
 from werkzeug.exceptions import abort
-from app.auth.views import login_required
+from app.auth import login_required
 from app.models import Book
 from app import db
 import requests

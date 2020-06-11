@@ -1,7 +1,7 @@
 import functools
 from flask import Blueprint, request, render_template, flash, session, redirect, url_for, g
 from werkzeug.security import check_password_hash, generate_password_hash
-from app.auth.views import User
+from app.models import User
 from app import db
  
 # Define the blueprint: 'auth', set its url prefix: app.url/auth
