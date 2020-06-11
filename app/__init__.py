@@ -1,6 +1,7 @@
 import os
-from flask import Flask, render_template, redirect
+from flask import Flask, render_template, redirect, Blueprint
 from flask_sqlalchemy import SQLAlchemy
+import requests
 
 
 app = Flask(__name__)
@@ -18,11 +19,39 @@ def not_found(error):
 from app.auth.controllers import login_required
 from app.register.models import Book
 
-@app.route('/')
+mod_index = Blueprint('index', __name__, url_prefix='/')
+
+@mod_index.route('/')
 @login_required
 def index():
     newbooks = db.session.query(Book).order_by(Book.id.desc()).limit(10)
     return render_template('index.html', newbooks = newbooks)
+
+
+@mod_borrow.route('/borrow')
+@login_required
+def index():
+
+    if request.method == 'POST' and isbn is None:
+        isbn = request.form['isbn']
+        error = None
+
+        if not isbn:
+            error = 'isbn is required.'
+
+        if error is not None:
+            flash(error)
+        else:
+            book = db.session.query(Book).filter(Book.isbn == isbn).first()
+            return redirect(url_for('book.isbn', book=book)
+
+    return render_template('borrow.html')
+
+
+@mod_return.route('/')
+@login_required
+def index():
+    return render_template('return/index.html')
 
 
 # Import a module / component using its blueprint handler
