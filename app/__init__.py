@@ -1,5 +1,5 @@
 import os
-from flask import Flask, render_template, redirect, request
+from flask import Flask, request, render_template, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
 
 
@@ -10,13 +10,30 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
 
+# Import a module / component using its blueprint handler
+from app.auth import mod_auth
+from app.account import mod_account
+from app.search import mod_search
+from app.register import mod_register
+from app.book import mod_book
+
+# Register blueprint(s)
+app.register_blueprint(mod_auth)
+app.register_blueprint(mod_account)
+app.register_blueprint(mod_search)
+app.register_blueprint(mod_register)
+app.register_blueprint(mod_book)
+
+# Import login_required
+from app.auth import login_required
+
+#Import Book Model
+from app.models import Book
+
+
 @app.errorhandler(404)
 def not_found(error):
     return render_template('404.html'), 404
-
-
-from app.auth import login_required
-from app.models import Book
 
 
 @app.route('/')
@@ -26,11 +43,11 @@ def index():
     return render_template('index.html', newbooks = newbooks)
 
 
-@app.route('/borrow')
+@app.route('/borrow', methods=('GET', 'POST'))
 @login_required
 def borrow():
 
-    if request.method == 'POST' and isbn is None:
+    if request.method == 'POST':
         isbn = request.form['isbn']
         error = None
 
@@ -41,28 +58,15 @@ def borrow():
             flash(error)
         else:
             book = db.session.query(Book).filter(Book.isbn == isbn).first()
-            return redirect(url_for('book.isbn', book=book))
+            return redirect(url_for('book.borrow', book_id=book.id))
 
     return render_template('borrow.html')
 
 
-@app.route('/return')
+@app.route('/return', methods=('GET', 'POST'))
 @login_required
 def return_():
     return render_template('return.html')
-
-
-# Import a module / component using its blueprint handler
-from app.auth import mod_auth
-from app.account import mod_account
-from app.search import mod_search
-from app.register import mod_register
-
-# Register blueprint(s)
-app.register_blueprint(mod_auth)
-app.register_blueprint(mod_account)
-app.register_blueprint(mod_search)
-app.register_blueprint(mod_register)
 
 
 if __name__ == '__main__':
