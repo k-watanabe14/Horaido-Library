@@ -73,7 +73,7 @@ def borrow():
     return render_template('borrow.html')
 
 
-@app.route('/return', methods = ('GET', 'POST'))
+@app.route('/return')
 @login_required
 def return_():
     
@@ -91,9 +91,9 @@ def search():
     
     search_keyword = "%{}%".format(keyword)
 
-    # Search books contained keyword in title, author, publisher name or donor.
+    # Search books contained keyword in title, author, publisher name.
     # results are collections of books.
-    results = Book.query.filter(or_((Book.title.like(search_keyword)), ((Book.author.like(search_keyword))), (Book.publisher_name.like(search_keyword)), (Book.donor.like(search_keyword)))).all()
+    results = Book.query.filter(or_((Book.title.like(search_keyword)), ((Book.author.like(search_keyword))), (Book.publisher_name.like(search_keyword)))).all()
 
     print(results)
 

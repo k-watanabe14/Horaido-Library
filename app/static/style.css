@@ -1,72 +1,529 @@
-html { 
-    font-family: sans-serif; 
-    background: #eee; 
-    padding: 1rem; 
+@charset "UTF-8";
+
+/*--------------------------------------------------------------
+>>> TABLE OF CONTENTS:
+----------------------------------------------------------------
+# Normalize
+# Typography
+# Elements
+# Forms
+# Header
+# Footer
+--------------------------------------------------------------*/
+
+/*--------------------------------------------------------------
+Normalize
+--------------------------------------------------------------*/
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
 }
 
-body { 
-    max-width: 960px; 
-    margin: 0 auto; 
-    background: white; 
+/*--------------------------------------------------------------
+Typography
+--------------------------------------------------------------*/
+body, button, input, select, textarea {
+	color: #333333;
+	font-family: 'Montserrat', sans-serif;
+	font-size: 14px;
+	line-height: 1.5;
+	font-weight: 400;
 }
 
-h1 { 
-    font-family: serif; 
-    color: #377ba8; 
-    margin: 1rem 0; 
+b, strong {
+	font-weight: bold;
 }
 
+dfn, cite, em, i {
+	font-style: italic;
+}
+
+blockquote {
+	margin: 0 15px;
+	font-size: 20px;
+	font-style: italic;
+	font-family: 'Montserrat', sans-serif;
+	font-weight: 300;
+}
+
+address {
+	margin: 0 0 15px;
+}
+
+pre {
+	background: #eeeeee;
+	font-family: 'Montserrat', sans-serif;
+	font-size: 15px;
+	font-size: 1.5rem;
+	line-height: 1.6;
+	margin-bottom: 1.6em;
+	max-width: 100%;
+	overflow: auto;
+	padding: 1.6em;
+}
+
+code, kbd, tt, var {
+	font: 15px Monaco, Consolas, 'Andale Mono', 'DejaVu Sans Mono', monospace;
+}
+
+abbr, acronym {
+	border-bottom: 1px dotted #666666;
+	cursor: help;
+}
+
+mark, ins {
+	background: #fff9c0;
+	text-decoration: none;
+}
+
+sup, sub {
+	font-size: 75%;
+	height: 0;
+	line-height: 0;
+	position: relative;
+	vertical-align: baseline;
+}
+
+sup {
+	bottom: 1ex;
+}
+
+sub {
+	top: 0.5ex;
+}
+
+small {
+	font-size: 75%;
+}
+
+big {
+	font-size: 125%;
+}
+
+h1 {
+	font-size: 36px;
+}
+
+h2 {
+	font-size: 30px;
+}
+
+h3 {
+	font-size: 25px;
+}
+
+h4 {
+	font-size: 20px;
+}
+
+h5 {
+	font-size: 18px;
+}
+
+h6 {
+	font-size: 16px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	font-weight: 700;
+}
+
+/*--------------------------------------------------------------
+Elements
+--------------------------------------------------------------*/
+hr {
+	background-color: #cccccc;
+	border: 0;
+	height: 1px;
+	margin-bottom: 15px;
+}
+
+ul, ol {
+	margin: 0 0 15px 20px;
+}
+
+ul {
+	list-style: disc;
+}
+
+ol {
+	list-style: decimal;
+}
+
+li > ul, li > ol {
+	margin-bottom: 0;
+	margin-left: 15px;
+}
+
+dt {
+	font-weight: bold;
+}
+
+dd {
+	margin: 0 15px 15px;
+}
+
+img {
+	height: auto;
+	/* Make sure images are scaled correctly. */
+	max-width: 100%;
+	/* Adhere to tg-container width. */
+	vertical-align: middle;
+}
+
+figure {
+	margin: 0;
+}
+
+table {
+	margin: 0 0 15px;
+	width: 100%;
+	border-collapse: collapse;
+}
+
+th {
+	font-weight: bold;
+	border: 1px solid #cccccc;
+	padding: 5px 10px;
+}
+
+td {
+	border: 1px solid #cccccc;
+	padding: 5px 10px;
+}
+
+p {
+	margin: 0 0 30px;
+}
+
+/*--------------------------------------------------------------
+Forms
+--------------------------------------------------------------*/
+button, input, select, textarea {
+	font-size: 100%;
+	/* Corrects font size not being inherited in all browsers */
+	margin: 0;
+	/* Addresses margins set differently in IE6/7, F3/4, S5, Chrome */
+	vertical-align: middle;
+}
+
+.navigation .nav-links a, .bttn, button {
+	background: #333333;
+	color: #ffffff;
+	cursor: pointer;
+	/* Improves usability and consistency of cursor style between image-type 'input' and others */
+	font-size: 14px;
+	line-height: 13px;
+	border: none;
+	padding: 10px 15px;
+	font-weight: 400;
+	display: inline-block;
+	position: relative;
+	text-shadow: none;
+	-webkit-transition: background 0.5s ease;
+	-o-transition: background 0.5s ease;
+	transition: background 0.5s ease;
+	border-radius: 0;
+	-webkit-appearance: none;
+	-webkit-border-radius: 0;
+}
+
+input[type='button'], input[type='reset'], input[type='submit'] {
+	background: #333333;
+	color: #ffffff;
+	cursor: pointer;
+	/* Improves usability and consistency of cursor style between image-type 'input' and others */
+	font-size: 14px;
+	line-height: 13px;
+	border: none;
+	padding: 10px 15px;
+	font-weight: 400;
+	display: inline-block;
+	position: relative;
+	text-shadow: none;
+	-webkit-transition: background 0.5s ease;
+	-o-transition: background 0.5s ease;
+	transition: background 0.5s ease;
+	border-radius: 0;
+	-webkit-appearance: none;
+	-webkit-border-radius: 0;
+}
+
+.navigation .nav-links a:hover, .bttn:hover, button {
+	color: #ffffff;
+}
+
+input[type='button']:hover, input[type='reset']:hover, input[type='submit']:hover {
+	color: #ffffff;
+}
+
+input[type='checkbox'], input[type='radio'] {
+	padding: 0;
+}
+
+input[type='text'], input[type='email'], input[type='url'], input[type='password'], input[type='search'] {
+	color: #666666;
+	border: 1px solid #cccccc;
+	height: 36px;
+	width: 100%;
+	-webkit-appearance: none;
+	border-radius: 0;
+	-webkit-border-radius: 0;
+}
+
+input[type='text']:focus, input[type='email']:focus, input[type='url']:focus, input[type='password']:focus, input[type='search']:focus {
+	border: 1px solid #aaaaaa;
+}
+
+textarea:focus {
+	border: 1px solid #aaaaaa;
+}
+
+.searchform input[type='text']:focus {
+	border: none;
+}
+
+input[type='text'], input[type='email'], input[type='url'], input[type='password'], input[type='search'] {
+	padding: 3px 6px;
+}
+
+input.danger { 
+    color: #cc2f2e; 
+}
+
+textarea {
+	overflow: auto;
+	/* Removes default vertical scrollbar in IE6/7/8/9 */
+	padding-left: 3px;
+	vertical-align: top;
+	/* Improves readability and alignment in all browsers */
+	color: #666666;
+	border: 1px solid #cccccc;
+	height: 160px;
+	max-width: 100%;
+	width: 100%;
+}
+
+/*--------------------------------------------------------------
+Links
+--------------------------------------------------------------*/
 a {
-    color: #377ba8; 
+	color: #333333;
+	text-decoration: none;
+	-o-transition: all 0.3s ease-in-out;
+	transition: all 0.3s ease-in-out;
+	-webkit-transition: all 0.3s ease-in-out;
+	-moz-transition: all 0.3s ease-in-out;
 }
 
-hr { 
-    border: none; 
-    border-top: 1px solid lightgray; 
+a a:hover {
+	color: #000000;
 }
 
-nav { 
-    background: lightgray; 
-    display: flex; 
-    align-items: center; 
-    padding: 0 0.5rem; 
+/*--------------------------------------------------------------
+Header
+--------------------------------------------------------------*/
+/*-----------------Main Header-----------------*/
+.main-header {
+    width: 100%;
+    height: 70px;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+    display: flex;
+    justify-content: space-between;
 }
 
-nav h1 { 
-    flex: auto; 
-    margin: 0; 
+/*-----------------Logo-----------------*/
+.main-logo {
+    padding: 0;
+    display: flex
 }
 
-nav h1 a { 
-    text-decoration: none; 
-    padding: 0.25rem 0.5rem; 
+.main-logo .logo-image {
+	padding: 20px 0;
 }
 
-nav ul  { 
-    display: flex; 
-    list-style: none; 
-    margin: 0; 
-    padding: 0; 
+.main-logo .logo-image a img {
+	padding: 0;
 }
 
-nav ul li a, nav ul li span, header .action { 
-    display: block; 
-    padding: 0.5rem; 
+.main-logo .logo-text {
+    margin-left: 100px;
+    margin-right: 20px;
+    padding: 22px 0;
 }
 
-.content { 
-    padding: 0 1rem 1rem; 
+.main-logo .logo-text .site-title {
+	font-size: 24px;
+	font-weight: 500;
+    line-height: 24px;
 }
 
-.content > header { 
-    border-bottom: 1px solid lightgray; 
-    display: flex; 
-    align-items: flex-end; 
+/*-----------------Search Form-----------------*/
+.header-search {
+    left: calc(50% - 150px);
+    max-width: 360px;
+    padding: 15px 0;
+    position: absolute;
 }
 
-.content > header h1 { 
-    flex: auto; 
-    margin: 1rem 0 0.25rem 0; 
+.header-search .search-form {
+    box-sizing: border-box;
+    outline: none;
+    position: relative;
+    border: 3px solid #DFE1E2;
+    border-radius: 20px;
+    padding: 6px 20px;
+    height: 40px;
+    width: 360px;
+    vertical-align: top;
+}
+
+.header-search  .search-form .search-input {
+    border: none;
+    height: 16px;
+    font-weight: 500;
+}
+
+.header-search  .search-form .search-input:focus {
+    outline: 0;
+}
+
+.header-search .search-form .search-button {
+    cursor: pointer;
+    font-family: FontAwesome;
+    font-size: 1.3em;
+    border: none;
+    background: none;
+    color: #cccccc;
+    position: absolute;
+    width: 2.5em;
+    height: 2.5em;
+    right: 0;
+    top: -6px;
+    outline : none
+}
+
+/*-----------------Account-----------------*/  
+.account-container {
+    min-width: 200px;
+}
+
+.account-container ul {
+    margin: 0;
+    height: 100%;
+    padding: 20px;;
+    text-align: center;
+    list-style: none;
+}
+
+.account-container ul li {
+    padding: 5px 10px;
+    display: inline-block;
+    text-align: center;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.account-container ul li a {
+    display: block;
+    text-align: center;
+    text-decoration: none;
+    color: #333333;
+    font-weight: bold;
+}
+
+.account-container .fa {
+    font-size: 24px;
+    padding: 0 10px;
+    color: gray;
+}
+
+.account-container span {
+    vertical-align: text-bottom;
+    color: dimgray;
+}
+
+/*-----------------Navigation Header-----------------*/
+.navigation-header {
+    height: 50px;
+    box-shadow: 0 2px 2px rgba(0, 0, 0, 0.3);
+}
+
+.navigation-container {
+    max-width: 980px;
+    height: 100%;
+    margin: 0 auto;
+}
+
+.navigation-container ul {
+    margin: 0;
+    height: 100%;
+    text-align: center;
+    list-style: none;
+}
+
+.navigation-container ul li {
+    display: inline-block;
+    min-width: 90px;
+    width: 20%;
+    height: 100%;
+    padding: 15px 5px;;
+    vertical-align: top;
+}
+
+.navigation-container ul li a {
+    display: block;
+    text-align: center;
+    text-decoration: none;
+    color: #555555;
+    font-weight: bold;
+}
+
+.navigation-container a:hover{
+    color:#00B0F0;
+}
+
+.content {
+    margin: 10px;
 }
 
 .flash { 
@@ -74,61 +531,4 @@ nav ul li a, nav ul li span, header .action {
     padding: 1em; 
     background: #cae6f6; 
     border: 1px solid #377ba8; 
-}
-
-.post > header { 
-    display: flex; 
-    align-items: flex-end; 
-    font-size: 0.85em; 
-}
-
-.post > header > div:first-of-type { 
-    flex: auto; 
-}
-
-.post > header h1 { 
-    font-size: 1.5em; 
-    margin-bottom: 0; 
-}
-
-.post .about { 
-    color: slategray; 
-    font-style: italic; 
-}
-
-.post .body { 
-    white-space: pre-line; 
-}
-
-.content:last-child { 
-    margin-bottom: 0; 
-}
-
-.content form { 
-    margin: 1em 0; 
-    display: flex; 
-    flex-direction: column; 
-}
-
-.content label { 
-    font-weight: bold; 
-    margin-bottom: 0.5em; 
-}
-
-.content input, .content textarea { 
-    margin-bottom: 1em; 
-}
-
-.content textarea { 
-    min-height: 12em; 
-    resize: vertical; 
-}
-
-input.danger { 
-    color: #cc2f2e; 
-}
-
-input[type=submit] { 
-    align-self: start; 
-    min-width: 10em; 
 }
