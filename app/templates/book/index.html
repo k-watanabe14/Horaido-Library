@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}詳細 "{{ book.title }}"{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+<div>
+  <h3>{{ book['title'] }}</h3>
+  <p class="author">{{ book['author'] }}</p>
+</div>
+
+<ul>
+  <li><a class="action" href="{{ url_for('book.edit', book_id = book['id']) }}">編集する</a>
+  <li><a class="action" href="{{ url_for('book.borrow', book_id = book['id']) }}">この本を借りる</a>
+  <li><a class="action" href="{{ url_for('book.return_', book_id = book['id']) }}">この本を返す</a>
+</ul>
+
+{% endblock %}

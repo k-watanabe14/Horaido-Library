@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}編集 "{{ book['title'] }}"{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+<div>
+  <h3>{{ book['title'] }}</h3>
+  <p class="author">{{ book['author'] }}</p>
+</div>
+
+
+{% endblock %}

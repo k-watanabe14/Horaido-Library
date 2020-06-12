@@ -15,7 +15,7 @@
       </div>
     </article>
 
-    <a class="action" href="{{ url_for('book.return_', book_id=book['id']) }}">この本を返す</a>
+    <a class="action" href="{{ url_for('book.return_', book_id = book['id']) }}">この本を返す</a>
 
     {% if not loop.last %}
     <hr>
