@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}本を探す{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+
+  <form method="post">
+    <label for="keyword">keyword</label>
+    <input name="keyword" id="keyword" value="{{ request.form['keyword'] }}" required>
+    <input type="submit" value="検索する">
+  </form>
+
+  {% for result in results %}
+    <article class="result">
+      <img alt="{{ result['title'] }}" id="image" src="{{ result['image_url'] }}" width="200" height="200">
+      <div>
+        <h3>{{ result['title'] }}</h3>
+        <p class="author">{{ result['author'] }}</p>
+      </div>
+    </article>
+
+    <a class="action" href="{{ url_for('book.index', book_id = result['id']) }}">この本の詳細を見る</a>
+
+    {% if not loop.last %}
+      <hr>
+    {% endif %}
+
+  {% endfor %}
+
+{% endblock %}

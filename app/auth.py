@@ -1,7 +1,7 @@
 import functools
 from flask import Blueprint, request, render_template, flash, session, redirect, url_for, g
 from werkzeug.security import check_password_hash, generate_password_hash
-from app.auth.models import User
+from app.models import User
 from app import db
  
 # Define the blueprint: 'auth', set its url prefix: app.url/auth
@@ -60,7 +60,6 @@ def login():
         if error is None:
             session.clear()
             session['user_id'] = user.id
-            session['logged_in'] = True
             return redirect(url_for('index'))
 
         flash(error)
