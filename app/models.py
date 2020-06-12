@@ -46,7 +46,7 @@ class Book(db.Model):
         self.donor = donor
 
     def __repr__(self):
-        return '<Book %r>' % self.id
+        return '%r' % self.id
 
 
 class History(db.Model):

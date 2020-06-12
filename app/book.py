@@ -10,15 +10,17 @@ import datetime
 mod_book = Blueprint('book', __name__, url_prefix='/book')
 
 
-@mod_book.route('/')
+@mod_book.route('/<int:book_id>')
 @login_required
-def index():
+def index(book_id):
+
+    book = db.session.query(Book).filter(Book.id == book_id).first()
 
     # Page for Detail of book
-    return render_template('book/index.html')
+    return render_template('book/index.html', book = book)
 
 
-@mod_book.route('/<int:book_id>/borrow', methods=('GET', 'POST'))
+@mod_book.route('/<int:book_id>/borrow', methods = ('GET', 'POST'))
 @login_required
 def borrow(book_id):
 
@@ -41,10 +43,10 @@ def borrow(book_id):
 
             return redirect(url_for('index'))
 
-    return render_template('book/borrow.html', book=book)
+    return render_template('book/borrow.html', book = book)
 
 
-@mod_book.route('/<int:book_id>/return', methods=('GET', 'POST'))
+@mod_book.route('/<int:book_id>/return', methods = ('GET', 'POST'))
 @login_required
 def return_(book_id):
 
@@ -65,11 +67,13 @@ def return_(book_id):
 
             return redirect(url_for('index'))
 
-    return render_template('book/return.html', book=book)
+    return render_template('book/return.html', book = book)
 
 
-@mod_book.route('/edit')
+@mod_book.route('/<int:book_id>/edit')
 @login_required
-def edit():
+def edit(book_id):
 
-    return render_template('book/edit.html')
+    book = db.session.query(Book).filter(Book.id == book_id).first()    
+
+    return render_template('book/edit.html', book = book)

@@ -53,7 +53,7 @@ def index():
     return render_template('index.html', new_books = new_books)
 
 
-@app.route('/borrow', methods=('GET', 'POST'))
+@app.route('/borrow', methods = ('GET', 'POST'))
 @login_required
 def borrow():
 
@@ -68,12 +68,12 @@ def borrow():
             flash(error)
         else:
             book = db.session.query(Book).filter(Book.isbn == isbn).first()
-            return redirect(url_for('book.borrow', book_id=book.id))
+            return redirect(url_for('book.borrow', book = book))
 
     return render_template('borrow.html')
 
 
-@app.route('/return', methods=('GET', 'POST'))
+@app.route('/return', methods = ('GET', 'POST'))
 @login_required
 def return_():
     
@@ -83,7 +83,7 @@ def return_():
     return render_template('return.html', rental_books = rental_books)
 
 
-@app.route('/search', methods=('GET', 'POST'))
+@app.route('/search', methods = ('GET', 'POST'))
 @login_required
 def search():
     
@@ -104,7 +104,7 @@ def search():
         if error is not None:
             flash(error)
         else:
-            return redirect(url_for('search', keyword=keyword))
+            return redirect(url_for('search', keyword = keyword))
 
     return render_template('search.html', results = results)
 

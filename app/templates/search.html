@@ -21,6 +21,8 @@
       </div>
     </article>
 
+    <a class="action" href="{{ url_for('book.index', book_id = result['id']) }}">この本の詳細を見る</a>
+
     {% if not loop.last %}
       <hr>
     {% endif %}
