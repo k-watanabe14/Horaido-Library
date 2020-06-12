@@ -1,24 +1,6 @@
 {% extends 'base.html' %}
 
-{% block header %}
-  <h1>{% block title %}Top{% endblock %}</h1>
-{% endblock %}
-
 {% block content %}
-  {% if g.user %}
-    <ul>
-      <li><a class="action" href="{{ url_for('search') }}">本を検索する</a>
-      <li><a class="action" href="{{ url_for('register.index') }}">本を登録する</a>
-      <li><a class="action" href="{{ url_for('borrow') }}">本を借りる</a>
-      <li><a class="action" href="{{ url_for('return_') }}">本を返す</a>
-    </ul>
-  {% endif %}
-
-  <form method="post">
-    <label for="keyword">keyword</label>
-    <input name="keyword" id="keyword" value="{{ request.form['keyword'] }}" required>
-    <input type="submit" value="本を検索する">
-  </form>
 
   {% for book in new_books %}
     <article class="book">
