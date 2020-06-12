@@ -5,10 +5,29 @@
 {% endblock %}
 
 {% block content %}
-<div>
-  <h3>{{ book['title'] }}</h3>
-  <p class="author">{{ book['author'] }}</p>
-</div>
 
+<form method="post">
+    
+  <label for="title">Title</label>
+  <input name="title" value="{{ book['title'] }}" id="title" required>
+
+  <label for="author">Author</label>
+  <input name="author" value="{{ book['author'] }}" id="author">
+  
+  <label for="publisher_name">Publisher Name</label>
+  <input name="publisher_name" value="{{ book['publisher_name'] }}" id="publisher_name">
+  
+  <label for="sales_date">Sales Date</label>
+  <input name="sales_date" value="{{ book['sales_date'] }}" id="sales_date">
+  
+  <label for="image">Image</label>
+  <img alt="{{ book['title'] }}" id="image" src="{{ book['image_url'] }}" width="200" height="200">
+  
+  <label for="donor">寄贈者</label>
+  <input name="donor" value="{{ book['donor'] }}" id="donor">
+  
+  <input type="submit" value="完了">
+
+</form>
 
 {% endblock %}

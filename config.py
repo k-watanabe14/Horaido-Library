@@ -8,7 +8,6 @@ class Config(object):
     CSRF_ENABLED = True
     SECRET_KEY = 'this-really-needs-to-be-changed'
     SQLALCHEMY_TRACK_MODIFICATIONS = False
-    WHOOSH_BASE = 'whoosh'
 
 class ProductionConfig(Config):
     DEBUG = False

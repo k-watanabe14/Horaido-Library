@@ -70,10 +70,26 @@ def return_(book_id):
     return render_template('book/return.html', book = book)
 
 
-@mod_book.route('/<int:book_id>/edit')
+@mod_book.route('/<int:book_id>/edit', methods = ('GET', 'POST'))
 @login_required
 def edit(book_id):
 
     book = db.session.query(Book).filter(Book.id == book_id).first()    
+
+    if request.method == 'POST':
+        error = None
+
+        if error is not None:
+            flash(error)
+        else:
+            # Update date in a book record
+            title = request.form['title']
+            author = request.form['author']
+            publisher_name = request.form['publisher_name']
+            sales_date = request.form['sales_date']
+            donor = request.form['donor']            
+            db.session.commit()
+            flash('編集しました')
+            return redirect(url_for('index'))
 
     return render_template('book/edit.html', book = book)
