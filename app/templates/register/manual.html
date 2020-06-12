@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}Manual Register{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+
+  <form method="post">
+    
+    <label for="title">Title</label>
+    <input name="title" id="title" required>
+
+    <label for="author">Author</label>
+    <input name="author" id="author">
+    
+    <label for="publisher_name">Publisher Name</label>
+    <input name="publisher_name" id="publisher_name">
+    
+    <label for="sales_date">Sales Date</label>
+    <input name="sales_date" id="sales_date">
+    
+    <label for="image">Image</label>
+    <enctype="multipart/form-data">画像ファイル<input type="file" name="pic">
+    
+    <label for="donor">寄贈者</label>
+    <input name="donor" id="donor">
+    
+    <input type="submit" value="登録する">
+  
+  </form>
+
+{% endblock %}
