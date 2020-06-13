@@ -50,6 +50,30 @@
       </div>
     </div>
 
+    <div class="book-list">
+      {% for book in rental_books %}
+        <div class="book-container">
+          <div class="book-image">
+            <img alt="{{ book[0]['title'] }}" id="image" src="{{ book[0]['image_url'] }}">
+          </div>
+          <div class="book-info">
+            <div class="book-title">
+              <h6>{{ book[0]['title'] }}</h6>
+            </div>
+            <div class="book-author">
+              <p class="author">{{ book[0]['author'] }}</p>
+            </div>
+          </div>
+          <div class="book-category">
+            <p class="category">小説</p>
+          </div>
+          <div class="book-status">
+            <p class="author">{{ book[2]['username'] }}</p>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+
   </div>
 
 {% endblock %}

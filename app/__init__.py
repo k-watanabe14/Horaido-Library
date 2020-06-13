@@ -26,7 +26,7 @@ app.register_blueprint(mod_book)
 from app.auth import login_required
 
 # Import Book Model
-from app.models import Book, History
+from app.models import Book, History, User
 
 
 @app.errorhandler(404)
@@ -41,6 +41,8 @@ def index():
 
     new_books = db.session.query(Book).order_by(Book.id.desc()).limit(10)
 
+    rental_books = db.session.query(Book, History, User).join(History, Book.id == History.book_id).join(User, History.user_id == User.id).order_by(History.id.desc()).limit(10)
+
     if request.method == 'POST':
         keyword = request.form['keyword']
         error = None
@@ -50,7 +52,7 @@ def index():
         else:
             return redirect(url_for('search', keyword=keyword))
     
-    return render_template('index.html', new_books = new_books)
+    return render_template('index.html', new_books = new_books, rental_books = rental_books)
 
 
 @app.route('/borrow', methods = ('GET', 'POST'))
