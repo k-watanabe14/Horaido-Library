@@ -2,19 +2,54 @@
 
 {% block content %}
 
-  {% for book in new_books %}
-    <article class="book">
-      <img alt="{{ book['title'] }}" id="image" src="{{ book['image_url'] }}" width="200" height="200">
-      <div>
-        <h3>{{ book['title'] }}</h3>
-        <p class="author">{{ book['author'] }}</p>
+  <div class="stacked-section-child">
+    <div class="search-wrapper">
+      <form class="search-form" method="post" autocomplete="off">
+        <input class="search-input" placeholder="タイトル・著者名・出版社" type="text" name="keyword" id="keyword" value="{{ request.form['keyword'] }}" required>
+        <button class="search-button" type="submit" method="post"><i class="fas fa-search"></i></button>
+      </form>
+    </div>
+  </div>
+
+  <div class="stacked-section-child">
+    <div class="content-heading">
+      <h4 class="section-title">
+        最近登録した本
+      </h4>
+    </div>
+
+    <div class="book-list">
+      {% for book in new_books %}
+        <div class="book-container">
+          <div class="book-image">
+            <img alt="{{ book['title'] }}" id="image" src="{{ book['image_url'] }}">
+          </div>
+          <div class="book-info">
+            <div class="book-title">
+              <h6>{{ book['title'] }}</h6>
+            </div>
+            <div class="book-author">
+              <p class="author">{{ book['author'] }}</p>
+            </div>
+          </div>
+          <div class="book-category">
+            <p class="category">小説</p>
+          </div>
+          <div class="book-status">
+            <p class="status">この本を借りる</p>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+
+    <div class="stacked-section-child">
+      <div class="content-heading">
+        <h4 class="section-title">
+          最近貸し出された本
+        </h4>
       </div>
-    </article>
+    </div>
 
-    {% if not loop.last %}
-      <hr>
-    {% endif %}
-
-  {% endfor %}
+  </div>
 
 {% endblock %}

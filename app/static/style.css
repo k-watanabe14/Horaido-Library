@@ -6,9 +6,11 @@
 # Normalize
 # Typography
 # Elements
+# Links
 # Forms
 # Header
 # Footer
+# Contents
 --------------------------------------------------------------*/
 
 /*--------------------------------------------------------------
@@ -67,6 +69,10 @@ body, button, input, select, textarea {
 	font-size: 14px;
 	line-height: 1.5;
 	font-weight: 400;
+}
+
+body {
+    background-color: whitesmoke;
 }
 
 b, strong {
@@ -236,6 +242,22 @@ p {
 }
 
 /*--------------------------------------------------------------
+Links
+--------------------------------------------------------------*/
+a {
+	color: #333333;
+	text-decoration: none;
+	-o-transition: all 0.3s ease-in-out;
+	transition: all 0.3s ease-in-out;
+	-webkit-transition: all 0.3s ease-in-out;
+	-moz-transition: all 0.3s ease-in-out;
+}
+
+a a:hover {
+	color: #000000;
+}
+
+/*--------------------------------------------------------------
 Forms
 --------------------------------------------------------------*/
 button, input, select, textarea {
@@ -318,13 +340,14 @@ textarea:focus {
 	border: 1px solid #aaaaaa;
 }
 
-.searchform input[type='text']:focus {
-	border: none;
-}
-
 input[type='text'], input[type='email'], input[type='url'], input[type='password'], input[type='search'] {
 	padding: 3px 6px;
 }
+
+input:focus::placeholder { 
+    color:transparent; 
+}
+
 
 input.danger { 
     color: #cc2f2e; 
@@ -343,25 +366,59 @@ textarea {
 	width: 100%;
 }
 
-/*--------------------------------------------------------------
-Links
---------------------------------------------------------------*/
-a {
-	color: #333333;
-	text-decoration: none;
-	-o-transition: all 0.3s ease-in-out;
-	transition: all 0.3s ease-in-out;
-	-webkit-transition: all 0.3s ease-in-out;
-	-moz-transition: all 0.3s ease-in-out;
+/*-----------------Search Form-----------------*/
+.search-wrapper {
+    max-width: 360px;
+    padding: 15px 0;
+    position: relative;
+    margin: auto;
 }
 
-a a:hover {
-	color: #000000;
+.search-wrapper .search-form {
+    background-color: white;
+    box-sizing: border-box;
+    outline: none;
+    position: relative;
+    border: 3px solid #DFE1E2;
+    border-radius: 20px;
+    padding: 6px 20px;
+    height: 40px;
+    width: 360px;
+    vertical-align: top;
+}
+
+.search-wrapper  .search-form .search-input {
+    border: none;
+    height: 16px;
+    font-weight: 500;
+}
+
+.search-wrapper  .search-form .search-input:focus {
+    outline: 0;
+}
+
+.search-wrapper .search-form .search-button {
+    cursor: pointer;
+    font-family: FontAwesome;
+    font-size: 1.3em;
+    border: none;
+    background: none;
+    color: #cccccc;
+    position: absolute;
+    width: 2.5em;
+    height: 2.5em;
+    right: 0;
+    top: -6px;
+    outline : none
 }
 
 /*--------------------------------------------------------------
 Header
 --------------------------------------------------------------*/
+#site-header {
+    background-color: white;
+}
+
 /*-----------------Main Header-----------------*/
 .main-header {
     width: 100%;
@@ -392,54 +449,13 @@ Header
 }
 
 .main-logo .logo-text .site-title {
-	font-size: 24px;
+	font-size: 22px;
 	font-weight: 500;
     line-height: 24px;
 }
 
-/*-----------------Search Form-----------------*/
-.header-search {
-    left: calc(50% - 150px);
-    max-width: 360px;
-    padding: 15px 0;
-    position: absolute;
-}
-
-.header-search .search-form {
-    box-sizing: border-box;
-    outline: none;
-    position: relative;
-    border: 3px solid #DFE1E2;
-    border-radius: 20px;
-    padding: 6px 20px;
-    height: 40px;
-    width: 360px;
-    vertical-align: top;
-}
-
-.header-search  .search-form .search-input {
-    border: none;
-    height: 16px;
-    font-weight: 500;
-}
-
-.header-search  .search-form .search-input:focus {
-    outline: 0;
-}
-
-.header-search .search-form .search-button {
-    cursor: pointer;
-    font-family: FontAwesome;
-    font-size: 1.3em;
-    border: none;
-    background: none;
-    color: #cccccc;
-    position: absolute;
-    width: 2.5em;
-    height: 2.5em;
-    right: 0;
-    top: -6px;
-    outline : none
+.main-logo .logo-text .site-title a {
+    text-decoration:none;
 }
 
 /*-----------------Account-----------------*/  
@@ -505,9 +521,13 @@ Header
     display: inline-block;
     min-width: 90px;
     width: 20%;
-    height: 100%;
-    padding: 15px 5px;;
+    margin: 2px;
+    padding: 13px 5px;;
     vertical-align: top;
+}
+
+.navigation-container ul li:hover {
+    background-color: whitesmoke;
 }
 
 .navigation-container ul li a {
@@ -519,11 +539,36 @@ Header
 }
 
 .navigation-container a:hover{
-    color:#00B0F0;
+    color: #555555;;
 }
 
-.content {
-    margin: 10px;
+/*--------------------------------------------------------------
+Footer
+--------------------------------------------------------------*/
+
+
+
+
+
+/*--------------------------------------------------------------
+Contents
+--------------------------------------------------------------*/
+
+/*-----------------Common-----------------*/
+.content-wrapper {
+	width: 1200px;
+    margin: 10px auto;
+    background-color: whitesmoke;
+}
+
+.stacked-section {
+    max-width: 1480px;
+    padding: 60px 40px;
+}
+
+.stacked-section-child {
+    padding-bottom: 60px;
+    display: block;
 }
 
 .flash { 
@@ -531,4 +576,69 @@ Header
     padding: 1em; 
     background: #cae6f6; 
     border: 1px solid #377ba8; 
+}
+
+/*-----------------Book List-----------------*/
+.book-list {
+    max-width: 1480px;
+}
+
+.book-container {
+    width: 100%;
+    height: 80px;
+    display: block;
+    margin: 10px auto;
+    background-color: white;   
+    border-radius: 10px;
+}
+
+.book-container .book-image {
+    display: inline-block;
+    height: 60px;
+    width: 60px;
+    margin: 10px 10px 10px 15px;
+    vertical-align: top;
+}
+
+.book-container .book-image img {
+    height: 60px;
+    width: auto;
+}
+
+.book-container .book-info {
+    height: 100%;
+    display: inline-block;
+    width: 50%;
+    vertical-align: top;
+}
+
+.book-container .book-info .book-title {
+    padding: 15px 10px 0;
+}
+
+.book-container .book-info .book-author {
+    padding: 5px 10px 10px;
+}
+
+.book-container .book-category {
+    height: 100%;
+    display: inline-block;
+    width: 20%;
+    vertical-align: top;
+    
+}
+
+.book-container .book-category p {
+    margin-top: 30px;
+}
+
+.book-container .book-status {
+    height: 100%;
+    display: inline-block;
+    width: auto;
+    vertical-align: top;
+}
+
+.book-container .book-status p {
+    margin-top: 30px;
 }
