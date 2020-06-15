@@ -1,7 +1,11 @@
 {% extends 'base.html' %}
 
+{% block title %}
+  <title>ISBNで登録する</title>
+{% endblock %}
+
 {% block header %}
-  <h1>{% block title %}ISBN Auto Register{% endblock %}</h1>
+  
 {% endblock %}
 
 {% block content %}
@@ -16,23 +20,30 @@
   {% else %}
   <form method="post">
     
+    <label for="isbn">ISBN</label>
+    <input name="isbn" value="{{ book_data['summary']['isbn'] }}" id="isbn" required>
+
+    <label for="c_code">Cコード</label>
+    <input name="c_code" value="{{ book_data['onix']['DescriptiveDetail']['Subject'][0]['SubjectCode'] }}" id="c_code">
+
+
     <label for="title">Title</label>
-    <input name="title" value="{{ book_data['title'] }}" id="title" required>
+    <input name="title" value="{{ book_data['summary']['title'] }}" id="title" required>
 
     <label for="author">Author</label>
-    <input name="author" value="{{ book_data['author'] }}" id="author">
+    <input name="author" value="{{ book_data['summary']['author'] }}" id="author">
     
     <label for="publisher_name">Publisher Name</label>
-    <input name="publisher_name" value="{{ book_data['publisherName'] }}" id="publisher_name">
+    <input name="publisher_name" value="{{ book_data['summary']['publisher'] }}" id="publisher_name">
     
     <label for="sales_date">Sales Date</label>
-    <input name="sales_date" value="{{ book_data['salesDate'] }}" id="sales_date">
+    <input name="sales_date" value="{{ book_data['summary']['pubdate'] }}" id="sales_date">
     
     <label for="image">Image</label>
-    <img alt="{{ book_data['title'] }}" id="image" src="{{ book_data['largeImageUrl'] }}" width="200" height="200">
+    <img alt="{{ book_data['summary']['title'] }}" id="image" src="{{ book_data['summary']['cover'] }}">
     
     <label for="donor">寄贈者</label>
-    <input name="donor" id="donor">
+    <input name="donor" value="{{ g.user['username'] }}" id="donor">
     
     <input type="submit" value="登録する">
   
