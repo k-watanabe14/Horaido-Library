@@ -1,17 +1,28 @@
 {% extends 'base.html' %}
 
+{% block title %}
+  <title>新規登録</title>
+{% endblock %}
+
 {% block header %}
-<h1>{% block title %}Sign Up{% endblock %}</h1>
+
 {% endblock %}
 
 {% block content %}
-  <form method="post">
-    <label for="username">Username</label>
-    <input name="username" id="username" required>
-    <label for="email">Email</label>
-    <input name="email" id="email" required>
-    <label for="password">Password</label>
-    <input type="password" name="password" id="password" required>
-    <input type="submit" value="Sign Up">
-  </form>
+  <div class="stacked-section-child">
+    <div class="signup-wrapper">
+      <form method="post" class="signup">
+        <p class="title">新規登録</p>
+        <input type="text" name="username" id="username" placeholder="ユーザー名" required>
+        <i class="fa fa-user"></i>
+        <input type="text" name="email" id="email" placeholder="メールアドレス"  required>
+        <i class="far fa-envelope"></i>
+        <input type="password" name="password" is="password" placeholder="パスワード" required>
+        <i class="fa fa-key"></i>
+        <button>
+          <span class="state">登録する</span>
+        </button>
+      </form>
+    </div>
+  </div>
 {% endblock %}

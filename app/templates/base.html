@@ -4,13 +4,19 @@
 
 <head>
   <meta charset="utf-8">
-  <title>朋来堂ライブラリー</title>
+
+  {% block title %}
+
+  {% endblock %}
 
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
 
-  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  
+  {% block header %}
 
+  {% endblock %}
 </head>
 
 <body>
@@ -50,13 +56,13 @@
         {% if g.user %}
          <ul>
             <li><a class="action" href="{{ url_for('index') }}">ホーム</a>
+            <li><a class="action" href="{{ url_for('search') }}">本を探す</a>
             <li><a class="action" href="{{ url_for('register.index') }}">本を登録する</a>
-            <li><a class="action" href="{{ url_for('borrow') }}">本を借りる</a>
             <li><a class="action" href="{{ url_for('return_') }}">本を返す</a>
          </ul>
         {% else %}
           <ul>
-            <li><a class="action" href="{{ url_for('index') }}">ホーム</a>
+            <li><a class="action" href="{{ url_for('search') }}">本を探す</a>
             <li><a class="action" href="{{ url_for('register.index') }}">本を登録する</a>
          </ul>
         {% endif %}

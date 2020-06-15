@@ -1,5 +1,9 @@
 {% extends 'base.html' %}
 
+{% block title %}
+  <title>朋来堂ライブラリー</title>
+{% endblock %}
+
 {% block content %}
 
   <div class="stacked-section-child">
@@ -26,7 +30,7 @@
           </div>
           <div class="book-info">
             <div class="book-title">
-              <h6>{{ book['title'] }}</h6>
+              <a href="{{ url_for('book.index', book_id = book['id']) }}">{{ book['title'] }}</a>
             </div>
             <div class="book-author">
               <p class="author">{{ book['author'] }}</p>
@@ -41,13 +45,13 @@
         </div>
       {% endfor %}
     </div>
+  </div>
 
-    <div class="stacked-section-child">
-      <div class="content-heading">
-        <h4 class="section-title">
-          最近貸し出された本
-        </h4>
-      </div>
+  <div class="stacked-section-child">
+    <div class="content-heading">
+      <h4 class="section-title">
+        最近貸し出された本
+      </h4>
     </div>
 
     <div class="book-list">
@@ -58,7 +62,7 @@
           </div>
           <div class="book-info">
             <div class="book-title">
-              <h6>{{ book[0]['title'] }}</h6>
+              <a href="{{ url_for('book.index', book_id = book[0]['id']) }}">{{ book[0]['title'] }}</a>
             </div>
             <div class="book-author">
               <p class="author">{{ book[0]['author'] }}</p>
@@ -73,7 +77,6 @@
         </div>
       {% endfor %}
     </div>
-
   </div>
 
 {% endblock %}

@@ -50,10 +50,9 @@ def login():
         error = None
 
         user = db.session.query(User).filter(User.username == username).first()
-        print(user)
 
         if user is None:
-            error = 'ユーザ名が間違っています。.'
+            error = 'ユーザ名が間違っています。'
         elif not check_password_hash(user.password, password):
             error = 'Incorrect password.'
 
@@ -82,8 +81,8 @@ def load_logged_in_user():
 def logout():
 
     session.clear()
-    flash('ログアウトしました')
-    return redirect(url_for('index'))
+
+    return redirect(url_for('auth.login'))
 
 
 def login_required(view):
