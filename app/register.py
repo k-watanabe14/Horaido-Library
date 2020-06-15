@@ -10,13 +10,11 @@ mod_register = Blueprint('register', __name__, url_prefix='/register')
 
 
 @mod_register.route('/')
-@login_required
 def index():
     return render_template('register/index.html')
 
 
 @mod_register.route('/isbn', methods=('GET', 'POST'))
-@login_required
 def isbn():
     isbn = request.args.get('isbn')
     book_data =[]
@@ -56,7 +54,6 @@ def isbn():
 
 
 @mod_register.route('/manual')
-@login_required
 def manual():
 
     if request.method == 'POST':
@@ -77,7 +74,6 @@ def manual():
 
 
 @mod_register.route('/success')
-@login_required
 def success():
     return render_template('register/success.html')
     

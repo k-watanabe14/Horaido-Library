@@ -1,15 +1,33 @@
 {% extends 'base.html' %}
 
+{% block title %}
+  <title>ログイン</title>
+{% endblock %}
+
 {% block header %}
-  <h1>{% block title %}Log In{% endblock %}</h1>
+
 {% endblock %}
 
 {% block content %}
-  <form method="post">
-    <label for="username">Username</label>
-    <input name="username" id="username" required>
-    <label for="password">Password</label>
-    <input type="password" name="password" id="password" required>
-    <input type="submit" value="Log In">
-  </form>
+  <div class="stacked-section-child">
+    <div class="login-wrapper">
+      <form method="post" class="login">
+        <p class="title">ログイン</p>
+        <input type="text" name="username" id="username" placeholder="ユーザー名" autofocus required/>
+        <i class="fa fa-user"></i>
+        <input type="password" name="password" is="password" placeholder="パスワード" required/>
+        <i class="fa fa-key"></i>
+        <div class="forget-password">
+          <a href="#">パスワードを忘れた場合はこちら</a>
+        </div>
+        <div class="signup-case">
+          <a href="{{ url_for('auth.signup') }}">新規登録はこちら</a>
+        </div>
+        <button>
+          <span class="state">ログイン</span>
+        </button>
+      </form>
+    </div>
+  </div>
+
 {% endblock %}
