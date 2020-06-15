@@ -33,9 +33,11 @@ class Book(db.Model):
     sales_date = db.Column(db.String(128))
     image_url = db.Column(db.String(128))
     donor = db.Column(db.String(128))
+    borrower = db.Column(db.Integer)
+    checkout_date = db.Column(db.String(128))
 
 
-    def __init__(self, isbn, title, author, publisher_name, sales_date, image_url, donor):
+    def __init__(self, isbn, title, author, publisher_name, sales_date, image_url, donor, borrower, checkout_date):
 
         self.isbn = isbn
         self.title = title
@@ -44,6 +46,8 @@ class Book(db.Model):
         self.sales_date = sales_date
         self.image_url = image_url
         self.donor = donor
+        self.borrower = borrower
+        self.checkout_date = checkout_date
 
     def __repr__(self):
         return '%r' % self.id

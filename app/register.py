@@ -32,19 +32,22 @@ def isbn():
             return redirect(url_for('register.isbn', isbn = isbn))
 
     if isbn is not None:
-        url = 'https://app.rakuten.co.jp/services/api/BooksBook/Search/20170404?applicationId=1053085901834686387&isbn=' + isbn
+        url = 'https://api.openbd.jp/v1/get?isbn=' + isbn
         response = requests.get(url)
-        book_data = response.json()['Items'][0]['Item']
+        book_data = response.json()[0]
 
         if request.method == 'POST':
+            isbn = request.form['isbn']
             title = request.form['title']
             author = request.form['author']
             publisher_name = request.form['publisher_name']
             sales_date = request.form['sales_date']
-            image_url = book_data['largeImageUrl']
+            image_url = book_data['summary']['cover']
             donor = request.form['donor']
+            borrower = None
+            checkout_date = None
 
-            data = Book(isbn, title, author, publisher_name, sales_date, image_url, donor)
+            data = Book(isbn, title, author, publisher_name, sales_date, image_url, donor, borrower, checkout_date)
             db.session.add(data)
             db.session.commit()
 

@@ -1,7 +1,11 @@
 {% extends 'base.html' %}
 
+{% block title %}
+  <title>詳細 "{{ book.title }}"</title>
+{% endblock %}
+
 {% block header %}
-  <h1>{% block title %}詳細 "{{ book.title }}"{% endblock %}</h1>
+  
 {% endblock %}
 
 {% block content %}
