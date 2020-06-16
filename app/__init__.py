@@ -75,7 +75,7 @@ def search():
         else:
             return redirect(url_for('search', keyword = keyword))
 
-    return render_template('search.html', results = results)
+    return render_template('search.html', results = results, keyword = keyword)
 
 
 @app.route('/return')
