@@ -1,33 +1,46 @@
 {% extends 'base.html' %}
 
+{% block title %}
+  <title>手動で登録する</title>
+{% endblock %}
+
 {% block header %}
-  <h1>{% block title %}Manual Register{% endblock %}</h1>
+
 {% endblock %}
 
 {% block content %}
 
-  <form method="post">
+  <div class="stacked-section-child">
+    <form class="book-form row" method="post">
+      <div class="form-field col">
+        <input id="title" name="title" class="input-text js-input" type="text" required>
+        <label class="label" for="title">タイトル</label>
+      </div>
+      <div class="form-field col">
+        <input id="author" name="author" class="input-text js-input" type="text" required>
+        <label class="label" for="author">著者</label>
+      </div>
+      <div class="form-field col">
+        <input id="publisher_name" name="publisher_name" class="input-text js-input" type="text">
+        <label class="label" for="publisher_name">出版社</label>
+      </div>
+      <div class="form-field col">
+        <input id="sales_date" name="sales_date" class="input-text js-input" type="text">
+        <label class="label" for="sales_date">出版年月日</label>
+      </div>
+      <div class="form-field col">
+        <input id="donor" name="donor" class="input-text js-input" type="text">
+        <label class="label" for="donor">寄贈者</label>
+      </div>
+      <div class="form-field col">
+        <input class="submit-btn" type="submit" value="登録する">
+      </div>
+    </form>
+  </div>
     
-    <label for="title">Title</label>
-    <input name="title" id="title" required>
-
-    <label for="author">Author</label>
-    <input name="author" id="author">
     
-    <label for="publisher_name">Publisher Name</label>
-    <input name="publisher_name" id="publisher_name">
+<label for="image">Image</label>
+<enctype="multipart/form-data">画像ファイル<input type="file" name="pic">
     
-    <label for="sales_date">Sales Date</label>
-    <input name="sales_date" id="sales_date">
-    
-    <label for="image">Image</label>
-    <enctype="multipart/form-data">画像ファイル<input type="file" name="pic">
-    
-    <label for="donor">寄贈者</label>
-    <input name="donor" id="donor">
-    
-    <input type="submit" value="登録する">
-  
-  </form>
 
 {% endblock %}
