@@ -9,38 +9,56 @@
 {% endblock %}
 
 {% block content %}
+    
+  <div class="book-form">
+    <form method="post">
+      <div class="book-form-image">
+        <enctype="multipart/form-data">画像ファイル<input type="file" name="pic" id="myImage">
+        <img id="preview">
+      </div>
 
-  <div class="stacked-section-child">
-    <form class="book-form row" method="post" autocomplete="off">
-      <div class="form-field col">
-        <input id="title" name="title" class="input-text js-input" type="text" required>
-        <label class="label" for="title">タイトル</label>
+      <div class="book-form-text">
+        <fieldset>
+          <label for="isbn">ISBN</label>
+          <input type="text" name="isbn" id="isbn">
+
+          <label for="c-code">Cコード</label>
+          <input type="text" name="c-code" id="c-code">
+
+          <label for="title">タイトル</label>
+          <input type="text" name="title" id="title" required>
+      
+          <label for="author">著者</label>
+          <input type="text" name="author" id="author">
+          
+          <label for="publisher_name">出版社</label>
+          <input type="text" name="publisher_name" id="publisher_name">
+          
+          <label for="sales_date">出版年月日</label>
+          <input type="text" name="sales_date" id="sales_date">
+                    
+          <label for="genre">ジャンル</label>
+          <select id="genre" name="genre">
+            <option value="unset">---</option>
+            <option value="general">一般</option>
+            <option value="education">教養</option>
+            <option value="practical-use">実用</option>
+            <option value="specialty">専門</option>
+            <option value="woman">婦人</option>
+            <option value="elementary-school">学参I(小中)</option>
+            <option value="high-school">学参II(高校)</option>
+            <option value="child">児童</option>
+            <option value="magazine">雑誌扱い</option>
+          </select>      
+
+          <label for="donor">寄贈者</label>
+          <input type="text" name="donor" id="donor">
+
+        </fieldset>
       </div>
-      <div class="form-field col">
-        <input id="author" name="author" class="input-text js-input" type="text" required>
-        <label class="label" for="author">著者</label>
-      </div>
-      <div class="form-field col">
-        <input id="publisher_name" name="publisher_name" class="input-text js-input" type="text">
-        <label class="label" for="publisher_name">出版社</label>
-      </div>
-      <div class="form-field col">
-        <input id="sales_date" name="sales_date" class="input-text js-input" type="text">
-        <label class="label" for="sales_date">出版年月日</label>
-      </div>
-      <div class="form-field col">
-        <input id="donor" name="donor" class="input-text js-input" type="text">
-        <label class="label" for="donor">寄贈者</label>
-      </div>
-      <div class="form-field col">
-        <input class="submit-btn" type="submit" value="登録する">
-      </div>
+      <input type="submit" value="登録する" />
     </form>
   </div>
-    
-    
-<label for="image">Image</label>
-<enctype="multipart/form-data">画像ファイル<input type="file" name="pic">
     
 
 {% endblock %}
