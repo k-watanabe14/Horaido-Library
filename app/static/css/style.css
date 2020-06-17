@@ -639,10 +639,11 @@ textarea {
 	vertical-align: top;
 	margin: 50px;
 	padding: 10px;
+	width: 330px;
 	border: 5px dashed powderblue;
 }
 
-.book-form-image #image {
+.book-form-image #image .book-form-image #preview {
 	width: 300px;
 	height: auto;
 }
