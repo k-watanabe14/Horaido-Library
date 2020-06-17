@@ -41,6 +41,8 @@ def borrow(book_id):
             db.session.add(data)
             db.session.commit()
 
+            flash(book.title + "を借りました。")
+
             return redirect(url_for('index'))
 
     return render_template('book/borrow.html', book = book)
@@ -64,6 +66,8 @@ def return_(book_id):
             # Update return date in a rental_history record
             history.return_date = datetime.datetime.today().strftime('%Y/%m/%d')
             db.session.commit()
+
+            flash(book.title + "を返しました。")
 
             return redirect(url_for('index'))
 

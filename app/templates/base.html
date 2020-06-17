@@ -4,15 +4,22 @@
 
 <head>
   <meta charset="utf-8">
-  <title>朋来堂ライブラリー</title>
+
+  {% block title %}
+
+  {% endblock %}
 
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
-  <!-- Bootstrap CSS -->
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
-  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 
+  <script type="text/javascript" src="{{ url_for('static', filename='js/main.js') }}" defer="defer"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  
+  {% block header %}
+
+  {% endblock %}
 </head>
 
 <body>
@@ -33,21 +40,14 @@
 
       </div>
 
-      <div class="header-search">
-        <form class="search-form" method="post">
-          <input class="search-input" placeholder="タイトル・著者名・出版社" type="text" name="keyword" id="keyword" value="{{ request.form['keyword'] }}" required>
-          <button class="search-button" type="submit" method="post"><i class="fas fa-search"></i></button>
-        </form>
-      </div>
-
       <div class="account-container">
         <ul>
           {% if g.user %}
-            <li><a href="{{ url_for('account.index') }}"><i class="fa fa-user-circle"></i><span>{{ g.user['username'] }}</span></a>
+            <li><a href="{{ url_for('account.index') }}"><i class="fa fa-user"></i><span>{{ g.user['username'] }}</span></a>
             <li><a href="{{ url_for('auth.logout') }}"><i class="fa fa-sign-out-alt"></i><span>ログアウト</span></a>
            {% else %}
-            <li><a href="{{ url_for('auth.signup') }}">新規登録</a>
-            <li><a href="{{ url_for('auth.login') }}"><i class="fa fa-sign-in-alt"></i>ログイン</a>
+            <li><a href="{{ url_for('auth.signup') }}"><i class="fa fa-user-plus"></i><span>新規登録</span></a>
+            <li><a href="{{ url_for('auth.login') }}"><i class="fa fa-sign-in-alt"></i><span>ログイン</span></a>
           {% endif %}
         </ul>
       </div>
@@ -59,13 +59,13 @@
         {% if g.user %}
          <ul>
             <li><a class="action" href="{{ url_for('index') }}">ホーム</a>
+            <li><a class="action" href="{{ url_for('search') }}">本を探す</a>
             <li><a class="action" href="{{ url_for('register.index') }}">本を登録する</a>
-            <li><a class="action" href="{{ url_for('borrow') }}">本を借りる</a>
             <li><a class="action" href="{{ url_for('return_') }}">本を返す</a>
          </ul>
         {% else %}
           <ul>
-            <li><a class="action" href="{{ url_for('index') }}">ホーム</a>
+            <li><a class="action" href="{{ url_for('search') }}">本を探す</a>
             <li><a class="action" href="{{ url_for('register.index') }}">本を登録する</a>
          </ul>
         {% endif %}
@@ -74,27 +74,23 @@
 
   </header>
 
-  <section class="content">
+  <div id="site-contents" class="site-contents">
+    <div class="stacked-section">
     
-    {% for message in get_flashed_messages() %}
-    <div class="flash">{{ message }}</div>
-    {% endfor %}
+      {% for message in get_flashed_messages() %}
+      <div class="flash">{{ message }}</div>
+      {% endfor %}
     
-    {% block content %}
+      {% block content %}
+    
+      {% endblock %}
+    
+    </div>
+  </div>
 
-    {% endblock %}
-    
-  </section>
-
-  <footer>
+  <footer id="site-footer" class="site-footer">
 
   </footer>
-
-  <!-- Optional JavaScript -->
-  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
 </body>
 
