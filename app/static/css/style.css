@@ -556,15 +556,15 @@ textarea {
 	border-bottom-width: 7px;
 }
 
-/*-----------------Search Form-----------------*/
-.search-wrapper {
+/*-----------------Search Bar-----------------*/
+.search-bar-wrapper {
     max-width: 360px;
     padding: 15px 0;
     position: relative;
     margin: auto;
 }
 
-.search-wrapper .search-form {
+.search-bar-wrapper .search-bar {
     background-color: white;
     box-sizing: border-box;
     outline: none;
@@ -578,17 +578,17 @@ textarea {
     vertical-align: top;
 }
 
-.search-wrapper  .search-form .search-input {
+.search-bar-wrapper  .search-bar .search-input {
     border: none;
     height: 16px;
     font-weight: 500;
 }
 
-.search-wrapper  .search-form .search-input:focus {
+.search-bar-wrapper  .search-bar .search-input:focus {
     outline: 0;
 }
 
-.search-wrapper .search-form .search-button {
+.search-bar-wrapper .search-bar .search-button {
     cursor: pointer;
     font-family: FontAwesome;
     font-size: 1.3em;
@@ -601,6 +601,88 @@ textarea {
     right: 0;
     top: -6px;
     outline : none
+}
+
+/*-----------------Search Form-----------------*/
+.search-form-wrapper {
+    width: 500px;
+    padding: 15px 0;
+    position: relative;
+	margin: auto;
+	border-radius: 14px;
+}
+
+.search-form-wrapper .search-form {
+    background-color: white;
+    box-sizing: border-box;
+    outline: none;
+    position: relative;
+    border: 1px solid #DFE1E2;
+    box-shadow: 1px 1px 3px 1px #DFE1E2;
+	border-radius: 20px;
+	margin: 0 auto;
+    padding: 8px 20px;
+    height: 40px;
+    width: 360px;
+    vertical-align: top;
+}
+
+.search-form-wrapper  .search-form .search-input {
+    border: none;
+    height: 16px;
+    font-weight: 500;
+}
+
+.search-form-wrapper  .search-form .search-input:focus {
+    outline: 0;
+}
+
+.search-form-wrapper .search-form .search-button {
+    cursor: pointer;
+    font-family: FontAwesome;
+    font-size: 1.3em;
+    border: none;
+    background: none;
+    color: #cccccc;
+    position: absolute;
+    width: 2.5em;
+    height: 2.5em;
+    right: 0;
+    top: -6px;
+    outline : none
+}
+
+.search-form-wrapper .options-section {
+	margin: 50px auto 20px;
+	padding: 10px;
+	text-align: center;
+}
+
+.search-form-wrapper .options-section .option {
+	display: inline-block;
+	vertical-align: top;
+	padding: 10px;
+	margin: auto;
+}
+
+.search-form-wrapper .options-section select {
+	background: rgba(255,255,255,.1);
+	border: none;
+	border-radius: 20px;
+	font-size: 15px;
+	margin: 0;
+	outline: 0;
+	padding: 10px;
+	width: 100%;
+	box-sizing: border-box; 
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box; 
+	background-color: #e8eeef;
+	color:#454545;
+	-webkit-box-shadow: 0 1px 0 rgba(0,0,0,0.03) inset;
+	box-shadow: 0 1px 0 rgba(0,0,0,0.03) inset;
+	margin-bottom: 15px;
+	background-color: white;
 }
 
 /*-----------------Book From-----------------*/
@@ -643,7 +725,7 @@ textarea {
 	border: 5px dashed powderblue;
 }
 
-.book-form-image #image .book-form-image #preview {
+.book-form-image #image, .book-form-image #preview {
 	width: 300px;
 	height: auto;
 }

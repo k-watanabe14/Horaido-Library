@@ -11,18 +11,44 @@
 {% block content %}
 
   <div class="stacked-section-child">
-    <form method="post">
-      <label for="keyword">keyword</label>
-      <input name="keyword" id="keyword" value="{{ request.form['keyword'] }}" required>
-      <input type="submit" value="検索する">
-    </form>
+    <div class="search-form-wrapper">
+      <form class="search-form" method="post" autocomplete="off">
+        <input class="search-input" type="text" placeholder="タイトル・著者名・出版社" name="keyword" id="keyword" value="{{ request.form['keyword'] }}">
+        <button class="search-button" type="submit" method="post"><i class="fas fa-search"></i></button>
+      </form>
+      <div class="options-section">
+        <div class="option">
+          <label for="status">貸出状況</label>
+          <select id="status" name="status">
+            <option value="all">全て</option>
+            <option value="loaned-out">貸出中</option>
+            <option value="available">貸出可能</option>
+          </select>     
+        </div>
+        <div class="option">
+          <label for="genre">ジャンル</label>
+          <select id="genre" name="genre">
+            <option value="all">全て</option>
+            <option value="general">一般</option>
+            <option value="education">教養</option>
+            <option value="practical-use">実用</option>
+            <option value="specialty">専門</option>
+            <option value="woman">婦人</option>
+            <option value="elementary-school">学参I(小中)</option>
+            <option value="high-school">学参II(高校)</option>
+            <option value="child">児童</option>
+            <option value="magazine">雑誌扱い</option>
+          </select>     
+        </div>
+      </div>
+    </div>
   </div>
 
   {% if keyword is not none %}
     <div class="stacked-section-child">
       <div class="content-heading">
         <h4 class="section-title">
-          検索結果
+          "{{ keyword }}" の検索結果
         </h4>
       </div>
 

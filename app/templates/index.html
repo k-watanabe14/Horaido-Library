@@ -7,8 +7,8 @@
 {% block content %}
 
   <div class="stacked-section-child">
-    <div class="search-wrapper">
-      <form class="search-form" method="post" autocomplete="off">
+    <div class="search-bar-wrapper">
+      <form class="search-bar" method="post" autocomplete="off">
         <input class="search-input" placeholder="タイトル・著者名・出版社" type="text" name="keyword" id="keyword" value="{{ request.form['keyword'] }}" required>
         <button class="search-button" type="submit" method="post"><i class="fas fa-search"></i></button>
       </form>
