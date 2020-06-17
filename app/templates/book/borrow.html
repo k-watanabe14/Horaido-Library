@@ -1,7 +1,11 @@
 {% extends 'base.html' %}
 
+{% block title %}
+  <title>本を借りる "{{ book['title'] }}"</title>
+{% endblock %}
+
 {% block header %}
-  <h1>{% block title %}Borrow "{{ book['title'] }}"{% endblock %}</h1>
+  
 {% endblock %}
 
 {% block content %}

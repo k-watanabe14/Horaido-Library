@@ -1,33 +1,64 @@
 {% extends 'base.html' %}
 
+{% block title %}
+  <title>手動で登録する</title>
+{% endblock %}
+
 {% block header %}
-  <h1>{% block title %}Manual Register{% endblock %}</h1>
+
 {% endblock %}
 
 {% block content %}
+    
+  <div class="book-form">
+    <form method="post">
+      <div class="book-form-image">
+        <enctype="multipart/form-data">画像ファイル<input type="file" name="pic" id="myImage">
+        <img id="preview">
+      </div>
 
-  <form method="post">
-    
-    <label for="title">Title</label>
-    <input name="title" id="title" required>
+      <div class="book-form-text">
+        <fieldset>
+          <label for="isbn">ISBN</label>
+          <input type="text" name="isbn" id="isbn">
 
-    <label for="author">Author</label>
-    <input name="author" id="author">
+          <label for="c-code">Cコード</label>
+          <input type="text" name="c-code" id="c-code">
+
+          <label for="title">タイトル</label>
+          <input type="text" name="title" id="title" required>
+      
+          <label for="author">著者</label>
+          <input type="text" name="author" id="author">
+          
+          <label for="publisher_name">出版社</label>
+          <input type="text" name="publisher_name" id="publisher_name">
+          
+          <label for="sales_date">出版年月日</label>
+          <input type="text" name="sales_date" id="sales_date">
+                    
+          <label for="genre">ジャンル</label>
+          <select id="genre" name="genre">
+            <option value="unset">---</option>
+            <option value="general">一般</option>
+            <option value="education">教養</option>
+            <option value="practical-use">実用</option>
+            <option value="specialty">専門</option>
+            <option value="woman">婦人</option>
+            <option value="elementary-school">学参I(小中)</option>
+            <option value="high-school">学参II(高校)</option>
+            <option value="child">児童</option>
+            <option value="magazine">雑誌扱い</option>
+          </select>      
+
+          <label for="donor">寄贈者</label>
+          <input type="text" name="donor" id="donor">
+
+        </fieldset>
+      </div>
+      <input type="submit" value="登録する" />
+    </form>
+  </div>
     
-    <label for="publisher_name">Publisher Name</label>
-    <input name="publisher_name" id="publisher_name">
-    
-    <label for="sales_date">Sales Date</label>
-    <input name="sales_date" id="sales_date">
-    
-    <label for="image">Image</label>
-    <enctype="multipart/form-data">画像ファイル<input type="file" name="pic">
-    
-    <label for="donor">寄贈者</label>
-    <input name="donor" id="donor">
-    
-    <input type="submit" value="登録する">
-  
-  </form>
 
 {% endblock %}
