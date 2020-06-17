@@ -51,7 +51,8 @@ def isbn():
             db.session.add(data)
             db.session.commit()
 
-            return redirect(url_for('register.success'))
+            flash("本を登録しました。")
+            return redirect(url_for('index'))
 
     return render_template('register/isbn.html', isbn = isbn, book_data = book_data)
 
