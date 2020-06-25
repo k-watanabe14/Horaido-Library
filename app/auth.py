@@ -33,8 +33,13 @@ def signup():
             data = User(username, email, generate_password_hash(password))
             db.session.add(data)
             db.session.commit()
+
+            # Automatically login
+            session.clear()
+            session['user_id'] = user = db.session.query(User).filter(User.username == username).first().id
+
             flash('ユーザーを登録しました')
-            return redirect(url_for('auth.login'))
+            return redirect(url_for('index'))
 
         flash(error)
 
