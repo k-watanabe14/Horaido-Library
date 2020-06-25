@@ -13,7 +13,11 @@
   <div class="stacked-section-child">
     <div class="search-form-wrapper">
       <form class="search-form" method="post" autocomplete="off">
-        <input class="search-input" type="text" placeholder="タイトル・著者名・出版社" name="keyword" id="keyword" value="{{ request.form['keyword'] }}">
+        {% if keyword is none %}
+        <input class="search-input" type="text" placeholder="タイトル・著者名・出版社" name="keyword" id="keyword">
+        {% else %}
+        <input class="search-input" type="text" name="keyword" id="keyword" value="{{ keyword }}">
+        {% endif %}
         <button class="search-button" type="submit" method="post"><i class="fas fa-search"></i></button>
       </form>
       <div class="options-section">
@@ -53,7 +57,12 @@
       </div>
 
       {% if results|length == 0 %}
-      検索結果はありません。
+      <div class="content-heading">
+        <div class="no-result-message">
+          検索結果はありません。
+        </div>
+      </div>
+
       {% else %}
         <div class="book-list">
           {% for result in results %}

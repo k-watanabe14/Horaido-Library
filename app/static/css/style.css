@@ -1015,10 +1015,16 @@ Contents
     vertical-align: top;
 }
 
-.book-container .book-status p {
+.book-container .book-status .available, .book-container .book-status .self {
     margin-top: 30px;
 }
 
-.book-container .book-status .book-return {
-    margin-top: 30px;
+.book-container .book-status .others {
+	width: 200px;
+	margin-top: 18px;
+}
+
+/*-----------------Search Page-----------------*/
+.content-heading {
+	text-align: center;
 }

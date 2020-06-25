@@ -33,7 +33,8 @@ class Book(db.Model):
     sales_date = db.Column(db.String(128))
     image_url = db.Column(db.String(128))
     donor = db.Column(db.String(128))
-    borrower = db.Column(db.Integer)
+    borrower_id = db.Column(db.Integer)
+    borrower_name = db.Column(db.String(128))
     checkout_date = db.Column(db.String(128))
 
 
@@ -46,7 +47,8 @@ class Book(db.Model):
         self.sales_date = sales_date
         self.image_url = image_url
         self.donor = donor
-        self.borrower = borrower
+        self.borrower_id = borrower_id
+        self.borrower_name = borrower_name
         self.checkout_date = checkout_date
 
     def __repr__(self):
@@ -60,15 +62,17 @@ class History(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     book_id = db.Column(db.Integer, nullable=False)
     user_id = db.Column(db.Integer, nullable=False)
+    user_name = db.Column(db.String(128))
     checkout_date = db.Column(db.String(128), nullable=False)
     due_date = db.Column(db.String(128))
     return_date = db.Column(db.String(128))
     
 
-    def __init__(self, book_id, user_id, checkout_date, due_date, return_date):
+    def __init__(self, book_id, user_id, user_name, checkout_date, due_date, return_date):
 
         self.book_id = book_id
         self.user_id = user_id
+        self.user_name = user_name
         self.checkout_date = checkout_date
         self.due_date = due_date
         self.return_date = return_date
