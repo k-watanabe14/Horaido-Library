@@ -40,7 +40,13 @@
             <p class="category">小説</p>
           </div>
           <div class="book-status">
-            <p class="status">この本を借りる</p>
+            {% if book['borrower_id'] is none %}
+              <div class="available"><a href="{{ url_for('book.borrow', book_id = book['id']) }}">この本を借りる</a></div>
+            {% elif book['borrower_id'] == g.user['id'] %}
+              <div class="self"><a href="{{ url_for('book.return_', book_id = book['id']) }}">この本を返す</a></div>
+            {% else %}
+              <div class="others">{{ book['borrower_name'] }}さんが<br>{{ book['checkout_date'] }}に借りました。</div>
+            {% endif %}
           </div>
         </div>
       {% endfor %}
@@ -58,21 +64,27 @@
       {% for book in rental_books %}
         <div class="book-container">
           <div class="book-image">
-            <img alt="{{ book[0]['title'] }}" id="image" src="{{ book[0]['image_url'] }}">
+            <img alt="{{ book['title'] }}" id="image" src="{{ book['image_url'] }}">
           </div>
           <div class="book-info">
             <div class="book-title">
-              <a href="{{ url_for('book.index', book_id = book[0]['id']) }}">{{ book[0]['title'] }}</a>
+              <a href="{{ url_for('book.index', book_id = book['id']) }}">{{ book['title'] }}</a>
             </div>
             <div class="book-author">
-              <p class="author">{{ book[0]['author'] }}</p>
+              <p class="author">{{ book['author'] }}</p>
             </div>
           </div>
           <div class="book-category">
             <p class="category">小説</p>
           </div>
           <div class="book-status">
-            <p class="author">{{ book[2]['username'] }}</p>
+            {% if book['borrower_id'] is none %}
+              <div class="available"><a href="{{ url_for('book.borrow', book_id = book['id']) }}">この本を借りる</a></div>
+            {% elif book['borrower_id'] == g.user['id'] %}
+              <div class="self"><a href="{{ url_for('book.return_', book_id = book['id']) }}">この本を返す</a></div>
+            {% else %}
+              <div class="others">{{ book['borrower_name'] }}さんが<br>{{ book['checkout_date'] }}に借りました。</div>
+            {% endif %}
           </div>
         </div>
       {% endfor %}

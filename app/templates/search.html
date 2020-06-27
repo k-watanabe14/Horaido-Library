@@ -11,15 +11,19 @@
 {% block content %}
 
   <div class="stacked-section-child">
-    <div class="search-form-wrapper">
-      <form class="search-form" method="post" autocomplete="off">
-        <input class="search-input" type="text" placeholder="タイトル・著者名・出版社" name="keyword" id="keyword" value="{{ request.form['keyword'] }}">
+    <form class="search-form-wrapper" method="post">
+      <div class="search-form"  autocomplete="off">
+        {% if keyword is none %}
+        <input class="search-input" type="text" placeholder="タイトル・著者名・出版社" name="keyword" id="keyword">
+        {% else %}
+        <input class="search-input" type="text" name="keyword" id="keyword" value="{{ keyword }}">
+        {% endif %}
         <button class="search-button" type="submit" method="post"><i class="fas fa-search"></i></button>
-      </form>
-      <div class="options-section">
+      </div>
+      <div class="options-section" id ="options-section">
         <div class="option">
           <label for="status">貸出状況</label>
-          <select id="status" name="status">
+          <select id="status-options" name="status">
             <option value="all">全て</option>
             <option value="loaned-out">貸出中</option>
             <option value="available">貸出可能</option>
@@ -27,7 +31,7 @@
         </div>
         <div class="option">
           <label for="genre">ジャンル</label>
-          <select id="genre" name="genre">
+          <select id="genre-options" name="genre">
             <option value="all">全て</option>
             <option value="general">一般</option>
             <option value="education">教養</option>
@@ -40,8 +44,14 @@
             <option value="magazine">雑誌扱い</option>
           </select>     
         </div>
+        <div class="option">
+          <label for="donor">寄贈者</label>
+          <select id="donor-options" name="donor">
+            <option value="all">全て</option>
+          </select>     
+        </div>
       </div>
-    </div>
+    </form>
   </div>
 
   {% if keyword is not none %}
@@ -52,32 +62,57 @@
         </h4>
       </div>
 
-      {% if results|length == 0 %}
-      検索結果はありません。
+      {% if results.total == 0 %}
+      <div class="content-heading">
+        <div class="no-result-message">
+          検索結果はありません。
+        </div>
+      </div>
+
       {% else %}
         <div class="book-list">
-          {% for result in results %}
+          {% for book in results.items %}
             <div class="book-container">
               <div class="book-image">
-                <img alt="{{ result['title'] }}" id="image" src="{{ result['image_url'] }}">
+                <img alt="{{ book['title'] }}" id="image" src="{{ book['image_url'] }}">
               </div>
               <div class="book-info">
                 <div class="book-title">
-                  <a href="{{ url_for('book.index', book_id = result['id']) }}">{{ result['title'] }}</a>
+                  <a href="{{ url_for('book.index', book_id = book['id']) }}">{{ book['title'] }}</a>
                 </div>
                 <div class="book-author">
-                  <p class="author">{{ result['author'] }}</p>
+                  <p class="author">{{ book['author'] }}</p>
                 </div>
               </div>
               <div class="book-category">
                 <p class="category">小説</p>
               </div>
               <div class="book-status">
-                <p class="status">この本を借りる</p>
+                {% if book['borrower_id'] is none %}
+                  <div class="available"><a href="{{ url_for('book.borrow', book_id = book['id']) }}">この本を借りる</a></div>
+                {% elif book['borrower_id'] == g.user['id'] %}
+                  <div class="self"><a href="{{ url_for('book.return_', book_id = book['id']) }}">この本を返す</a></div>
+                {% else %}
+                  <div class="others">{{ book['borrower_name'] }}さんが<br>{{ book['checkout_date'] }}に借りました。</div>
+                {% endif %}
               </div>
             </div>
           {% endfor %}
         </div>
+
+        <div class = "pagination">  
+          {% for page_num in results.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}  
+            {% if page_num %}  
+              {% if results.page == page_num %}  
+                <a class="btn" href="{{ url_for('search', keyword = keyword, status = status, genre = genre, donor = donor, page = page_num) }}">{{ page_num }}</a>  
+              {% else %}  
+                <a class="btn" href="{{ url_for('search', keyword = keyword, status = status, genre = genre, donor = donor, page = page_num) }}">{{ page_num }}</a>  
+              {% endif %}  
+            {% else %}  
+              <span>...</span>  
+            {% endif %}
+          {% endfor %}
+        </div>  
       {% endif %}
     </div> 
   {% endif %}
