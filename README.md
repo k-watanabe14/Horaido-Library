@@ -7,13 +7,16 @@ Book Management System for literary salon Houraidou
 `pipenv shell`
 
 `export APP_SETTINGS="config.DevelopmentConfig"`
+`export DATABASE_URL='postgres://username:password@localhost/db_name'`
+
+ex.) `export DATABASE_URL='postgres://postgres:123456@localhost/houraidou'`
 
 `flask run`
 
 ## Todo
 
 1. Implement filtering search
-1. Add a pagination function
+1. Keep options of select boxes after searching
 1. Add book image itself into DB
 1. Send email if forgetting password
 1. Send email before due date if not returning the book yet
@@ -24,4 +27,5 @@ Book Management System for literary salon Houraidou
 1. Implement account setting
 1. Modify UI
 1. Launch
+1. Change to WTForm
 
