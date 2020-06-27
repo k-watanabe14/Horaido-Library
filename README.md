@@ -13,7 +13,7 @@ Book Management System for literary salon Houraidou
 ## Todo
 
 1. Implement filtering search
-1. Add a paging function
+1. Add a pagination function
 1. Add book image itself into DB
 1. Send email if forgetting password
 1. Send email before due date if not returning the book yet
@@ -24,3 +24,4 @@ Book Management System for literary salon Houraidou
 1. Implement account setting
 1. Modify UI
 1. Launch
+

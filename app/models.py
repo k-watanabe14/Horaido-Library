@@ -27,6 +27,7 @@ class Book(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     isbn = db.Column(db.BigInteger)
+    c_code = db.Column(db.Integer)
     title = db.Column(db.String(128), nullable=False)
     author = db.Column(db.String(128))
     publisher_name = db.Column(db.String(128))
@@ -38,7 +39,7 @@ class Book(db.Model):
     checkout_date = db.Column(db.String(128))
 
 
-    def __init__(self, isbn, title, author, publisher_name, sales_date, image_url, donor, borrower, checkout_date):
+    def __init__(self, isbn, c_code, title, author, publisher_name, sales_date, image_url, donor, borrower_id, borrower_name, checkout_date):
 
         self.isbn = isbn
         self.title = title
