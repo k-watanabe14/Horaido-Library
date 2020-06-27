@@ -41,7 +41,7 @@ def index():
 
     new_books = db.session.query(Book).order_by(Book.id.desc()).limit(10)
 
-    rental_books = db.session.query(Book, History, User).join(History, Book.id == History.book_id).join(User, History.user_id == User.id).order_by(History.id.desc()).limit(10)
+    rental_books = db.session.query(Book).join(History, Book.id == History.book_id).order_by(History.id.desc()).limit(10)
 
     if request.method == 'POST':
         keyword = request.form['keyword']
@@ -59,23 +59,36 @@ def index():
 def search():
     
     keyword = request.args.get('keyword')
-    
+    status = request.args.get('status')
+    genre = request.args.get('genre')
+    donor = request.args.get('donor')
+
     search_keyword = "%{}%".format(keyword)
+    search_status = "%{}%".format(status)
+    search_genre = "%{}%".format(genre)
+    search_donor = "%{}%".format(donor)
+    
+    # For pagination
+    page = request.args.get('page', 1, type = int)  
 
     # Search books contained keyword in title, author, publisher name.
-    # results are collections of books.
-    results = Book.query.filter(or_((Book.title.like(search_keyword)), ((Book.author.like(search_keyword))), (Book.publisher_name.like(search_keyword)))).all()
+    # "results" are collections of books.
+    # Display 20 results per a page.
+    results = Book.query.filter(or_((Book.title.like(search_keyword)), ((Book.author.like(search_keyword))), (Book.publisher_name.like(search_keyword)))).paginate(page = page, per_page = 3)
 
     if request.method == 'POST':
         keyword = request.form['keyword']
+        status = request.form.get('status')
+        genre = request.form.get('genre')
+        donor = request.form.get('donor')
         error = None
 
         if error is not None:
             flash(error)
         else:
-            return redirect(url_for('search', keyword = keyword))
+            return redirect(url_for('search', keyword = keyword, status = status, genre = genre, donor = donor))
 
-    return render_template('search.html', results = results, keyword = keyword)
+    return render_template('search.html', results = results, keyword = keyword, status = status, genre = genre, donor = donor)
 
 
 @app.route('/return')

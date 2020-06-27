@@ -38,16 +38,18 @@ def isbn():
 
         if request.method == 'POST':
             isbn = request.form['isbn']
+            c_code = request.form['c-code']
             title = request.form['title']
             author = request.form['author']
             publisher_name = request.form['publisher_name']
             sales_date = request.form['sales_date']
             image_url = book_data['summary']['cover']
             donor = request.form['donor']
-            borrower = None
+            borrower_id = None
+            borrower_name = None
             checkout_date = None
 
-            data = Book(isbn, title, author, publisher_name, sales_date, image_url, donor, borrower, checkout_date)
+            data = Book(isbn, c_code, title, author, publisher_name, sales_date, image_url, donor, borrower_id, borrower_name, checkout_date)
             db.session.add(data)
             db.session.commit()
 
