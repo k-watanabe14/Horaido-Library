@@ -29,7 +29,7 @@ def isbn():
         if error is not None:
             flash(error)
         else:
-            return redirect(url_for('register.isbn', isbn = isbn))
+            return redirect(url_for('register.isbn', isbn=isbn))
 
     if isbn is not None:
         url = 'https://api.openbd.jp/v1/get?isbn=' + isbn
@@ -56,7 +56,7 @@ def isbn():
             flash("本を登録しました。")
             return redirect(url_for('index'))
 
-    return render_template('register/isbn.html', isbn = isbn, book_data = book_data)
+    return render_template('register/isbn.html', isbn=isbn, book_data=book_data)
 
 
 @mod_register.route('/manual')
@@ -74,12 +74,8 @@ def manual():
         db.session.add(data)
         db.session.commit()
 
-        return redirect(url_for('register.success'))
+        flash("本を登録しました。")
+        return redirect(url_for('index'))
 
     return render_template('register/manual.html')
-
-
-@mod_register.route('/success')
-def success():
-    return render_template('register/success.html')
     

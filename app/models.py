@@ -13,7 +13,6 @@ class User(db.Model):
     password = db.Column(db.String(192), nullable=False)
 
     def __init__(self, username, email, password):
-
         self.username = username
         self.email = email
         self.password = password
@@ -52,7 +51,6 @@ class Book(db.Model):
     borrower_name = db.Column(db.String(128))
     checkout_date = db.Column(db.String(128))
 
-
     def __init__(self, isbn, c_code, title, author, publisher_name, sales_date, image_url, donor, borrower_id, borrower_name, checkout_date):
 
         self.isbn = isbn
@@ -82,9 +80,7 @@ class History(db.Model):
     due_date = db.Column(db.String(128))
     return_date = db.Column(db.String(128))
     
-
     def __init__(self, book_id, user_id, user_name, checkout_date, due_date, return_date):
-
         self.book_id = book_id
         self.user_id = user_id
         self.user_name = user_name

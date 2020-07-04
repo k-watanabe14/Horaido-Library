@@ -23,9 +23,9 @@ def signup():
             error = 'email is required.'
         elif not password:
             error = 'Password is required.'
-        elif db.session.query(User).filter(User.username == username).count() != 0:
+        elif User.query.filter_by(username=username).count() != 0:
             error = 'User {} is already registered.'.format(username)
-        elif db.session.query(User).filter(User.email == email).count() != 0:
+        elif User.query.filter_by(email=email).count() != 0:
             error = 'Email {} is already registered.'.format(email)
 
 
@@ -36,7 +36,7 @@ def signup():
 
             # Automatically login
             session.clear()
-            session['user_id'] = user = db.session.query(User).filter(User.username == username).first().id
+            session['user_id'] = User.query.filter_by(username=username).first().id
 
             flash('ユーザーを登録しました')
             return redirect(url_for('index'))
@@ -54,7 +54,7 @@ def login():
         password = request.form['password']
         error = None
 
-        user = db.session.query(User).filter(User.username == username).first()
+        user = User.query.filter_by(username=username).first()
 
         if user is None:
             error = 'ユーザ名が間違っています。'
@@ -79,7 +79,7 @@ def load_logged_in_user():
     if user_id is None:
         g.user = None
     else:
-        g.user = db.session.query(User).filter(User.id == user_id).first()
+        g.user = User.query.filter_by(id=user_id).first()
 
 
 @mod_auth.route('/logout')

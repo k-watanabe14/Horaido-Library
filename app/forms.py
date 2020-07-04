@@ -4,7 +4,7 @@ from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationE
 from app.models import User  
 
 
-class RequestResetForm(FlaskForm):  
+class RequestResetForm(FlaskForm):
     email = StringField('', validators=[DataRequired(), Email()])  
     submit = SubmitField('パスワード再設定のメールを送る')  
   
@@ -14,7 +14,7 @@ class RequestResetForm(FlaskForm):
             raise ValidationError('メールアドレスが間違っています。正しいメールアドレスを入力してください。')  
   
   
-class ResetPasswordForm(FlaskForm):  
+class ResetPasswordForm(FlaskForm):
     password = PasswordField('', validators=[DataRequired()])  
     confirm_password = PasswordField('確認用', validators=[DataRequired(), EqualTo('password')])  
     submit = SubmitField('パスワードを再設定する')
