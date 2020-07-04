@@ -57,9 +57,7 @@ def send_reset_email(user):
     
     token = user.get_reset_token()  
     
-    msg = Message('Password Reset Request',  
-                  sender='noreply@demo.com',  
-                  recipients=[user.email])  
+    msg = Message('パスワード再設定', sender="朋来堂ライブラリー", recipients=[user.email])  
     
     msg.body = '''パスワードの再設定がリクエストされました。リンク先からパスワードを再設定してください。\r\n {url} \r\n \r\n パスワードを変更する必要がない場合は、何もする必要はありません。'''.format(url=url_for('new_password', token=token, _external=True))  
     
