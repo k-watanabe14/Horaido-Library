@@ -27,4 +27,3 @@ ex.) `export DATABASE_URL='postgres://USER:PASSWORD@HOST:5432/DBNAME'`
 1. Modify UI
 1. Launch
 1. Change to WTForm
-
