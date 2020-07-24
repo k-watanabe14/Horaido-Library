@@ -15,7 +15,7 @@ mod_book = Blueprint('book', __name__, url_prefix='/book')
 @login_required
 def index(book_id):
 
-    book = Book.query.filter_by(id==book_id).first()
+    book = Book.query.filter_by(id=book_id).first()
 
     # Page for Detail of book
     return render_template('book/index.html', book=book)
