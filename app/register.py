@@ -17,44 +17,36 @@ def index():
 @mod_register.route('/isbn', methods=('GET', 'POST'))
 def isbn():
     isbn = request.args.get('isbn')
-    book_data =[]
-
-    if request.method == 'POST' and isbn is None:
-        isbn = request.form['isbn']
-        error = None
-
-        if not isbn:
-            error = 'isbn is required.'
-
-        if error is not None:
-            flash(error)
-        else:
-            return redirect(url_for('register.isbn', isbn=isbn))
+    book_data = None
 
     if isbn is not None:
         url = 'https://api.openbd.jp/v1/get?isbn=' + isbn
         response = requests.get(url)
         book_data = response.json()[0]
 
-        if request.method == 'POST':
-            isbn = request.form['isbn']
-            c_code = request.form['c-code']
-            title = request.form['title']
-            author = request.form['author']
-            publisher_name = request.form['publisher_name']
-            sales_date = request.form['sales_date']
-            image_url = book_data['summary']['cover']
-            donor = request.form['donor']
-            borrower_id = None
-            borrower_name = None
-            checkout_date = None
+    if request.method == 'POST' and book_data is None:
+        isbn = request.form['isbn']
+        return redirect(url_for('register.isbn', isbn=isbn))
 
-            data = Book(isbn, c_code, title, author, publisher_name, sales_date, image_url, donor, borrower_id, borrower_name, checkout_date)
-            db.session.add(data)
-            db.session.commit()
+    if request.method == 'POST' and book_data is not None:
+        isbn = request.form['isbn']
+        c_code = request.form['c-code']
+        title = request.form['title']
+        author = request.form['author']
+        publisher_name = request.form['publisher_name']
+        sales_date = request.form['sales_date']
+        image_url = book_data['summary']['cover']
+        donor = request.form['donor']
+        borrower_id = None
+        borrower_name = None
+        checkout_date = None
 
-            flash("本を登録しました。")
-            return redirect(url_for('index'))
+        data = Book(isbn, c_code, title, author, publisher_name, sales_date, image_url, donor, borrower_id, borrower_name, checkout_date)
+        db.session.add(data)
+        db.session.commit()
+
+        flash("本を登録しました。")
+        return redirect(url_for('index'))
 
     return render_template('register/isbn.html', isbn=isbn, book_data=book_data)
 
