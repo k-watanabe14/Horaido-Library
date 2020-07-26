@@ -18,15 +18,15 @@
         {% else %}
         <input class="search-input" type="text" name="keyword" id="keyword" value="{{ keyword }}">
         {% endif %}
-        <button class="search-button" type="submit" method="post"><i class="fas fa-search"></i></button>
+        <button id="search-button" class="search-button" type="submit" method="post"><i class="fas fa-search"></i></button>
       </div>
       <div class="options-section" id ="options-section">
         <div class="option">
           <label for="status">貸出状況</label>
           <select id="status-options" name="status">
-            <option value="all">全て</option>
-            <option value="loaned-out">貸出中</option>
-            <option value="available">貸出可能</option>
+            <option value="all" {% if status=="all" %} selected="selected" {% endif %}>全て</option>
+            <option value="loaned-out" {% if status=="loaned-out" %} selected="selected" {% endif %}>貸出中</option>
+            <option value="available" {% if status=="available" %} selected="selected" {% endif %}>貸出可能</option>
           </select>     
         </div>
         <div class="option">

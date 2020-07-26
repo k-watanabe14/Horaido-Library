@@ -7,6 +7,7 @@ Book Management System for literary salon Houraidou
 `pipenv shell`
 
 `export APP_SETTINGS="config.DevelopmentConfig"`
+
 `export DATABASE_URL='postgres://USER:PASSWORD@HOST:5432/DBNAME'`
 
 ex.) `export DATABASE_URL='postgres://USER:PASSWORD@HOST:5432/DBNAME'`
@@ -16,7 +17,6 @@ ex.) `export DATABASE_URL='postgres://USER:PASSWORD@HOST:5432/DBNAME'`
 ## Todo
 
 1. Implement filtering search
-1. Keep options of select boxes after searching
 1. Add book image itself into DB
 1. Send email before due date if not returning the book yet
 1. Modify UI in book detail page and display rental history

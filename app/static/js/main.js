@@ -1,3 +1,4 @@
+// Read uploaded file
 $('#myImage').on('change', function (e) {
     var reader = new FileReader();
     reader.onload = function (e) {
@@ -5,3 +6,4 @@ $('#myImage').on('change', function (e) {
     }
     reader.readAsDataURL(e.target.files[0]);
 });
+
