@@ -4,6 +4,9 @@ from app.auth import login_required
 from app.models import Book
 from app import db
 import requests
+import os
+import datetime
+from app.s3 import upload_file
  
 # Define the blueprint: 'register', set its url prefix: app.url/register
 mod_register = Blueprint('register', __name__, url_prefix='/register')
@@ -51,18 +54,33 @@ def isbn():
     return render_template('register/isbn.html', isbn=isbn, book_data=book_data)
 
 
-@mod_register.route('/manual')
+@mod_register.route('/manual', methods=('GET', 'POST'))
 def manual():
 
     if request.method == 'POST':
+        # Save book image into S3 and set image url
+        if 'book_image' in request.files:
+            image = request.files['book_image']
+            image_name = "book-" + datetime.datetime.now().isoformat()
+            image.save(os.path.join("/tmp", image_name))
+            upload_file(f"/tmp/{image_name}", "houraidou-images")
+            image_url = "https://houraidou-images.s3.us-east-2.amazonaws.com/" + image_name
+        else:
+            image_url = None
+
+        # Register book infromation into DB
+        isbn = request.form['isbn'] if request.form['isbn'] != '' else None
+        c_code = request.form['c-code'] if request.form['c-code'] != '' else None
         title = request.form['title']
         author = request.form['author']
         publisher_name = request.form['publisher_name']
         sales_date = request.form['sales_date']
-        image_url = None
         donor = request.form['donor']
+        borrower_id = None
+        borrower_name = None
+        checkout_date = None
 
-        data = Book(isbn, title, author, publisher_name, sales_date, image_url, donor)
+        data = Book(isbn, c_code, title, author, publisher_name, sales_date, image_url, donor, borrower_id, borrower_name, checkout_date)
         db.session.add(data)
         db.session.commit()
 

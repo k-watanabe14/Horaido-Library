@@ -11,9 +11,9 @@
 {% block content %}
     
   <div class="book-form">
-    <form method="post">
+    <form action="/register/manual" method="post" enctype="multipart/form-data">
       <div class="book-form-image">
-        <enctype="multipart/form-data">画像ファイル<input type="file" name="pic" id="myImage">
+        画像ファイル<input type="file" name="book_image" id="book_image">
         <img id="preview">
       </div>
 
