@@ -556,6 +556,102 @@ textarea {
 	border-bottom-width: 7px;
 }
 
+/*-----------------Password Reset Form-----------------*/
+.password-reset-wrapper {
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+	justify-content: center;
+	width: 100%;
+	min-height: 100%;
+	padding: 20px;
+}
+
+.password-reset {
+	border-radius: 2px 2px 5px 5px;
+	padding: 10px 20px 20px 20px;
+	width: 500px;
+	background: #fff;
+	position: relative;
+	padding-bottom: 80px;
+	box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.3);
+}
+
+.password-reset .input-email {
+	display: block;
+	padding: 15px 10px;
+	margin-bottom: 20px;
+	width: 100%;
+	height: 55px;
+	border: 1px solid #ddd;
+	transition: border-width 0.2s ease;
+	border-radius: 2px;
+	color: #454545;
+}
+
+.password-reset .input-email + i.fa, .password-reset .input-email + i.far {
+	color: #fff;
+	font-size: 16px;
+	position: absolute;
+	margin-top: -55px;
+	opacity: 0;
+	left: 0;
+	transition: all 0.1s ease-in;
+}
+
+.password-reset .input-email:focus {
+	outline: none;
+	color: #444;
+	border-color: #2196f3;
+	border-left-width: 35px;
+}
+
+.password-reset .input-email:focus + i.fa, .password-reset .input-email:focus + i.far {
+	opacity: 1;
+	left: 30px;
+	transition: all 0.25s ease-out;
+}
+
+.password-reset .title {
+	color: #444;
+	font-size: 18px;
+	font-weight: bold;
+	margin: 10px 0 30px 0;
+	border-bottom: 1px solid #eee;
+	padding-bottom: 20px;
+}
+
+.password-reset .text {
+	width: 100%;
+	margin: 10px auto 20px;
+	padding: 20px;
+}
+
+.password-reset .button {
+	width: 100%;
+	height: 100%;
+	padding: 10px 10px;
+	background: #2196f3;
+	color: #fff;
+	display: block;
+	border: none;
+	margin-top: 20px;
+	position: absolute;
+	left: 0;
+	bottom: 0;
+	max-height: 60px;
+	border: 0px solid rgba(0, 0, 0, 0.1);
+	border-radius: 0 0 2px 2px;
+	transform: rotateZ(0deg);
+	transition: all 0.1s ease-out;
+	border-bottom-width: 7px;
+}
+
+.password-reset .invalid-feedback {
+	margin: 10px;
+}
+
+
 /*-----------------Search Bar-----------------*/
 .search-bar-wrapper {
     max-width: 360px;
@@ -945,10 +1041,11 @@ Contents
 }
 
 .flash { 
-    margin: 1em 0; 
-    padding: 1em; 
+    margin: 0 auto 40px; 
+    padding: 16px; 
     background: #cae6f6; 
-    border: 1px solid #377ba8; 
+	border: 1px solid #377ba8;
+	width: 60%; 
 }
 
 /*-----------------Book List-----------------*/

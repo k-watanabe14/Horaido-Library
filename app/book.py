@@ -15,17 +15,17 @@ mod_book = Blueprint('book', __name__, url_prefix='/book')
 @login_required
 def index(book_id):
 
-    book = db.session.query(Book).filter(Book.id == book_id).first()
+    book = Book.query.filter_by(id=book_id).first()
 
     # Page for Detail of book
-    return render_template('book/index.html', book = book)
+    return render_template('book/index.html', book=book)
 
 
-@mod_book.route('/<int:book_id>/borrow', methods = ('GET', 'POST'))
+@mod_book.route('/<int:book_id>/borrow', methods=('GET', 'POST'))
 @login_required
 def borrow(book_id):
 
-    book = db.session.query(Book).filter(Book.id == book_id).first()
+    book = Book.query.filter_by(id=book_id).first()
 
     if request.method == 'POST':
         error = None
@@ -44,7 +44,7 @@ def borrow(book_id):
             db.session.add(history_data)
 
             # Update book data in a book record
-            borrower = db.session.query(User).filter(User.id == user_id).first()
+            borrower = User.query.filter_by(id=user_id).first()
             book.borrower_id = borrower.id
             book.borrower_name = borrower.username
             book.checkout_date = checkout_date
@@ -55,14 +55,14 @@ def borrow(book_id):
 
             return redirect(url_for('index'))
 
-    return render_template('book/borrow.html', book = book)
+    return render_template('book/borrow.html', book=book)
 
 
-@mod_book.route('/<int:book_id>/return', methods = ('GET', 'POST'))
+@mod_book.route('/<int:book_id>/return', methods=('GET', 'POST'))
 @login_required
 def return_(book_id):
 
-    book = db.session.query(Book).filter(Book.id == book_id).first()
+    book = Book.query.filter_by(id=book_id).first()
 
     if request.method == 'POST':
         error = None
@@ -71,7 +71,7 @@ def return_(book_id):
             flash(error)
         else:
             user_id = session.get('user_id')
-            history = db.session.query(History).filter(History.user_id == user_id, History.book_id == book_id).first()
+            history = History.query.filter(History.user_id==user_id, History.book_id==book_id).first()
 
             # Update return date in a rental_history record
             history.return_date = datetime.datetime.today().strftime('%Y/%m/%d')
@@ -87,14 +87,14 @@ def return_(book_id):
 
             return redirect(url_for('index'))
 
-    return render_template('book/return.html', book = book)
+    return render_template('book/return.html', book=book)
 
 
-@mod_book.route('/<int:book_id>/edit', methods = ('GET', 'POST'))
+@mod_book.route('/<int:book_id>/edit', methods=('GET', 'POST'))
 @login_required
 def edit(book_id):
 
-    book = db.session.query(Book).filter(Book.id == book_id).first()    
+    book = Book.query.filter_by(id=book_id).first()   
 
     if request.method == 'POST':
         error = None
@@ -112,4 +112,4 @@ def edit(book_id):
             flash('編集しました')
             return redirect(url_for('index'))
 
-    return render_template('book/edit.html', book = book)
+    return render_template('book/edit.html', book=book)

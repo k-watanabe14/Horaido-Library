@@ -18,7 +18,7 @@
         <input type="password" name="password" is="password" placeholder="パスワード" required/>
         <i class="fa fa-key"></i>
         <div class="forget-password">
-          <a href="#">パスワードを忘れた場合はこちら</a>
+          <a href="{{ url_for('account.password_reset') }}">パスワードを忘れた場合はこちら</a>
         </div>
         <div class="signup-case">
           <a href="{{ url_for('auth.signup') }}">新規登録はこちら</a>
