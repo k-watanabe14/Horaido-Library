@@ -1,6 +1,7 @@
 import os
 from flask import Flask, request, render_template, session, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
+from flask_mail import Mail
 from sqlalchemy import or_
 
 
@@ -8,6 +9,7 @@ app = Flask(__name__)
 app.config.from_object(os.environ['APP_SETTINGS'])
 
 db = SQLAlchemy(app)
+mail = Mail(app)
 
 
 # Import a module / component using its blueprint handler
@@ -74,7 +76,7 @@ def search():
     # Search books contained keyword in title, author, publisher name.
     # "results" are collections of books.
     # Display 20 results per a page.
-    results = Book.query.filter(or_((Book.title.like(search_keyword)), ((Book.author.like(search_keyword))), (Book.publisher_name.like(search_keyword)))).paginate(page = page, per_page = 3)
+    results = Book.query.filter(or_((Book.title.like(search_keyword)), ((Book.author.like(search_keyword))), (Book.publisher_name.like(search_keyword)))).paginate(page = page, per_page = 20)
 
     if request.method == 'POST':
         keyword = request.form['keyword']

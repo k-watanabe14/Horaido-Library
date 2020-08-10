@@ -8,14 +8,16 @@ Book Management System for literary salon Houraidou
 
 `export APP_SETTINGS="config.DevelopmentConfig"`
 
+`export DATABASE_URL='postgres://USER:PASSWORD@HOST:5432/DBNAME'`
+
+ex.) `export DATABASE_URL='postgres://USER:PASSWORD@HOST:5432/DBNAME'`
+
 `flask run`
 
 ## Todo
 
 1. Implement filtering search
-1. Add a pagination function
-1. Add book image itself into DB
-1. Send email if forgetting password
+1. Prepare S3 for uploading images
 1. Send email before due date if not returning the book yet
 1. Modify UI in book detail page and display rental history
 1. Modify UI in borrow, return, register and edit page
@@ -24,4 +26,6 @@ Book Management System for literary salon Houraidou
 1. Implement account setting
 1. Modify UI
 1. Launch
-
+1. Change to WTForm
+1. Add a function for searching books to register
+1. Add a function to post reviews

@@ -17,6 +17,16 @@
     <input type="submit" value="書籍情報を検索する">
   </form>
 
+  {% elif book_data is none %}
+
+  該当する書籍が見つかりませんでした。再度ISBNを入力してください。
+
+  <form method="post">
+    <label for="isbn">isbn</label>
+    <input name="isbn" id="isbn" value="{{ request.form['isbn'] }}" required>
+    <input type="submit" value="書籍情報を検索する">
+  </form>
+
   {% else %}
 
   <div class="book-form">
@@ -31,7 +41,7 @@
           <input type="text" name="isbn" value="{{ book_data['summary']['isbn'] }}" id="isbn" required>
 
           <label for="c-code">Cコード</label>
-          <input type="text" name="c-code" value="{{ book_data['onix']['DescriptiveDetail']['Subject'][0]['SubjectCode'] }}" id="c-code">
+          <input type="text" name="c-code" value="{{ book_data['onix']['DescriptiveDetail']['Subject'][0]['SubjectCode'] if 'Subject' in book_data['onix']['DescriptiveDetail'] }}" id="c-code">
 
           <label for="title">タイトル</label>
           <input type="text" name="title" value="{{ book_data['summary']['title'] }}" id="title" required>

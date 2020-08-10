@@ -1,5 +1,6 @@
-from app import db
+from app import app, db
 from sqlalchemy import BigInteger
+from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 
 
 class User(db.Model):
@@ -12,10 +13,22 @@ class User(db.Model):
     password = db.Column(db.String(192), nullable=False)
 
     def __init__(self, username, email, password):
-
         self.username = username
         self.email = email
         self.password = password
+
+    def get_reset_token(self, expires_sec=1800):  
+        s = Serializer(app.config['SECRET_KEY'], expires_sec)  
+        return s.dumps({'user_id': self.id}).decode('utf-8')  
+  
+    @staticmethod  
+    def verify_reset_token(token):  
+        s = Serializer(app.config['SECRET_KEY'])  
+        try:  
+            user_id = s.loads(token)['user_id']  
+        except:  
+            return None
+        return User.query.get(user_id)  
 
     def __repr__(self):
         return '<User %r>' % self.id
@@ -37,7 +50,6 @@ class Book(db.Model):
     borrower_id = db.Column(db.Integer)
     borrower_name = db.Column(db.String(128))
     checkout_date = db.Column(db.String(128))
-
 
     def __init__(self, isbn, c_code, title, author, publisher_name, sales_date, image_url, donor, borrower_id, borrower_name, checkout_date):
 
@@ -68,9 +80,7 @@ class History(db.Model):
     due_date = db.Column(db.String(128))
     return_date = db.Column(db.String(128))
     
-
     def __init__(self, book_id, user_id, user_name, checkout_date, due_date, return_date):
-
         self.book_id = book_id
         self.user_id = user_id
         self.user_name = user_name
