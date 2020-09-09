@@ -17,7 +17,6 @@ ex.) `export DATABASE_URL='postgres://USER:PASSWORD@HOST:5432/DBNAME'`
 ## Todo
 
 1. Implement filtering search
-1. Prepare S3 for uploading images
 1. Send email before due date if not returning the book yet
 1. Modify UI in book detail page and display rental history
 1. Modify UI in borrow, return, register and edit page

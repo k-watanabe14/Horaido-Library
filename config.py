@@ -13,12 +13,15 @@ class Config(object):
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
     # Mail settings
-    MAIL_SERVER ='smtp.gmail.com'
+    MAIL_SERVER = 'smtp.gmail.com'
     MAIL_PORT = 465
     MAIL_USERNAME = os.environ['MAIL_USERNAME']
     MAIL_PASSWORD = os.environ['MAIL_PASSWORD']
     MAIL_USE_TLS = False
     MAIL_USE_SSL = True
+
+    # S3 settings
+    S3_BUCKET = 'houraidou-images'
 
 class ProductionConfig(Config):
     DEBUG = False
