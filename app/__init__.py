@@ -69,14 +69,25 @@ def search():
     search_status = "%{}%".format(status)
     search_genre = "%{}%".format(genre)
     search_donor = "%{}%".format(donor)
-    
+
+    # Search books contained keyword in title, author, publisher name.
+    keyword_condition = or_((Book.title.like(search_keyword)), ((Book.author.like(search_keyword))), (Book.publisher_name.like(search_keyword)))
+
+    # Book status
+
+    # Book genre
+
     # For pagination
     page = request.args.get('page', 1, type = int)  
 
-    # Search books contained keyword in title, author, publisher name.
     # "results" are collections of books.
     # Display 20 results per a page.
-    results = Book.query.filter(or_((Book.title.like(search_keyword)), ((Book.author.like(search_keyword))), (Book.publisher_name.like(search_keyword)))).paginate(page = page, per_page = 20)
+    if status == "loaned-out":
+        results = Book.query.filter(keyword_condition, Book.borrower_id != None).paginate(page = page, per_page = 20)
+    elif status == 'available':
+        results = Book.query.filter(keyword_condition, Book.borrower_id == None).paginate(page = page, per_page = 20)
+    else:
+        results = Book.query.filter(keyword_condition).paginate(page = page, per_page = 20)
 
     if request.method == 'POST':
         keyword = request.form['keyword']
