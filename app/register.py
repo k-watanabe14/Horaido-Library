@@ -4,7 +4,7 @@ from app.auth import login_required
 from app.models import Book
 from app import db
 import requests
-import os
+import io
 import datetime
 from app.s3 import upload_file
  
@@ -61,10 +61,11 @@ def manual():
         # Save book image into S3 and set image url
         if 'book_image' in request.files:
             image = request.files['book_image']
-            image_name = "book-" + datetime.datetime.now().isoformat()
-            image.save(os.path.join("/tmp", image_name))
-            upload_file(f"/tmp/{image_name}", "houraidou-images")
-            image_url = "https://houraidou-images.s3.us-east-2.amazonaws.com/" + image_name
+            image_name = datetime.datetime.now().isoformat() + ".jpg"
+            body = io.BufferedReader(image).read()
+            key = f'books/{image_name}'
+            upload_file(body, key, 'image/jpeg')
+            image_url = "https://houraidou-images.s3.us-east-2.amazonaws.com/books/" + image_name
         else:
             image_url = None
 
