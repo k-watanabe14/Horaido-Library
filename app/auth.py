@@ -57,7 +57,7 @@ def login():
         user = User.query.filter_by(username=username).first()
 
         if user is None:
-            error = 'ユーザ名が間違っています。'
+            error = 'ユーザ名もしくはパスワードが間違っています。'
         elif not check_password_hash(user.password, password):
             error = 'Incorrect password.'
 

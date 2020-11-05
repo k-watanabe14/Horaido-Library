@@ -1,6 +1,6 @@
 # houraidou
 
-Book Management System for literary salon Houraidou
+Book Management System for literary salon Horaido
 
 ## Setting for local environment
 
@@ -10,7 +10,7 @@ Book Management System for literary salon Houraidou
 
 `export DATABASE_URL='postgres://username:password@localhost/db_name'`
 
-ex.) `export DATABASE_URL='postgres://postgres:123456@localhost/houraidou'`
+ex.) `export DATABASE_URL='postgres://postgres:123456@localhost/horaido'`
 
 `flask run`
 
