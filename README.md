@@ -1,6 +1,6 @@
 # houraidou
 
-Book Management System for literary salon Houraidou
+Book Management System for literary salon Horaido
 
 ## Setting for local environment
 

@@ -45,7 +45,6 @@ class Book(db.Model):
     publisher_name = db.Column(db.String(128))
     sales_date = db.Column(db.String(128))
     image_url = db.Column(db.String(128))
-    donor = db.Column(db.String(128))
     borrower_id = db.Column(db.Integer)
     checkout_date = db.Column(db.String(128))
 
