@@ -21,7 +21,7 @@ class Config(object):
     MAIL_USE_SSL = True
 
     # S3 settings
-    S3_BUCKET = 'houraidou-images'
+    S3_BUCKET = 'horaido-images'
 
 class ProductionConfig(Config):
     DEBUG = False
