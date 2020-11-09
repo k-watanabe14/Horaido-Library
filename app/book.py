@@ -35,19 +35,17 @@ def borrow(book_id):
             flash(error)
         else:
             user_id = session.get('user_id')
-            user_name = session.get('user_name')
             checkout_date = datetime.datetime.today().strftime('%Y/%m/%d')
             due_date = (datetime.datetime.today() + relativedelta(months=1)).strftime('%Y/%m/%d')
             return_date = None
 
             # Add history data into Rental History
-            history_data = History(book_id, user_id, user_name, checkout_date, due_date, return_date)
+            history_data = History(book_id, user_id, checkout_date, due_date, return_date)
             db.session.add(history_data)
 
             # Update book data in a book record
             borrower = User.query.filter_by(id=user_id).first()
             book.borrower_id = borrower.id
-            book.borrower_name = borrower.username
             book.checkout_date = checkout_date
             
             db.session.commit()
