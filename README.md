@@ -1,4 +1,4 @@
-# houraidou
+# Horaido
 
 Book Management System for literary salon Horaido
 
