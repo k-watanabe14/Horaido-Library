@@ -10,28 +10,52 @@
 
 {% block content %}
 
-<form method="post">
+<div class="book-form">
+  <form method="post">
+    <div class="book-form-image">
+      <img alt="{{ book['title'] }}" id="image" src="{{ book['image_url'] }}">
+    </div>
+
+    <div class="book-form-text">
+      <fieldset>
+        <label for="isbn">ISBN</label>
+        <input type="text" name="isbn" value="{{ book['isbn'] }}" id="isbn" required>
+
+        <label for="c-code">Cコード</label>
+        <input type="text" name="c-code" value="{{ book['c-code'] }}" id="c-code">
+
+        <label for="title">タイトル</label>
+        <input type="text" name="title" value="{{ book['title'] }}" id="title" required>
     
-  <label for="title">Title</label>
-  <input name="title" value="{{ book['title'] }}" id="title" required>
+        <label for="author">著者</label>
+        <input type="text" name="author" value="{{ book['author'] }}" id="author">
+        
+        <label for="publisher_name">出版社</label>
+        <input type="text" name="publisher_name" value="{{ book['publisher_name'] }}" id="publisher_name">
+        
+        <label for="sales_date">出版年月日</label>
+        <input type="text" name="sales_date" value="{{ book['sales_date'] }}" id="sales_date">
+                  
+        <label for="genre">ジャンル</label>
+        <select id="genre" name="genre">
+          <option value="unset">---</option>
+          <option value="general">一般</option>
+          <option value="education">教養</option>
+          <option value="practical-use">実用</option>
+          <option value="specialty">専門</option>
+          <option value="woman">婦人</option>
+          <option value="elementary-school">学参I(小中)</option>
+          <option value="high-school">学参II(高校)</option>
+          <option value="child">児童</option>
+          <option value="magazine">雑誌扱い</option>
+        </select>      
 
-  <label for="author">Author</label>
-  <input name="author" value="{{ book['author'] }}" id="author">
-  
-  <label for="publisher_name">Publisher Name</label>
-  <input name="publisher_name" value="{{ book['publisher_name'] }}" id="publisher_name">
-  
-  <label for="sales_date">Sales Date</label>
-  <input name="sales_date" value="{{ book['sales_date'] }}" id="sales_date">
-  
-  <label for="image">Image</label>
-  <img alt="{{ book['title'] }}" id="image" src="{{ book['image_url'] }}" width="200" height="200">
-  
-  <label for="donor">寄贈者</label>
-  <input name="donor" value="{{ book['donor'] }}" id="donor">
-  
-  <input type="submit" value="完了">
+        <label for="donor">寄贈者</label>
+        <input type="text" name="donor" value="{{ book['donor'] }}" id="donor">
 
-</form>
+      </fieldset>
+    </div>
+    <input type="submit" value="登録する" />
+  </form>
 
 {% endblock %}

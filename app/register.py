@@ -23,9 +23,9 @@ def isbn():
     book_data = None
 
     if isbn is not None:
-        url = 'https://api.openbd.jp/v1/get?isbn=' + isbn
+        url = 'https://app.rakuten.co.jp/services/api/BooksBook/Search/20170404?applicationId=1053085901834686387&isbn=' + isbn
         response = requests.get(url)
-        book_data = response.json()[0]
+        book_data = response.json()['Items'][0]['Item']
 
     if request.method == 'POST' and book_data is None:
         isbn = request.form['isbn']
@@ -33,18 +33,15 @@ def isbn():
 
     if request.method == 'POST' and book_data is not None:
         isbn = request.form['isbn']
-        c_code = request.form['c-code']
         title = request.form['title']
         author = request.form['author']
         publisher_name = request.form['publisher_name']
         sales_date = request.form['sales_date']
-        image_url = book_data['summary']['cover']
-        donor = request.form['donor']
+        image_url = book_data['largeImageUrl']
         borrower_id = None
-        borrower_name = None
         checkout_date = None
 
-        data = Book(isbn, c_code, title, author, publisher_name, sales_date, image_url, donor, borrower_id, borrower_name, checkout_date)
+        data = Book(isbn, title, author, publisher_name, sales_date, image_url, borrower_id, checkout_date)
         db.session.add(data)
         db.session.commit()
 
@@ -65,23 +62,20 @@ def manual():
             body = io.BufferedReader(image).read()
             key = f'books/{image_name}'
             upload_file(body, key, 'image/jpeg')
-            image_url = "https://houraidou-images.s3.us-east-2.amazonaws.com/books/" + image_name
+            image_url = "https://horaido-images.s3.us-east-2.amazonaws.com/books/" + image_name
         else:
             image_url = None
 
         # Register book infromation into DB
-        isbn = request.form['isbn'] if request.form['isbn'] != '' else None
-        c_code = request.form['c-code'] if request.form['c-code'] != '' else None
+        isbn = request.form['isbn']
         title = request.form['title']
         author = request.form['author']
         publisher_name = request.form['publisher_name']
         sales_date = request.form['sales_date']
-        donor = request.form['donor']
         borrower_id = None
-        borrower_name = None
         checkout_date = None
 
-        data = Book(isbn, c_code, title, author, publisher_name, sales_date, image_url, donor, borrower_id, borrower_name, checkout_date)
+        data = Book(isbn, title, author, publisher_name, sales_date, image_url, borrower_id, checkout_date)
         db.session.add(data)
         db.session.commit()
 

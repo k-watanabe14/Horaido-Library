@@ -21,4 +21,25 @@
   <li><a class="action" href="{{ url_for('book.return_', book_id = book['id']) }}">この本を返す</a>
 </ul>
 
+<div>
+  <h3>貸し出し履歴</h3>
+
+  <div class="history-list">
+    {% for history in histories %}
+      <div class="hisotry-container">
+        <div class="hisotry-user_name">
+          <p class="user_name">{{ history['user_name'] }}</p>
+        </div>
+        <div class="history_checkout_date">
+          <p class="checkout_date">{{ history['checkout_date'] }}</p>
+        </div>
+        <div class="history_return_date">
+          <p class="return_date">{{ history['return_date'] }}</p>
+        </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+</div>
+
 {% endblock %}

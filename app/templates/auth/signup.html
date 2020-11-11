@@ -13,15 +13,13 @@
     <div class="signup-wrapper">
       <form method="post" class="signup">
         <p class="title">新規登録</p>
-        <input type="text" name="username" id="username" placeholder="ユーザー名" required>
+        {{ form.username() }} 
         <i class="fa fa-user"></i>
-        <input type="text" name="email" id="email" placeholder="メールアドレス"  required>
+        {{ form.email() }}
         <i class="far fa-envelope"></i>
-        <input type="password" name="password" is="password" placeholder="パスワード" required>
+        {{ form.password() }}
         <i class="fa fa-key"></i>
-        <button>
-          <span class="state">登録する</span>
-        </button>
+        {{ form.submit(class="button") }}  
       </form>
     </div>
   </div>
