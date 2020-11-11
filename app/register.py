@@ -62,23 +62,20 @@ def manual():
             body = io.BufferedReader(image).read()
             key = f'books/{image_name}'
             upload_file(body, key, 'image/jpeg')
-            image_url = "https://houraidou-images.s3.us-east-2.amazonaws.com/books/" + image_name
+            image_url = "https://horaido-images.s3.us-east-2.amazonaws.com/books/" + image_name
         else:
             image_url = None
 
         # Register book infromation into DB
-        isbn = request.form['isbn'] if request.form['isbn'] != '' else None
-        c_code = request.form['c-code'] if request.form['c-code'] != '' else None
+        isbn = request.form['isbn']
         title = request.form['title']
         author = request.form['author']
         publisher_name = request.form['publisher_name']
         sales_date = request.form['sales_date']
-        donor = request.form['donor']
         borrower_id = None
-        borrower_name = None
         checkout_date = None
 
-        data = Book(isbn, c_code, title, author, publisher_name, sales_date, image_url, donor, borrower_id, borrower_name, checkout_date)
+        data = Book(isbn, title, author, publisher_name, sales_date, image_url, borrower_id, checkout_date)
         db.session.add(data)
         db.session.commit()
 
