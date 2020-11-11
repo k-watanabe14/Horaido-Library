@@ -1,6 +1,6 @@
-# houraidou
+# Horaido
 
-Book Management System for literary salon Houraidou
+Book Management System for literary salon Horaido
 
 ## Setting for local environment
 
@@ -23,6 +23,7 @@ ex.) `export DATABASE_URL='postgres://USER:PASSWORD@HOST:5432/DBNAME'`
 1. Modify the color
 1. Implement account setting
 1. Modify UI
+1. Make automation test including Login/out, search/registry/borrow/return books.
 1. Launch
 1. Change to WTForm
 1. Send email before due date if not returning the book yet
