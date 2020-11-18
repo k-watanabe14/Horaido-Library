@@ -914,13 +914,17 @@ Header
 .main-logo .logo-text {
     margin-left: 100px;
     margin-right: 20px;
-    padding: 22px 0;
 }
 
 .main-logo .logo-text .site-title {
 	font-size: 22px;
 	font-weight: 500;
-    line-height: 24px;
+	line-height: 24px;
+	padding: 23px;
+}
+
+.main-logo .logo-text .site-title:hover {
+    background-color: whitesmoke;
 }
 
 .main-logo .logo-text .site-title a {
@@ -935,17 +939,22 @@ Header
 .account-container ul {
     margin: 0;
     height: 100%;
-    padding: 20px;;
+    padding: 10px;
     text-align: center;
     list-style: none;
 }
 
 .account-container ul li {
-    padding: 5px 10px;
     display: inline-block;
     text-align: center;
     text-decoration: none;
-    font-size: 14px;
+	font-size: 14px;
+	padding: 10px;
+	border-radius: 1000px;
+}
+
+.account-container ul li:hover {
+    background-color: whitesmoke;
 }
 
 .account-container ul li a {
@@ -953,7 +962,8 @@ Header
     text-align: center;
     text-decoration: none;
     color: #333333;
-    font-weight: bold;
+	font-weight: bold;
+	padding: 5px 10px;
 }
 
 .account-container .fa {
@@ -991,7 +1001,6 @@ Header
     min-width: 90px;
     width: 20%;
     margin: 2px;
-    padding: 13px 5px;;
     vertical-align: top;
 }
 
@@ -1004,7 +1013,8 @@ Header
     text-align: center;
     text-decoration: none;
     color: #555555;
-    font-weight: bold;
+	font-weight: bold;
+	padding: 13px 5px;
 }
 
 .navigation-container a:hover{
