@@ -12,7 +12,15 @@
   <div class="stacked-section-child">
     <div class="signup-wrapper">
       <form method="post" class="signup">
+        {{ form.hidden_tag() }}
         <p class="title">新規登録</p>
+        {% if form.email.errors %}
+          <ul class=errors>
+          {% for error in form.email.errors %}
+            <li>{{ error }}</li>
+          {% endfor %}
+          </ul>
+        {% endif %}
         {{ form.username() }} 
         <i class="fa fa-user"></i>
         {{ form.email() }}

@@ -13,9 +13,9 @@ mod_auth = Blueprint('auth', __name__, url_prefix='/')
 @mod_auth.route('/signup/', methods=['GET', 'POST'])
 def signup():
 
-    form = SignupForm()  
+    form = SignupForm(request.form)
 
-    if request.method == 'POST':
+    if request.method == 'POST' and form.validate_on_submit():
 
         username = form.username.data
         email = form.email.data
@@ -23,9 +23,9 @@ def signup():
         error = None
 
         if User.query.filter_by(username=username).count() != 0:
-            error = 'User {} is already registered.'.format(username)
+            error = 'ユーザー名「 {} 」はすでに使用されています。'.format(username)
         elif User.query.filter_by(email=email).count() != 0:
-            error = 'Email {} is already registered.'.format(email)
+            error = 'メールアドレス「 {} 」はすでに登録されています'.format(email)
 
         if error is None:
             user = User(username, email, generate_password_hash(password))
@@ -55,9 +55,9 @@ def login():
         user = User.query.filter_by(username=username).first()
 
         if user is None:
-            error = 'ユーザ名もしくはパスワードが間違っています。'
+            error = 'ユーザー名もしくはパスワードが間違っています。'
         elif not check_password_hash(user.password, password):
-            error = 'Incorrect password.'
+            error = 'ユーザー名もしくはパスワードが間違っています。'
 
         if error is None:
             session.clear()

@@ -6,7 +6,7 @@ from app.models import User
 
 class SignupForm(FlaskForm):
     username = StringField('ユーザー名', validators=[DataRequired()])
-    email = StringField('メールアドレス', validators=[DataRequired(), Email()])
+    email = StringField('メールアドレス', validators=[DataRequired(), Email(message='有効なメールアドレスを入力してください。')])
     password = PasswordField('パスワード', validators=[DataRequired()])
     submit = SubmitField('登録する')
 
