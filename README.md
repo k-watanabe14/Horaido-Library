@@ -6,11 +6,19 @@ Book Management System for literary salon Horaido
 
 `pipenv shell`
 
-`export APP_SETTINGS="config.DevelopmentConfig"`
+You have to set up follow environmetal valuables:
 
-`export DATABASE_URL='postgres://username:password@localhost/db_name'`
+- APP_SETTINGS
+ex) APP_SETTINGS = "config.DevelopmentConfig"
 
-ex.) `export DATABASE_URL='postgres://postgres:123456@localhost/horaido'`
+- DATABASE_URL
+ex) DATABASE_URL='postgres://postgres:123456@localhost/horaido'
+
+- MAIL_USERNAME
+ex) MAIL_USERNAME = username@gmail.com
+
+- MAIL_PASSWORD
+ex) MAIL_PASSWORD = password
 
 `flask run`
 
