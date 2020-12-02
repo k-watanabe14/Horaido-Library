@@ -12,7 +12,7 @@ You have to set up follow environmetal valuables:
 ex) APP_SETTINGS = "config.DevelopmentConfig"
 
 - DATABASE_URL
-ex) DATABASE_URL='postgres://postgres:123456@localhost/horaido'
+ex) DATABASE_URL='postgres://username:password@localhost/dbname'
 
 - MAIL_USERNAME
 ex) MAIL_USERNAME = username@gmail.com

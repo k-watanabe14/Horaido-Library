@@ -21,11 +21,11 @@
           {% endfor %}
           </ul>
         {% endif %}
-        {{ form.username() }} 
+        {{ form.username(placeholder="ユーザー名") }} 
         <i class="fa fa-user"></i>
-        {{ form.email() }}
+        {{ form.email(placeholder="メールアドレス") }}
         <i class="far fa-envelope"></i>
-        {{ form.password() }}
+        {{ form.password(placeholder="パスワード") }}
         <i class="fa fa-key"></i>
         {{ form.submit(class="button") }}  
       </form>

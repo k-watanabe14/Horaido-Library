@@ -1,5 +1,5 @@
 import os
-from flask import Flask, request, render_template, session, redirect, url_for
+from flask import Flask, request, render_template, session, redirect, url_for, flash
 from flask_sqlalchemy import SQLAlchemy
 from flask_mail import Mail
 from sqlalchemy import or_
@@ -58,6 +58,7 @@ def index():
 
 
 @app.route('/search', methods = ('GET', 'POST'))
+@login_required
 def search():
     
     keyword = request.args.get('keyword')
@@ -72,8 +73,6 @@ def search():
     keyword_condition = or_((Book.title.like(search_keyword)), ((Book.author.like(search_keyword))), (Book.publisher_name.like(search_keyword)))
 
     # Book status
-
-    # Book genre
 
     # For pagination
     page = request.args.get('page', 1, type = int)  
