@@ -13,6 +13,7 @@ mod_register = Blueprint('register', __name__, url_prefix='/register')
 
 
 @mod_register.route('/')
+@login_required
 def index():
     return render_template('register/index.html')
 
