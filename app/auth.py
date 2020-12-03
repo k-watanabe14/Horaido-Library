@@ -13,31 +13,29 @@ mod_auth = Blueprint('auth', __name__, url_prefix='/')
 @mod_auth.route('/signup/', methods=['GET', 'POST'])
 def signup():
 
-    form = SignupForm(request.form)
+    form = SignupForm()
 
-    if request.method == 'POST':
+    if form.validate_on_submit():
 
-        if form.validate_on_submit():
+        username = form.username.data
+        email = form.email.data
+        password = form.password.data
 
-            username = form.username.data
-            email = form.email.data
-            password = form.password.data
+        user = User(username, email, generate_password_hash(password))
+        db.session.add(user)
+        db.session.commit()
 
-            user = User(username, email, generate_password_hash(password))
-            db.session.add(user)
-            db.session.commit()
+        # Automatically login
+        session.clear()
+        session['user_id'] = User.query.filter_by(username=username).first().id
 
-            # Automatically login
-            session.clear()
-            session['user_id'] = User.query.filter_by(username=username).first().id
+        flash('ユーザーを登録しました')
+        return redirect(url_for('index'))
 
-            flash('ユーザーを登録しました')
-            return redirect(url_for('index'))
-
-        else:
-            for field, errors in form.errors.items():
-                for error in errors:
-                    flash(error)
+    else:
+        for field, errors in form.errors.items():
+            for error in errors:
+                flash(error)
 
     return render_template("auth/signup.html", form=form)
 
