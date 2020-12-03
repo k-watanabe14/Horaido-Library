@@ -15,19 +15,14 @@ def signup():
 
     form = SignupForm(request.form)
 
-    if request.method == 'POST' and form.validate_on_submit():
+    if request.method == 'POST':
 
-        username = form.username.data
-        email = form.email.data
-        password = form.password.data
-        error = None
+        if form.validate_on_submit():
 
-        if User.query.filter_by(username=username).count() != 0:
-            error = 'ユーザー名「 {} 」はすでに使用されています。'.format(username)
-        elif User.query.filter_by(email=email).count() != 0:
-            error = 'メールアドレス「 {} 」はすでに登録されています'.format(email)
+            username = form.username.data
+            email = form.email.data
+            password = form.password.data
 
-        if error is None:
             user = User(username, email, generate_password_hash(password))
             db.session.add(user)
             db.session.commit()
@@ -39,7 +34,10 @@ def signup():
             flash('ユーザーを登録しました')
             return redirect(url_for('index'))
 
-        flash(error)
+        else:
+            for field, errors in form.errors.items():
+                for error in errors:
+                    flash(error)
 
     return render_template("auth/signup.html", form=form)
 

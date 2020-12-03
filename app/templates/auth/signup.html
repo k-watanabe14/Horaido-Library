@@ -14,18 +14,11 @@
       <form method="post" class="signup">
         {{ form.hidden_tag() }}
         <p class="title">新規登録</p>
-        {% if form.email.errors %}
-          <ul class=errors>
-          {% for error in form.email.errors %}
-            <li>{{ error }}</li>
-          {% endfor %}
-          </ul>
-        {% endif %}
-        {{ form.username(placeholder="ユーザー名") }} 
+        {{ form.username(placeholder="ユーザー名", autofocus=true) }} 
         <i class="fa fa-user"></i>
         {{ form.email(placeholder="メールアドレス") }}
         <i class="far fa-envelope"></i>
-        {{ form.password(placeholder="パスワード") }}
+        {{ form.password(placeholder="パスワード（8~15文字）") }}
         <i class="fa fa-key"></i>
         {{ form.submit(class="button") }}  
       </form>

@@ -70,9 +70,11 @@
   <div id="site-contents" class="site-contents">
     <div class="stacked-section">
     
-      {% for message in get_flashed_messages() %}
-      <div class="flash">{{ message }}</div>
-      {% endfor %}
+      <div class="flash_section">
+        {% for message in get_flashed_messages() %}
+          <div class="flash">{{ message }}</div>
+        {% endfor %}
+      </div>
     
       {% block content %}
     
