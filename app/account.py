@@ -20,13 +20,18 @@ def index():
 @mod_account.route('/password_reset/', methods=('GET', 'POST'))
 def password_reset():
 
-    form = RequestResetForm()  
+    form = RequestResetForm()
 
-    if form.validate_on_submit():  
+    if form.validate_on_submit():
         user = User.query.filter_by(email=form.email.data).first()  
         send_reset_email(user)  
         flash('パスワード再設定のメールを送りました。')  
         return redirect(url_for('auth.login'))
+
+    else:
+        for field, errors in form.errors.items():
+            for error in errors:
+                flash(error)
 
     return render_template('account/password_reset.html', form=form)  
   

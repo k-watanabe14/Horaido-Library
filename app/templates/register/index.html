@@ -9,8 +9,8 @@
 {% endblock %}
 
 {% block content %}
-  <ul>
-    <li><a class="action" href="{{ url_for('register.isbn') }}">ISBN Auto</a>
-    <li><a class="action" href="{{ url_for('register.manual') }}">Manual</a>
-  </ul>
+  <div class="register-page">
+    <a class="btn isbn" href="{{ url_for('register.isbn') }}">ISBNコードで検索する</a>
+    <a class="btn manual" href="{{ url_for('register.manual') }}">手動で登録する</a>
+  </div>
 {% endblock %}

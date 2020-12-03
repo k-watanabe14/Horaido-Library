@@ -26,7 +26,8 @@ def isbn():
     if isbn is not None:
         url = 'https://app.rakuten.co.jp/services/api/BooksBook/Search/20170404?applicationId=1053085901834686387&isbn=' + isbn
         response = requests.get(url)
-        book_data = response.json()['Items'][0]['Item']
+        if response.json()['Items']:
+            book_data = response.json()['Items'][0]['Item']
 
     if request.method == 'POST' and book_data is None:
         isbn = request.form['isbn']
