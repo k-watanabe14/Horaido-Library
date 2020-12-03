@@ -544,7 +544,7 @@ textarea {
 	color: #fff;
 	display: block;
 	border: none;
-	margin-top: 20px;
+	margin: 20px 0 0;
 	position: absolute;
 	left: 0;
 	bottom: 0;
@@ -1051,8 +1051,12 @@ Contents
     display: block;
 }
 
+.flash_section {
+	margin: 0 auto 40px; 
+}
+
 .flash { 
-    margin: 0 auto 40px; 
+    margin: 5px auto; 
     padding: 16px; 
     background: #cae6f6; 
 	border: 1px solid #377ba8;
