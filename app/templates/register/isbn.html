@@ -11,11 +11,12 @@
 {% block content %}
 
   {% if isbn is none %}
-  <form method="post">
-    <label for="isbn">isbn</label>
-    <input name="isbn" id="isbn" value="{{ request.form['isbn'] }}" required>
-    <input type="submit" value="書籍情報を検索する">
-  </form>
+  <div class="isbn-wrapper">
+    <form method="post" class="isbn-form">
+      <input name="isbn" class="isbn-box" value="{{ request.form['isbn'] }}" placeholder="ISBNを入力してください。" required>
+      <button class="isbn-btn" type="submit"><i class="fas fa-search"></i></button>
+    </form>
+  </div>
 
   {% elif book_data is none %}
 
