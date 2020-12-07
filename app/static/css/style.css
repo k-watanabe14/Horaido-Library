@@ -881,6 +881,59 @@ textarea {
 	padding: 0;
 }
 
+/*-----------------ISBN Search Form-----------------*/
+.isbn-wrapper{
+	margin: auto;
+	height: 50px;
+	position: relative;
+	width: 350px;
+}
+
+.isbn-form{
+	position:relative;
+	margin-bottom:20px;
+}
+
+.isbn-box{
+	height:50px;
+	width: 300px;
+	padding:0 20px;
+	position:absolute;
+	left:0;
+	top:0;
+	border-radius:5px;
+	outline:0;
+	background:#eee;
+	border: none;
+}
+	
+.isbn-btn{
+	height:50px;
+	width:50px;
+	position:absolute;
+	left: calc(100% - 50px);
+	top:0;
+	background:#FFC605;
+	color:#fff;
+	border:none;
+	border-radius:0 5px 5px 0;
+}
+	
+.isbn-btn .fa-search{
+	font-size:20px;
+	position:absolute;
+	top:30%;
+	left:30%;
+}
+	
+.isbn-btn:before {
+	font-family: FontAwesome;
+}
+	
+.isbn-btn:hover{
+	color:#888;
+}
+
 /*--------------------------------------------------------------
 Header
 --------------------------------------------------------------*/
@@ -1186,7 +1239,7 @@ Contents
 	display: inline-block;
 	color: #FFF;
 	width: 200px;
-	margin: 1em;
+	margin-bottom: 5em;
 	padding: 0.8em;
 	text-decoration: none;
 	text-align: center;
