@@ -221,20 +221,37 @@ figure {
 }
 
 table {
-	margin: 0 0 15px;
+	text-align: center;
 	width: 100%;
+	max-width: 800px;
 	border-collapse: collapse;
+	border: 0;
+	border-spacing: 0;
+	font-size: 14px;
+	margin: 15px auto;
 }
 
 th {
 	font-weight: bold;
 	border: 1px solid #cccccc;
-	padding: 5px 10px;
+	padding: 10px;
+	margin: 0;
 }
 
 td {
 	border: 1px solid #cccccc;
-	padding: 5px 10px;
+	padding: 10px;
+	margin: 0;
+}
+
+table thead {
+	background-color: #bbb;
+	color: #fff;
+	font-weight: 800;
+}
+
+table tbody tr td {
+	border-bottom: 1px solid #eee;
 }
 
 p {

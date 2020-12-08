@@ -43,7 +43,7 @@ def index():
 
     new_books = db.session.query(Book, User).outerjoin(User, Book.borrower_id == User.id).order_by(Book.id.desc()).limit(10)
 
-    rental_books = db.session.query(Book, User).outerjoin(History, Book.id == History.book_id).join(User, Book.borrower_id == User.id).order_by(History.id.desc()).limit(10)
+    rental_books = db.session.query(Book, User).join(History, Book.id == History.book_id).outerjoin(User, Book.borrower_id == User.id).order_by(History.id.desc()).limit(10)
 
     print(rental_books)
 
