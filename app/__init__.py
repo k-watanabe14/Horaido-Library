@@ -41,9 +41,11 @@ def not_found(error):
 @login_required
 def index():
 
-    new_books = db.session.query(Book).order_by(Book.id.desc()).limit(10)
+    new_books = db.session.query(Book, User).outerjoin(User, Book.borrower_id == User.id).order_by(Book.id.desc()).limit(10)
 
-    rental_books = db.session.query(Book).join(History, Book.id == History.book_id).order_by(History.id.desc()).limit(10)
+    rental_books = db.session.query(Book, User).outerjoin(History, Book.id == History.book_id).join(User, Book.borrower_id == User.id).order_by(History.id.desc()).limit(10)
+
+    print(rental_books)
 
     if request.method == 'POST':
         keyword = request.form['keyword']
