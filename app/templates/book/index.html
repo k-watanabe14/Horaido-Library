@@ -25,20 +25,28 @@
   <h3>貸し出し履歴</h3>
 
   <div class="history-list">
-    {% for history in histories %}
-      <div class="hisotry-container">
-        <div class="hisotry-user_name">
-          <p class="user_name">{{ history['user_name'] }}</p>
-        </div>
-        <div class="history_checkout_date">
-          <p class="checkout_date">{{ history['checkout_date'] }}</p>
-        </div>
-        <div class="history_return_date">
-          <p class="return_date">{{ history['return_date'] }}</p>
-        </div>
-        </div>
-      </div>
-    {% endfor %}
+    <table>
+      <thead>
+        <tr>
+          <td>借りた人</td>
+          <td>貸出日</td>
+          <td>返却日</td>
+        </tr>
+      </thead>
+      {% for history in histories %}
+        <tbody>
+          <tr> 
+            <td><p class="user_name">{{ history[1]['username'] }}</p></td>
+            <td><p class="checkout_date">{{ history[0]['checkout_date'] }}</p></td>
+            {% if history[0]['return_date'] is none %}
+              <td><p class="return_date">未返却</p></td>
+            {% else %}
+              <td><p class="return_date">{{ history[0]['return_date'] }}</p></td>
+            {% endif %}
+          </tr>
+        </tbody>
+      {% endfor %}
+    </table>
   </div>
 </div>
 
