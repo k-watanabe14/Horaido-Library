@@ -223,35 +223,7 @@ figure {
 table {
 	text-align: center;
 	width: 100%;
-	max-width: 800px;
-	border-collapse: collapse;
-	border: 0;
-	border-spacing: 0;
 	font-size: 14px;
-	margin: 15px auto;
-}
-
-th {
-	font-weight: bold;
-	border: 1px solid #cccccc;
-	padding: 10px;
-	margin: 0;
-}
-
-td {
-	border: 1px solid #cccccc;
-	padding: 10px;
-	margin: 0;
-}
-
-table thead {
-	background-color: #bbb;
-	color: #fff;
-	font-weight: 800;
-}
-
-table tbody tr td {
-	border-bottom: 1px solid #eee;
 }
 
 p {
@@ -1278,4 +1250,45 @@ Contents
 
 .register-page .manual{
 	background-color: #666666;
+}
+
+/*-----------------Rental History-----------------*/
+.history-list {
+	margin: 20px auto;
+}
+
+.history-list h3{
+	text-align: center;
+	margin: auto;
+}
+
+.history-list table {
+	max-width: 800px;
+	border-collapse: collapse;
+	border: 0;
+	border-spacing: 0;
+	margin: 15px auto;
+}
+
+.history-list td {
+	border: 0;
+	margin: 0;
+}
+
+.history-list table thead {
+	background-color: #5aa533;
+	color: #fff;
+	font-weight: 800;
+}
+
+.history-list table thead tr td {
+	padding: 10px 0;
+}
+
+.history-list table tbody {
+	border-bottom: 2px solid #5aa53382;
+}
+
+.history-list table tbody tr td {
+	padding: 20px 0;
 }

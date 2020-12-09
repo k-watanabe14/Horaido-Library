@@ -21,33 +21,31 @@
   <li><a class="action" href="{{ url_for('book.return_', book_id = book['id']) }}">この本を返す</a>
 </ul>
 
-<div>
+<div class="history-list">
   <h3>貸し出し履歴</h3>
 
-  <div class="history-list">
-    <table>
-      <thead>
-        <tr>
-          <td>借りた人</td>
-          <td>貸出日</td>
-          <td>返却日</td>
+  <table>
+    <thead>
+      <tr>
+        <td>借りた人</td>
+        <td>貸出日</td>
+        <td>返却日</td>
+      </tr>
+    </thead>
+    {% for history in histories %}
+      <tbody>
+        <tr> 
+          <td><span class="user_name">{{ history[1]['username'] }}</span></td>
+          <td><span class="checkout_date">{{ history[0]['checkout_date'] }}</span></td>
+          {% if history[0]['return_date'] is none %}
+            <td><span class="return_date">未返却</span></td>
+          {% else %}
+            <td><span class="return_date">{{ history[0]['return_date'] }}</span></td>
+          {% endif %}
         </tr>
-      </thead>
-      {% for history in histories %}
-        <tbody>
-          <tr> 
-            <td><p class="user_name">{{ history[1]['username'] }}</p></td>
-            <td><p class="checkout_date">{{ history[0]['checkout_date'] }}</p></td>
-            {% if history[0]['return_date'] is none %}
-              <td><p class="return_date">未返却</p></td>
-            {% else %}
-              <td><p class="return_date">{{ history[0]['return_date'] }}</p></td>
-            {% endif %}
-          </tr>
-        </tbody>
-      {% endfor %}
-    </table>
-  </div>
+      </tbody>
+    {% endfor %}
+  </table>
 </div>
 
 {% endblock %}
