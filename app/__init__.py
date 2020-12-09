@@ -45,8 +45,6 @@ def index():
 
     rental_books = db.session.query(Book, User).join(History, Book.id == History.book_id).outerjoin(User, Book.borrower_id == User.id).order_by(History.id.desc()).limit(10)
 
-    print(rental_books)
-
     if request.method == 'POST':
         keyword = request.form['keyword']
         error = None
