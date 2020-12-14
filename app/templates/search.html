@@ -65,29 +65,29 @@
 
       {% else %}
         <div class="book-list">
-          {% for book in results.items %}
+          {% for result in results.items %}
             <div class="book-container">
               <div class="book-image">
-                <img alt="{{ book['title'] }}" id="image" src="{{ book['image_url'] }}">
+                <img alt="{{ result[0]['title'] }}" id="image" src="{{ result[0]['image_url'] }}">
               </div>
               <div class="book-info">
                 <div class="book-title">
-                  <a href="{{ url_for('book.index', book_id = book['id']) }}">{{ book['title'] }}</a>
+                  <a href="{{ url_for('book.index', book_id = result[0]['id']) }}">{{ result[0]['title'] }}</a>
                 </div>
                 <div class="book-author">
-                  <p class="author">{{ book['author'] }}</p>
+                  <p class="author">{{ result[0]['author'] }}</p>
                 </div>
               </div>
               <div class="book-category">
                 <p class="category">小説</p>
               </div>
               <div class="book-status">
-                {% if book['borrower_id'] is none %}
-                  <div class="available"><a href="{{ url_for('book.borrow', book_id = book['id']) }}">この本を借りる</a></div>
-                {% elif book['borrower_id'] == g.user['id'] %}
-                  <div class="self"><a href="{{ url_for('book.return_', book_id = book['id']) }}">この本を返す</a></div>
+                {% if result[0]['borrower_id'] is none %}
+                  <div class="available"><a href="{{ url_for('book.borrow', book_id = result[0]['id']) }}">この本を借りる</a></div>
+                {% elif result[0]['borrower_id'] == g.user['id'] %}
+                  <div class="self"><a href="{{ url_for('book.return_', book_id = result[0]['id']) }}">この本を返す</a></div>
                 {% else %}
-                  <div class="others">{{ book['borrower_name'] }}さんが<br>{{ book['checkout_date'] }}に借りました。</div>
+                  <div class="others">{{ result[1]['username'] }}さんが<br>{{ result[0]['checkout_date'] }}に借りました。</div>
                 {% endif %}
               </div>
             </div>

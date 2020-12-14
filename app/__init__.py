@@ -70,9 +70,7 @@ def search():
     search_genre = "%{}%".format(genre)
 
     # Search books contained keyword in title, author, publisher name.
-    keyword_condition = or_((Book.title.like(search_keyword)), ((Book.author.like(search_keyword))), (Book.publisher_name.like(search_keyword)))
-
-    # Book status
+    keywords= or_((Book.title.like(search_keyword)), ((Book.author.like(search_keyword))), (Book.publisher_name.like(search_keyword)))
 
     # For pagination
     page = request.args.get('page', 1, type = int)  
@@ -80,11 +78,11 @@ def search():
     # "results" are collections of books.
     # Display 20 results per a page.
     if status == "loaned-out":
-        results = Book.query.filter(keyword_condition, Book.borrower_id != None).paginate(page = page, per_page = 20)
+        results = db.session.query(Book, User).outerjoin(User, Book.borrower_id == User.id).filter(keywords, Book.borrower_id != None).paginate(page = page, per_page = 20)
     elif status == 'available':
-        results = Book.query.filter(keyword_condition, Book.borrower_id == None).paginate(page = page, per_page = 20)
+        results = db.session.query(Book, User).outerjoin(User, Book.borrower_id == User.id).filter(keywords, Book.borrower_id == None).paginate(page = page, per_page = 20)
     else:
-        results = Book.query.filter(keyword_condition).paginate(page = page, per_page = 20)
+        results = db.session.query(Book, User).outerjoin(User, Book.borrower_id == User.id).filter(keywords).paginate(page = page, per_page = 20)
 
     if request.method == 'POST':
         keyword = request.form['keyword']
