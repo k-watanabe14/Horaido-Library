@@ -10,12 +10,13 @@
 
 {% block content %}
   <div class="stacked-section-child">
-    <div class="login-wrapper">
+    <div class="form-wrapper">
       <form method="post" class="login">
+        {{ form.hidden_tag() }}
         <p class="title">ログイン</p>
-        <input type="text" name="username" id="username" placeholder="ユーザー名" autofocus required/>
+        {{ form.username(placeholder="ユーザー名", autofocus=true) }} 
         <i class="fa fa-user"></i>
-        <input type="password" name="password" is="password" placeholder="パスワード" required/>
+        {{ form.password(placeholder="パスワード") }}
         <i class="fa fa-key"></i>
         <div class="forget-password">
           <a href="{{ url_for('account.password_reset') }}">パスワードを忘れた場合はこちら</a>
@@ -23,9 +24,7 @@
         <div class="signup-case">
           <a href="{{ url_for('auth.signup') }}">新規登録はこちら</a>
         </div>
-        <button>
-          <span class="state">ログイン</span>
-        </button>
+        {{ form.submit(class="button") }}  
       </form>
     </div>
   </div>

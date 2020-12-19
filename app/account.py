@@ -54,6 +54,11 @@ def new_password(token):
         flash('パスワードを再設定しました。', 'success')  
 
         return redirect(url_for('auth.login'))  
+
+    else:
+        for field, errors in form.errors.items():
+            for error in errors:
+                flash(error)
     
     return render_template('account/new_password.html', form=form)
 

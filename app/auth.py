@@ -3,7 +3,7 @@ from flask import Blueprint, request, render_template, flash, session, redirect,
 from werkzeug.security import check_password_hash, generate_password_hash
 from app.models import User
 from app import db, mail
-from app.forms import SignupForm 
+from app.forms import SignupForm, LoginFrom
 
  
 # Define the blueprint: 'auth', set its url prefix: app.url/auth
@@ -43,26 +43,27 @@ def signup():
 @mod_auth.route('/login/', methods=['GET', 'POST'])
 def login():
 
-    if request.method == 'POST':
-        username = request.form['username']
-        password = request.form['password']
-        error = None
+    form = LoginFrom()
 
+    username = form.username.data
+    password = form.password.data
+
+    if form.validate_on_submit():
         user = User.query.filter_by(username=username).first()
+        if not user or not check_password_hash(user.password, password):
+            flash('ユーザー名もしくはパスワードが間違っています。')
 
-        if user is None:
-            error = 'ユーザー名もしくはパスワードが間違っています。'
-        elif not check_password_hash(user.password, password):
-            error = 'ユーザー名もしくはパスワードが間違っています。'
-
-        if error is None:
+        else:
             session.clear()
             session['user_id'] = user.id
             return redirect(url_for('index'))
 
-        flash(error)
+    else:
+        for field, errors in form.errors.items():
+            for error in errors:
+                flash(error)
 
-    return render_template('auth/login.html')
+    return render_template('auth/login.html', form=form)
 
 
 @mod_auth.before_app_request
