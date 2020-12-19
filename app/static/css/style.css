@@ -355,12 +355,12 @@ textarea {
 	width: 100%;
 }
 
-/*-----------------Login Form-----------------*/
 * {
 	box-sizing: border-box;
 }
 
-.login-wrapper {
+/*-----------------Form-----------------*/
+.form-wrapper {
 	display: flex;
 	align-items: center;
 	flex-direction: column;
@@ -370,6 +370,7 @@ textarea {
 	padding: 20px;
 }
 
+/*-----------------Login Form-----------------*/
 .login {
 	border-radius: 2px 2px 5px 5px;
 	padding: 10px 20px 20px 20px;
@@ -460,16 +461,6 @@ textarea {
 }
 
 /*-----------------Sign up Form-----------------*/
-.signup-wrapper {
-	display: flex;
-	align-items: center;
-	flex-direction: column;
-	justify-content: center;
-	width: 100%;
-	min-height: 100%;
-	padding: 20px;
-}
-
 .signup {
 	border-radius: 2px 2px 5px 5px;
 	padding: 10px 20px 20px 20px;
@@ -546,16 +537,6 @@ textarea {
 }
 
 /*-----------------Password Reset Form-----------------*/
-.password-reset-wrapper {
-	display: flex;
-	align-items: center;
-	flex-direction: column;
-	justify-content: center;
-	width: 100%;
-	min-height: 100%;
-	padding: 20px;
-}
-
 .password-reset {
 	border-radius: 2px 2px 5px 5px;
 	padding: 10px 20px 20px 20px;

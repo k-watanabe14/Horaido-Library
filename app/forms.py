@@ -2,18 +2,19 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField, BooleanField, TextAreaField  
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError  
 from app.models import User  
+from werkzeug.security import check_password_hash
 
 
 def check_unique_username(form, field):
-    if User.query.filter_by(username=field.data).count() != 0:
+    if User.query.filter_by(username=field.data).first():
         raise ValidationError('ユーザー名「 {} 」はすでに使用されています。'.format(field.data))
 
 def check_unique_email(form, field):
-    if User.query.filter_by(email=field.data).count() != 0:
+    if User.query.filter_by(email=field.data).first():
         raise ValidationError('メールアドレス「 {} 」はすでに登録されています。'.format(field.data))
 
 def exists_email(form, field):
-    if User.query.filter_by(email=field.data).count() == 0:
+    if not User.query.filter_by(email=field.data).first():
         raise ValidationError('メールアドレスが間違っています。正しいメールアドレスを入力してください。')
 
 
@@ -24,6 +25,12 @@ class SignupForm(FlaskForm):
     submit = SubmitField('登録する')
 
 
+class LoginFrom(FlaskForm):
+    username = StringField('ユーザー名', validators=[DataRequired()])
+    password = PasswordField('パスワード', validators=[DataRequired()])
+    submit = SubmitField('ログインする')
+
+
 class RequestResetForm(FlaskForm):
     email = StringField('メールアドレス', validators=[DataRequired(), exists_email])
     submit = SubmitField('パスワード再設定のメールを送る')
@@ -31,6 +38,6 @@ class RequestResetForm(FlaskForm):
   
 class ResetPasswordForm(FlaskForm):
     password = PasswordField('パスワード', validators=[DataRequired()])
-    confirm_password = PasswordField('確認用', validators=[DataRequired(), EqualTo('password')])
+    confirm_password = PasswordField('パスワード（確認用）', validators=[DataRequired(), EqualTo('password', message="パスワードとパスワード（確認用）に同じパスワードを設定してください。")])
     submit = SubmitField('パスワードを再設定する')
 
