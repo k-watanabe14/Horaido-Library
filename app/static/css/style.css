@@ -360,7 +360,6 @@ textarea {
 }
 
 /*-----------------Login/Sinup Form-----------------*/
-
 .form-wrapper {
 	display: flex;
 	align-items: center;
@@ -459,10 +458,6 @@ textarea {
 	transform: rotateZ(0deg);
 	transition: all 0.1s ease-out;
 	border-bottom-width: 7px;
-}
-
-.password-reset .invalid-feedback {
-	margin: 10px;
 }
 
 /*-----------------Search Bar-----------------*/

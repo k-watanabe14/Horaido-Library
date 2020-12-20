@@ -37,7 +37,7 @@ class RequestResetForm(FlaskForm):
   
   
 class ResetPasswordForm(FlaskForm):
-    password = PasswordField('パスワード', validators=[DataRequired()])
+    password = PasswordField('パスワード', validators=[DataRequired(), Length(min=8, max=15, message='有効なパスワードを入力してください。')])
     confirm_password = PasswordField('パスワード（確認用）', validators=[DataRequired(), EqualTo('password', message="パスワードとパスワード（確認用）に同じパスワードを設定してください。")])
     submit = SubmitField('パスワードを再設定する')
 
