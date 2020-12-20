@@ -221,20 +221,9 @@ figure {
 }
 
 table {
-	margin: 0 0 15px;
+	text-align: center;
 	width: 100%;
-	border-collapse: collapse;
-}
-
-th {
-	font-weight: bold;
-	border: 1px solid #cccccc;
-	padding: 5px 10px;
-}
-
-td {
-	border: 1px solid #cccccc;
-	padding: 5px 10px;
+	font-size: 14px;
 }
 
 p {
@@ -366,12 +355,13 @@ textarea {
 	width: 100%;
 }
 
-/*-----------------Login Form-----------------*/
 * {
 	box-sizing: border-box;
 }
 
-.login-wrapper {
+/*-----------------Login/Sinup Form-----------------*/
+
+.form-wrapper {
 	display: flex;
 	align-items: center;
 	flex-direction: column;
@@ -381,18 +371,31 @@ textarea {
 	padding: 20px;
 }
 
-.login {
+.form-wrapper form {
 	border-radius: 2px 2px 5px 5px;
-	padding: 10px 20px 20px 20px;
+	padding: 10px 20px 80px 20px;
 	width: 500px;
 	height: 400px;
 	background: #fff;
 	position: relative;
-	padding-bottom: 80px;
 	box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.3);
 }
 
-.login input {
+.form-wrapper .title {
+	color: #444;
+	font-size: 18px;
+	font-weight: bold;
+	margin: 10px 0 30px 0;
+	border-bottom: 1px solid #eee;
+	padding-bottom: 20px;
+}
+
+.form-wrapper .message {
+	width: 100%;
+	padding: 15px 20px 35px;
+}
+
+.form-wrapper input {
 	display: block;
 	padding: 15px 10px;
 	margin-bottom: 20px;
@@ -404,7 +407,7 @@ textarea {
 	color: #454545;
 }
 
-.login input + i.fa {
+.form-wrapper input + i.fa {
 	color: #fff;
 	font-size: 16px;
 	position: absolute;
@@ -414,43 +417,31 @@ textarea {
 	transition: all 0.1s ease-in;
 }
 
-.login input:focus {
+.form-wrapper input:focus {
 	outline: none;
 	color: #444;
 	border-color: #2196f3;
 	border-left-width: 35px;
 }
 
-.login input:focus + i.fa {
+.form-wrapper input:focus + i.fa {
 	opacity: 1;
 	left: 30px;
 	transition: all 0.25s ease-out;
 }
 
-.login .forget-password {
-	margin-top: 30px;
+.form-wrapper .text {
+	margin: 0 10px;
+	padding-top: 10px;
 }
 
-.login .signup-case {
-	margin-top: 20px;
-}
-
-.login a {
+.form-wrapper a {
 	font-size: 14px;
 	color: #2196f3;
 	text-decoration: none;
 }
 
-.login .title {
-	color: #444;
-	font-size: 18px;
-	font-weight: bold;
-	margin: 10px 0 30px 0;
-	border-bottom: 1px solid #eee;
-	padding-bottom: 20px;
-}
-
-.login button {
+.form-wrapper .button {
 	width: 100%;
 	height: 100%;
 	padding: 10px 10px;
@@ -458,184 +449,7 @@ textarea {
 	color: #fff;
 	display: block;
 	border: none;
-	margin-top: 20px;
-	position: absolute;
-	left: 0;
-	bottom: 0;
-	max-height: 60px;
-	border: 0px solid rgba(0, 0, 0, 0.1);
-	border-radius: 0 0 2px 2px;
-	transform: rotateZ(0deg);
-	transition: all 0.1s ease-out;
-	border-bottom-width: 7px;
-}
-
-/*-----------------Sign up Form-----------------*/
-.signup-wrapper {
-	display: flex;
-	align-items: center;
-	flex-direction: column;
-	justify-content: center;
-	width: 100%;
-	min-height: 100%;
-	padding: 20px;
-}
-
-.signup {
-	border-radius: 2px 2px 5px 5px;
-	padding: 10px 20px 20px 20px;
-	width: 500px;
-	height: 400px;
-	background: #fff;
-	position: relative;
-	padding-bottom: 80px;
-	box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.3);
-}
-
-.signup input {
-	display: block;
-	padding: 15px 10px;
-	margin-bottom: 20px;
-	width: 100%;
-	height: 55px;
-	border: 1px solid #ddd;
-	transition: border-width 0.2s ease;
-	border-radius: 2px;
-	color: #454545;
-}
-
-.signup input + i.fa, .signup input + i.far {
-	color: #fff;
-	font-size: 16px;
-	position: absolute;
-	margin-top: -55px;
-	opacity: 0;
-	left: 0;
-	transition: all 0.1s ease-in;
-}
-
-.signup input:focus {
-	outline: none;
-	color: #444;
-	border-color: #2196f3;
-	border-left-width: 35px;
-}
-
-.signup input:focus + i.fa, .signup input:focus + i.far {
-	opacity: 1;
-	left: 30px;
-	transition: all 0.25s ease-out;
-}
-
-.signup .title {
-	color: #444;
-	font-size: 18px;
-	font-weight: bold;
-	margin: 10px 0 30px 0;
-	border-bottom: 1px solid #eee;
-	padding-bottom: 20px;
-}
-
-.signup button {
-	width: 100%;
-	height: 100%;
-	padding: 10px 10px;
-	background: #2196f3;
-	color: #fff;
-	display: block;
-	border: none;
-	margin-top: 20px;
-	position: absolute;
-	left: 0;
-	bottom: 0;
-	max-height: 60px;
-	border: 0px solid rgba(0, 0, 0, 0.1);
-	border-radius: 0 0 2px 2px;
-	transform: rotateZ(0deg);
-	transition: all 0.1s ease-out;
-	border-bottom-width: 7px;
-}
-
-/*-----------------Password Reset Form-----------------*/
-.password-reset-wrapper {
-	display: flex;
-	align-items: center;
-	flex-direction: column;
-	justify-content: center;
-	width: 100%;
-	min-height: 100%;
-	padding: 20px;
-}
-
-.password-reset {
-	border-radius: 2px 2px 5px 5px;
-	padding: 10px 20px 20px 20px;
-	width: 500px;
-	background: #fff;
-	position: relative;
-	padding-bottom: 80px;
-	box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.3);
-}
-
-.password-reset .input-email {
-	display: block;
-	padding: 15px 10px;
-	margin-bottom: 20px;
-	width: 100%;
-	height: 55px;
-	border: 1px solid #ddd;
-	transition: border-width 0.2s ease;
-	border-radius: 2px;
-	color: #454545;
-}
-
-.password-reset .input-email + i.fa, .password-reset .input-email + i.far {
-	color: #fff;
-	font-size: 16px;
-	position: absolute;
-	margin-top: -55px;
-	opacity: 0;
-	left: 0;
-	transition: all 0.1s ease-in;
-}
-
-.password-reset .input-email:focus {
-	outline: none;
-	color: #444;
-	border-color: #2196f3;
-	border-left-width: 35px;
-}
-
-.password-reset .input-email:focus + i.fa, .password-reset .input-email:focus + i.far {
-	opacity: 1;
-	left: 30px;
-	transition: all 0.25s ease-out;
-}
-
-.password-reset .title {
-	color: #444;
-	font-size: 18px;
-	font-weight: bold;
-	margin: 10px 0 30px 0;
-	border-bottom: 1px solid #eee;
-	padding-bottom: 20px;
-}
-
-.password-reset .text {
-	width: 100%;
-	margin: 10px auto 20px;
-	padding: 20px;
-}
-
-.password-reset .button {
-	width: 100%;
-	height: 100%;
-	padding: 10px 10px;
-	background: #2196f3;
-	color: #fff;
-	display: block;
-	border: none;
-	margin-top: 20px;
+	margin: 20px 0 0;
 	position: absolute;
 	left: 0;
 	bottom: 0;
@@ -650,7 +464,6 @@ textarea {
 .password-reset .invalid-feedback {
 	margin: 10px;
 }
-
 
 /*-----------------Search Bar-----------------*/
 .search-bar-wrapper {
@@ -881,6 +694,59 @@ textarea {
 	padding: 0;
 }
 
+/*-----------------ISBN Search Form-----------------*/
+.isbn-wrapper{
+	margin: auto;
+	height: 50px;
+	position: relative;
+	width: 350px;
+}
+
+.isbn-form{
+	position:relative;
+	margin-bottom:20px;
+}
+
+.isbn-box{
+	height:50px;
+	width: 300px;
+	padding:0 20px;
+	position:absolute;
+	left:0;
+	top:0;
+	border-radius:5px;
+	outline:0;
+	background:#eee;
+	border: none;
+}
+	
+.isbn-btn{
+	height:50px;
+	width:50px;
+	position:absolute;
+	left: calc(100% - 50px);
+	top:0;
+	background:#FFC605;
+	color:#fff;
+	border:none;
+	border-radius:0 5px 5px 0;
+}
+	
+.isbn-btn .fa-search{
+	font-size:20px;
+	position:absolute;
+	top:30%;
+	left:30%;
+}
+	
+.isbn-btn:before {
+	font-family: FontAwesome;
+}
+	
+.isbn-btn:hover{
+	color:#888;
+}
+
 /*--------------------------------------------------------------
 Header
 --------------------------------------------------------------*/
@@ -914,17 +780,21 @@ Header
 .main-logo .logo-text {
     margin-left: 100px;
     margin-right: 20px;
-    padding: 22px 0;
 }
 
 .main-logo .logo-text .site-title {
 	font-size: 22px;
 	font-weight: 500;
-    line-height: 24px;
+	line-height: 70px;
+}
+
+.main-logo .logo-text .site-title:hover {
+    background-color: whitesmoke;
 }
 
 .main-logo .logo-text .site-title a {
-    text-decoration:none;
+	text-decoration:none;
+	padding: 23px;
 }
 
 /*-----------------Account-----------------*/  
@@ -935,17 +805,16 @@ Header
 .account-container ul {
     margin: 0;
     height: 100%;
-    padding: 20px;;
+    padding: 10px;
     text-align: center;
     list-style: none;
 }
 
 .account-container ul li {
-    padding: 5px 10px;
     display: inline-block;
     text-align: center;
     text-decoration: none;
-    font-size: 14px;
+	font-size: 14px;
 }
 
 .account-container ul li a {
@@ -953,7 +822,14 @@ Header
     text-align: center;
     text-decoration: none;
     color: #333333;
-    font-weight: bold;
+	font-weight: bold;
+	border-radius: 1000px;
+	padding: 15px 20px;
+	margin: 0 5px;
+}
+
+.account-container ul li a:hover {
+    background-color: whitesmoke;
 }
 
 .account-container .fa {
@@ -991,7 +867,6 @@ Header
     min-width: 90px;
     width: 20%;
     margin: 2px;
-    padding: 13px 5px;;
     vertical-align: top;
 }
 
@@ -1004,7 +879,8 @@ Header
     text-align: center;
     text-decoration: none;
     color: #555555;
-    font-weight: bold;
+	font-weight: bold;
+	padding: 13px 5px;
 }
 
 .navigation-container a:hover{
@@ -1031,7 +907,8 @@ Contents
 }
 
 .stacked-section {
-    max-width: 1480px;
+	max-width: 1480px;
+	margin: 0 auto;
     padding: 60px 40px;
 }
 
@@ -1040,8 +917,12 @@ Contents
     display: block;
 }
 
+.flash_section {
+	margin: 0 auto 40px; 
+}
+
 .flash { 
-    margin: 0 auto 40px; 
+    margin: 5px auto; 
     padding: 16px; 
     background: #cae6f6; 
 	border: 1px solid #377ba8;
@@ -1157,4 +1038,81 @@ Contents
   
 .pagination a:hover:not(.active) {
 	background-color: #ddd;
+}
+
+/*-----------------Register Page-----------------*/
+.register-page{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+}
+
+.register-page .btn{
+	display: inline-block;
+	color: #FFF;
+	width: 200px;
+	margin-bottom: 5em;
+	padding: 0.8em;
+	text-decoration: none;
+	text-align: center;
+	border-radius: 4px;
+	box-shadow: 0 2px 2px 0 rgba(0,0,0,0.12), 0 1px 5px 0 rgba(0,0,0,0.12), 0 3px 1px -2px rgba(0,0,0,0.2);
+	-webkit-tap-highlight-color: transparent;
+	transition: .3s ease-out;
+}
+
+.register-page .btn:hover{
+	cursor: pointer;
+	text-decoration: none;
+	box-shadow: 0 5px 10px 0 rgba(0,0,0,0.12), 0 3px 20px 0 rgba(0,0,0,0.12), 0 5px 6px -2px rgba(0,0,0,0.2);
+}
+
+.register-page .isbn{
+	background-color: #FFC605;
+}
+
+.register-page .manual{
+	background-color: #666666;
+}
+
+/*-----------------Rental History-----------------*/
+.history-list {
+	margin: 20px auto;
+}
+
+.history-list h3{
+	text-align: center;
+	margin: auto;
+}
+
+.history-list table {
+	max-width: 800px;
+	border-collapse: collapse;
+	border: 0;
+	border-spacing: 0;
+	margin: 15px auto;
+}
+
+.history-list td {
+	border: 0;
+	margin: 0;
+}
+
+.history-list table thead {
+	background-color: #5aa533;
+	color: #fff;
+	font-weight: 800;
+}
+
+.history-list table thead tr td {
+	padding: 10px 0;
+}
+
+.history-list table tbody {
+	border-bottom: 2px solid #5aa53382;
+}
+
+.history-list table tbody tr td {
+	padding: 20px 0;
 }

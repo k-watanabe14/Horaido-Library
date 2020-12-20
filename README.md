@@ -4,17 +4,24 @@ Book Management System for literary salon Horaido
 
 ## Setting for local environment
 
-`pipenv shell`
+1. `pipenv shell`
 
-`export APP_SETTINGS="config.DevelopmentConfig"`
+You have to set up follow environmetal valuables:
 
-`export DATABASE_URL='postgres://username:password@localhost/db_name'`
+- APP_SETTINGS
+- DATABASE_URL
+- MAIL_USERNAME
+- MAIL_PASSWORD
 
-ex.) `export DATABASE_URL='postgres://postgres:123456@localhost/horaido'`
+For example, 
+- APP_SETTINGS = "config.DevelopmentConfig"
+- DATABASE_URL= "postgres://username:password@localhost/dbname"
+- MAIL_USERNAME = "username@gmail.com"
+- MAIL_PASSWORD = "password"
 
-`flask run`
+2. `flask run`
 
-## Todo
+## ToDo
 
 1. Implement filtering search
 1. Modify UI in book detail page and display rental history
