@@ -102,7 +102,7 @@ def search():
 @login_required
 def return_():
     
-    # SELECT *  FROM BOOK JOIN rental_history ON book.id = rental_history.book_id WHERE rental_history.user_id = user_id AND rental_history.return_date is NULL
+    # SELECT *  FROM Book JOIN rental_history ON book.id = rental_history.book_id WHERE rental_history.user_id = user_id AND rental_history.return_date is NULL
     rental_books = db.session.query(Book).join(History, Book.id==History.book_id).filter(History.user_id == session.get('user_id'),  History.return_date == None)
 
     return render_template('return.html', rental_books = rental_books)
