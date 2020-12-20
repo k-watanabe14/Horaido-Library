@@ -11,17 +11,17 @@
 {% block content %}
   <div class="stacked-section-child">
     <div class="form-wrapper">
-      <form method="post" class="login">
+      <form method="post">
         {{ form.hidden_tag() }}
         <p class="title">ログイン</p>
         {{ form.username(placeholder="ユーザー名", autofocus=true) }} 
         <i class="fa fa-user"></i>
         {{ form.password(placeholder="パスワード") }}
         <i class="fa fa-key"></i>
-        <div class="forget-password">
-          <a href="{{ url_for('account.password_reset') }}">パスワードを忘れた場合はこちら</a>
+        <div class="text">
+          <a href="{{ url_for('account.request_reset_password') }}">パスワードを忘れた場合はこちら</a>
         </div>
-        <div class="signup-case">
+        <div class="text">
           <a href="{{ url_for('auth.signup') }}">新規登録はこちら</a>
         </div>
         {{ form.submit(class="button") }}  
