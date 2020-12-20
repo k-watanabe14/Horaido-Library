@@ -10,24 +10,7 @@
 
 {% block content %}
 
-  {% if isbn is none %}
-  <form method="post">
-    <label for="isbn">isbn</label>
-    <input name="isbn" id="isbn" value="{{ request.form['isbn'] }}" required>
-    <input type="submit" value="書籍情報を検索する">
-  </form>
-
-  {% elif book_data is none %}
-
-  該当する書籍が見つかりませんでした。再度ISBNを入力してください。
-
-  <form method="post">
-    <label for="isbn">isbn</label>
-    <input name="isbn" id="isbn" value="{{ request.form['isbn'] }}" required>
-    <input type="submit" value="書籍情報を検索する">
-  </form>
-
-  {% else %}
+  {% if isbn is not none and book_data is not none %}
 
   <div class="book-form">
     <form method="post">
@@ -55,6 +38,14 @@
         </fieldset>
       </div>
       <input type="submit" value="登録する" />
+    </form>
+  </div>
+
+  {% else %}
+  <div class="isbn-wrapper">
+    <form method="post" class="isbn-form">
+      <input name="isbn" class="isbn-box" value="{{ request.form['isbn'] }}" placeholder="ISBNを入力してください。" required>
+      <button class="isbn-btn" type="submit"><i class="fas fa-search"></i></button>
     </form>
   </div>
 

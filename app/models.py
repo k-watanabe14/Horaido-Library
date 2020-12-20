@@ -83,3 +83,27 @@ class History(db.Model):
 
     def __repr__(self):
         return '<Lent %r>' % self.id
+
+
+class TagMaps(db.Model):
+
+    __tablename__ = 'tag_maps'
+
+    id = db.Column(db.Integer, primary_key=True)
+    book_id = db.Column(db.Integer, nullable=False)
+    tag_id = db.Column(db.Integer, nullable=False)
+
+    def __init__(self, book_id, tag_id):
+        self.book_id = book_id
+        self.tag_id = tag_id
+
+
+class Tags(db.Model):
+
+    __tablename__ = 'tags'
+
+    id = db.Column(db.Integer, primary_key=True)
+    tag_name = db.Column(db.String(128), nullable=False)
+
+    def __init__(self, tag_name):
+        self.tag_name = tag_name

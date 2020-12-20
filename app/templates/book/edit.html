@@ -21,9 +21,6 @@
         <label for="isbn">ISBN</label>
         <input type="text" name="isbn" value="{{ book['isbn'] }}" id="isbn" required>
 
-        <label for="c-code">Cコード</label>
-        <input type="text" name="c-code" value="{{ book['c-code'] }}" id="c-code">
-
         <label for="title">タイトル</label>
         <input type="text" name="title" value="{{ book['title'] }}" id="title" required>
     
@@ -49,9 +46,6 @@
           <option value="child">児童</option>
           <option value="magazine">雑誌扱い</option>
         </select>      
-
-        <label for="donor">寄贈者</label>
-        <input type="text" name="donor" value="{{ book['donor'] }}" id="donor">
 
       </fieldset>
     </div>

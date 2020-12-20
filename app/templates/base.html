@@ -56,19 +56,12 @@
 
     <nav class="navigation-header">  
       <div class="navigation-container">
-        {% if g.user %}
-         <ul>
-            <li><a class="action" href="{{ url_for('index') }}">ホーム</a>
-            <li><a class="action" href="{{ url_for('search') }}">本を探す</a>
-            <li><a class="action" href="{{ url_for('register.index') }}">本を登録する</a>
-            <li><a class="action" href="{{ url_for('return_') }}">本を返す</a>
-         </ul>
-        {% else %}
-          <ul>
-            <li><a class="action" href="{{ url_for('search') }}">本を探す</a>
-            <li><a class="action" href="{{ url_for('register.index') }}">本を登録する</a>
-         </ul>
-        {% endif %}
+        <ul>
+          <li><a class="action" href="{{ url_for('index') }}">ホーム</a>
+          <li><a class="action" href="{{ url_for('search') }}">本を探す</a>
+          <li><a class="action" href="{{ url_for('register.index') }}">本を登録する</a>
+          <li><a class="action" href="{{ url_for('return_') }}">本を返す</a>
+        </ul>
       </div>
     </nav>
 
@@ -77,9 +70,11 @@
   <div id="site-contents" class="site-contents">
     <div class="stacked-section">
     
-      {% for message in get_flashed_messages() %}
-      <div class="flash">{{ message }}</div>
-      {% endfor %}
+      <div class="flash_section">
+        {% for message in get_flashed_messages() %}
+          <div class="flash">{{ message }}</div>
+        {% endfor %}
+      </div>
     
       {% block content %}
     

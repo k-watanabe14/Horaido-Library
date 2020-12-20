@@ -11,35 +11,61 @@
 {% block content %}
 
 <div>
-  <h3>{{ book['title'] }}</h3>
-  <p class="author">{{ book['author'] }}</p>
+  <div class="book-form-image">
+    <img alt="{{ book['title'] }}" id="image" src="{{ book['image_url'] }}" width="200" height="200">
+  </div>
+
+  <div>
+      <label for="isbn">ISBN</label>
+      <span name="isbn" id="isbn">{{ book['isbn'] }}</span>
+
+      <label for="title">タイトル</label>
+      <span name="title" id="title">{{ book['title'] }}</span>
+  
+      <label for="author">著者</label>
+      <span name="author" id="author">{{ book['author'] }}</span>
+      
+      <label for="publisher_name">出版社</label>
+      <span name="publisher_name" id="publisher_name">{{ book['publisher_name'] }}</span>
+      
+      <label for="sales_date">出版年月日</label>
+      <span name="sales_date" id="sales_date">{{ book['sales_date'] }}</span>
+
+  </div>
 </div>
 
-<ul>
-  <li><a class="action" href="{{ url_for('book.edit', book_id = book['id']) }}">編集する</a>
-  <li><a class="action" href="{{ url_for('book.borrow', book_id = book['id']) }}">この本を借りる</a>
-  <li><a class="action" href="{{ url_for('book.return_', book_id = book['id']) }}">この本を返す</a>
-</ul>
+  {% if book['borrower_id'] is none %}
+    <a class="action" href="{{ url_for('book.borrow', book_id = book['id']) }}">この本を借りる</a>
+  {% elif book['borrower_id'] == g.user['id'] %}
+    <a class="action" href="{{ url_for('book.return_', book_id = book['id']) }}">この本を返す</a>
+  {% endif %}
+    <a class="action" href="{{ url_for('book.edit', book_id = book['id']) }}">編集する</a>
 
-<div>
+<div class="history-list">
   <h3>貸し出し履歴</h3>
 
-  <div class="history-list">
+  <table>
+    <thead>
+      <tr>
+        <td>借りた人</td>
+        <td>貸出日</td>
+        <td>返却日</td>
+      </tr>
+    </thead>
     {% for history in histories %}
-      <div class="hisotry-container">
-        <div class="hisotry-user_name">
-          <p class="user_name">{{ history['user_name'] }}</p>
-        </div>
-        <div class="history_checkout_date">
-          <p class="checkout_date">{{ history['checkout_date'] }}</p>
-        </div>
-        <div class="history_return_date">
-          <p class="return_date">{{ history['return_date'] }}</p>
-        </div>
-        </div>
-      </div>
+      <tbody>
+        <tr> 
+          <td><span class="user_name">{{ history[1]['username'] }}</span></td>
+          <td><span class="checkout_date">{{ history[0]['checkout_date'] }}</span></td>
+          {% if history[0]['return_date'] is none %}
+            <td><span class="return_date">未返却</span></td>
+          {% else %}
+            <td><span class="return_date">{{ history[0]['return_date'] }}</span></td>
+          {% endif %}
+        </tr>
+      </tbody>
     {% endfor %}
-  </div>
+  </table>
 </div>
 
 {% endblock %}

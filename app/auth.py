@@ -3,7 +3,7 @@ from flask import Blueprint, request, render_template, flash, session, redirect,
 from werkzeug.security import check_password_hash, generate_password_hash
 from app.models import User
 from app import db, mail
-from app.forms import SignupForm 
+from app.forms import SignupForm, LoginFrom
 
  
 # Define the blueprint: 'auth', set its url prefix: app.url/auth
@@ -13,33 +13,29 @@ mod_auth = Blueprint('auth', __name__, url_prefix='/')
 @mod_auth.route('/signup/', methods=['GET', 'POST'])
 def signup():
 
-    form = SignupForm()  
+    form = SignupForm()
 
-    if request.method == 'POST':
+    if form.validate_on_submit():
 
         username = form.username.data
         email = form.email.data
         password = form.password.data
-        error = None
 
-        if User.query.filter_by(username=username).count() != 0:
-            error = 'User {} is already registered.'.format(username)
-        elif User.query.filter_by(email=email).count() != 0:
-            error = 'Email {} is already registered.'.format(email)
+        user = User(username, email, generate_password_hash(password))
+        db.session.add(user)
+        db.session.commit()
 
-        if error is None:
-            user = User(username, email, generate_password_hash(password))
-            db.session.add(user)
-            db.session.commit()
+        # Automatically login
+        session.clear()
+        session['user_id'] = User.query.filter_by(username=username).first().id
 
-            # Automatically login
-            session.clear()
-            session['user_id'] = User.query.filter_by(username=username).first().id
+        flash('ユーザーを登録しました')
+        return redirect(url_for('index'))
 
-            flash('ユーザーを登録しました')
-            return redirect(url_for('index'))
-
-        flash(error)
+    else:
+        for field, errors in form.errors.items():
+            for error in errors:
+                flash(error)
 
     return render_template("auth/signup.html", form=form)
 
@@ -47,26 +43,27 @@ def signup():
 @mod_auth.route('/login/', methods=['GET', 'POST'])
 def login():
 
-    if request.method == 'POST':
-        username = request.form['username']
-        password = request.form['password']
-        error = None
+    form = LoginFrom()
 
+    username = form.username.data
+    password = form.password.data
+
+    if form.validate_on_submit():
         user = User.query.filter_by(username=username).first()
+        if not user or not check_password_hash(user.password, password):
+            flash('ユーザー名もしくはパスワードが間違っています。')
 
-        if user is None:
-            error = 'ユーザ名もしくはパスワードが間違っています。'
-        elif not check_password_hash(user.password, password):
-            error = 'Incorrect password.'
-
-        if error is None:
+        else:
             session.clear()
             session['user_id'] = user.id
             return redirect(url_for('index'))
 
-        flash(error)
+    else:
+        for field, errors in form.errors.items():
+            for error in errors:
+                flash(error)
 
-    return render_template('auth/login.html')
+    return render_template('auth/login.html', form=form)
 
 
 @mod_auth.before_app_request

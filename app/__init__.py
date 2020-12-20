@@ -1,5 +1,5 @@
 import os
-from flask import Flask, request, render_template, session, redirect, url_for
+from flask import Flask, request, render_template, session, redirect, url_for, flash
 from flask_sqlalchemy import SQLAlchemy
 from flask_mail import Mail
 from sqlalchemy import or_
@@ -41,9 +41,9 @@ def not_found(error):
 @login_required
 def index():
 
-    new_books = db.session.query(Book).order_by(Book.id.desc()).limit(10)
+    new_books = db.session.query(Book, User).outerjoin(User, Book.borrower_id == User.id).order_by(Book.id.desc()).limit(10)
 
-    rental_books = db.session.query(Book).join(History, Book.id == History.book_id).order_by(History.id.desc()).limit(10)
+    rental_books = db.session.query(Book, User).join(History, Book.id == History.book_id).outerjoin(User, Book.borrower_id == User.id).order_by(History.id.desc()).limit(10)
 
     if request.method == 'POST':
         keyword = request.form['keyword']
@@ -58,6 +58,7 @@ def index():
 
 
 @app.route('/search', methods = ('GET', 'POST'))
+@login_required
 def search():
     
     keyword = request.args.get('keyword')
@@ -69,11 +70,7 @@ def search():
     search_genre = "%{}%".format(genre)
 
     # Search books contained keyword in title, author, publisher name.
-    keyword_condition = or_((Book.title.like(search_keyword)), ((Book.author.like(search_keyword))), (Book.publisher_name.like(search_keyword)))
-
-    # Book status
-
-    # Book genre
+    keywords= or_((Book.title.like(search_keyword)), ((Book.author.like(search_keyword))), (Book.publisher_name.like(search_keyword)))
 
     # For pagination
     page = request.args.get('page', 1, type = int)  
@@ -81,11 +78,11 @@ def search():
     # "results" are collections of books.
     # Display 20 results per a page.
     if status == "loaned-out":
-        results = Book.query.filter(keyword_condition, Book.borrower_id != None).paginate(page = page, per_page = 20)
+        results = db.session.query(Book, User).outerjoin(User, Book.borrower_id == User.id).filter(keywords, Book.borrower_id != None).paginate(page = page, per_page = 20)
     elif status == 'available':
-        results = Book.query.filter(keyword_condition, Book.borrower_id == None).paginate(page = page, per_page = 20)
+        results = db.session.query(Book, User).outerjoin(User, Book.borrower_id == User.id).filter(keywords, Book.borrower_id == None).paginate(page = page, per_page = 20)
     else:
-        results = Book.query.filter(keyword_condition).paginate(page = page, per_page = 20)
+        results = db.session.query(Book, User).outerjoin(User, Book.borrower_id == User.id).filter(keywords).paginate(page = page, per_page = 20)
 
     if request.method == 'POST':
         keyword = request.form['keyword']
