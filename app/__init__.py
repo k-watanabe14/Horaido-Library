@@ -63,11 +63,9 @@ def search():
     
     keyword = request.args.get('keyword')
     status = request.args.get('status')
-    genre = request.args.get('genre')
 
     search_keyword = "%{}%".format(keyword)
     search_status = "%{}%".format(status)
-    search_genre = "%{}%".format(genre)
 
     # Search books contained keyword in title, author, publisher name.
     keywords= or_((Book.title.like(search_keyword)), ((Book.author.like(search_keyword))), (Book.publisher_name.like(search_keyword)))
@@ -87,15 +85,9 @@ def search():
     if request.method == 'POST':
         keyword = request.form['keyword']
         status = request.form.get('status')
-        genre = request.form.get('genre')
-        error = None
+        return redirect(url_for('search', keyword = keyword, status = status))
 
-        if error is not None:
-            flash(error)
-        else:
-            return redirect(url_for('search', keyword = keyword, status = status, genre = genre))
-
-    return render_template('search.html', results = results, keyword = keyword, status = status, genre = genre)
+    return render_template('search.html', results = results, keyword = keyword, status = status)
 
 
 @app.route('/return')
