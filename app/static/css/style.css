@@ -841,7 +841,8 @@ Header
 /*-----------------Navigation Header-----------------*/
 .navigation-header {
     height: 50px;
-    box-shadow: 0 2px 2px rgba(0, 0, 0, 0.3);
+	box-shadow: 0 2px 2px rgba(0, 0, 0, 0.3);
+	background-color: lightgray;
 }
 
 .navigation-container {
@@ -866,20 +867,16 @@ Header
 }
 
 .navigation-container ul li:hover {
-    background-color: whitesmoke;
+	background-color: #bbbbbb;
 }
 
 .navigation-container ul li a {
     display: block;
     text-align: center;
     text-decoration: none;
-    color: #555555;
+    color: #454545;
 	font-weight: bold;
 	padding: 13px 5px;
-}
-
-.navigation-container a:hover{
-    color: #555555;;
 }
 
 /*--------------------------------------------------------------
@@ -1108,7 +1105,7 @@ Contents
 }
 
 .history-list table {
-	max-width: 800px;
+	max-width: 960px;
 	border-collapse: collapse;
 	border: 0;
 	border-spacing: 0;
@@ -1121,17 +1118,18 @@ Contents
 }
 
 .history-list table thead {
-	background-color: #5aa533;
+	background-color: #123456;
 	color: #fff;
 	font-weight: 800;
 }
 
 .history-list table thead tr td {
 	padding: 10px 0;
+	width: 33.3%;
 }
 
 .history-list table tbody {
-	border-bottom: 2px solid #5aa53382;
+	border-bottom: 2px solid #123456;
 }
 
 .history-list table tbody tr td {

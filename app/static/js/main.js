@@ -10,7 +10,7 @@ $('#book_image').on('change', function (e) {
 // Footer Fixed
 new function(){
 	
-	var footerId = "footer";
+	var footerId = "site-footer";
 	function footerFixed(){
 		var dh = document.getElementsByTagName("body")[0].clientHeight;
 		document.getElementById(footerId).style.top = "0px";
