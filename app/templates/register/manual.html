@@ -1,15 +1,12 @@
 {% extends 'base.html' %}
 
-{% block title %}
-  手動で登録する
-{% endblock %}
+{% block title %}手動で登録する{% endblock %}
 
 {% block content %}
     
   <div class="book-form">
     <form action="/register/manual" method="post" enctype="multipart/form-data">
-      <div class="book-form-image">
-        画像ファイル<input type="file" name="book_image" id="book_image">
+      <div class="book-form-image">画像ファイル<input type="file" name="book_image" id="book_image">
         <img id="preview">
       </div>
 

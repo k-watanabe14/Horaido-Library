@@ -1,12 +1,10 @@
 {% extends 'base.html' %}
 
-{% block title %}
-  本の詳細 "{{ book.title }}"
-{% endblock %}
+{% block title %}本の詳細 "{{ book.title }}"{% endblock %}
 
 {% block content %}
 
-<div>
+<div class="stacked-section-child">
   <div class="book-form-image">
     <img alt="{{ book['title'] }}" id="image" src="{{ book['image_url'] }}" width="200" height="200">
   </div>
@@ -37,31 +35,35 @@
   {% endif %}
     <a class="action" href="{{ url_for('book.edit', book_id = book['id']) }}">編集する</a>
 
-<div class="history-list">
-  <h3>貸し出し履歴</h3>
+<div class="stacked-section-child">
+  <div class="content-heading">
+    <h4 class="section-title">貸し出し履歴</h4>
+  </div>
 
-  <table>
-    <thead>
-      <tr>
-        <td>借りた人</td>
-        <td>貸出日</td>
-        <td>返却日</td>
-      </tr>
-    </thead>
-    {% for history in histories %}
-      <tbody>
-        <tr> 
-          <td><span class="user_name">{{ history[1]['username'] }}</span></td>
-          <td><span class="checkout_date">{{ history[0]['checkout_date'] }}</span></td>
-          {% if history[0]['return_date'] is none %}
-            <td><span class="return_date">未返却</span></td>
-          {% else %}
-            <td><span class="return_date">{{ history[0]['return_date'] }}</span></td>
-          {% endif %}
+  <div class="history-list">
+    <table>
+      <thead>
+        <tr>
+          <td>借りた人</td>
+          <td>貸出日</td>
+          <td>返却日</td>
         </tr>
-      </tbody>
-    {% endfor %}
-  </table>
+      </thead>
+      {% for history in histories %}
+        <tbody>
+          <tr> 
+            <td><span class="user_name">{{ history[1]['username'] }}</span></td>
+            <td><span class="checkout_date">{{ history[0]['checkout_date'] }}</span></td>
+            {% if history[0]['return_date'] is none %}
+              <td><span class="return_date">未返却</span></td>
+            {% else %}
+              <td><span class="return_date">{{ history[0]['return_date'] }}</span></td>
+            {% endif %}
+          </tr>
+        </tbody>
+      {% endfor %}
+    </table>
+  </div>
 </div>
 
 {% endblock %}
