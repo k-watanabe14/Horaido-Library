@@ -394,6 +394,10 @@ textarea {
 	padding: 15px 20px 35px;
 }
 
+.form-wrapper .message p {
+	margin: 0;
+}
+
 .form-wrapper input {
 	display: block;
 	padding: 15px 10px;
@@ -1099,11 +1103,6 @@ Contents
 /*-----------------Rental History-----------------*/
 .history-list {
 	margin: 20px auto;
-}
-
-.history-list h3{
-	text-align: center;
-	margin: auto;
 }
 
 .history-list table {

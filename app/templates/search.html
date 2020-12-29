@@ -1,8 +1,6 @@
 {% extends 'base.html' %}
 
-{% block title %}
-  本を探す
-{% endblock %}
+{% block title %}本を探す{% endblock %}
 
 {% block content %}
 
@@ -32,15 +30,13 @@
   {% if keyword is not none %}
     <div class="stacked-section-child">
       <div class="content-heading">
-        <h4 class="section-title">
-          "{{ keyword }}" の検索結果
-        </h4>
+        <h4 class="section-title">"{{ keyword }}" の検索結果</h4>
       </div>
 
       {% if results.total == 0 %}
       <div class="content-heading">
         <div class="no-result-message">
-          検索結果はありません。
+          <span>検索結果はありません。</span>
         </div>
       </div>
 
