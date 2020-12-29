@@ -50,7 +50,7 @@ def borrow(book_id):
             
             db.session.commit()
 
-            flash(book.title + "を借りました。")
+            flash("「" + book.title + "」を借りました。")
 
             return redirect(url_for('index'))
 
@@ -82,7 +82,7 @@ def return_(book_id):
             
             db.session.commit()
 
-            flash(book.title + "を返しました。")
+            flash("「" + book.title + "」を返しました。")
 
             return redirect(url_for('index'))
 
