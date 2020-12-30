@@ -13,23 +13,31 @@
       </div>
 
       <div class="book-form-text">
-        <fieldset>
+        <div class="item">
           <label for="isbn">ISBN</label>
-          <input name="isbn" value="{{ book_data['isbn'] }}" id="isbn" required>
+          <input type="text" name="isbn" value="{{ book_data['isbn'] }}" id="isbn" required>
+        </div>
 
+        <div class="item">
           <label for="title">タイトル</label>
-          <input name="title" value="{{ book_data['title'] }}" id="title" required>
-      
-          <label for="author">著者</label>
-          <input name="author" value="{{ book_data['author'] }}" id="author">
-          
-          <label for="publisher_name">出版社</label>
-          <input name="publisher_name" value="{{ book_data['publisherName'] }}" id="publisher_name">
-          
-          <label for="sales_date">出版年月日</label>
-          <input name="sales_date" value="{{ book_data['salesDate'] }}" id="sales_date">   
+          <input type="text" name="title" value="{{ book_data['title'] }}" id="title" required>
+        </div>
 
-        </fieldset>
+        <div class="item">
+          <label for="author">著者</label>
+          <input type="text" name="author" value="{{ book_data['author'] }}" id="author">
+        </div>
+
+        <div class="item">
+          <label for="publisher_name">出版社</label>
+          <input type="text" name="publisher_name" value="{{ book_data['publisherName'] }}" id="publisher_name">
+        </div>
+          
+        <div class="item">
+          <label for="sales_date">出版年月日</label>
+          <input type="text" name="sales_date" value="{{ book_data['salesDate'] }}" id="sales_date">   
+        </div>
+
       </div>
       <input type="submit" value="登録する" />
     </form>

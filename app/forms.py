@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm   
-from wtforms import StringField, PasswordField, SubmitField, BooleanField, TextAreaField  
+from wtforms import StringField, IntegerField, DateField, PasswordField, SubmitField, BooleanField, TextAreaField  
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError  
 from app.models import User  
 from werkzeug.security import check_password_hash
@@ -38,6 +38,13 @@ class RequestResetForm(FlaskForm):
   
 class ResetPasswordForm(FlaskForm):
     password = PasswordField('パスワード', validators=[DataRequired(), Length(min=8, max=15, message='有効なパスワードを入力してください。')])
-    confirm_password = PasswordField('パスワード（確認用）', validators=[DataRequired(), EqualTo('password', message="パスワードとパスワード（確認用）に同じパスワードを設定してください。")])
+    confirm_password = PasswordField('パスワード（確認用）', validators=[DataRequired(), EqualTo('password', message='パスワードとパスワード（確認用）に同じパスワードを設定してください。')])
     submit = SubmitField('パスワードを再設定する')
 
+
+class RegisterBookForm(FlaskForm):
+    isbn =  IntegerField('ISBN')
+    title = StringField('タイトル', validators=[DataRequired()])
+    author = StringField('著者')
+    publisher_name = StringField('出版社')
+    sales_date = StringField('出版年月日')

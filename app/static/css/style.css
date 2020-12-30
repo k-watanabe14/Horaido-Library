@@ -598,66 +598,70 @@ textarea {
 	max-width: 1000px;
 	margin: 10px auto;
 	padding: 30px;
-	background-color: linen;
+	background-color: #eeeeee;
 	border-radius: 10px;
 }
 
 .book-form input[type="submit"] {
 	position: relative;
 	display: block;
-	padding: 19px 39px 18px 39px;
+	padding: 15px 39px;
 	color: #FFF;
 	margin: 0 auto;
-	background: #1abc9c;
+	background: #185184;
 	font-size: 18px;
 	text-align: center;
 	font-style: normal;
-	width: 50%;
-	max-width: 400px;
-	border: 1px solid #16a085;
+	width: 30%;
+	border: 1px solid #154260;
 	border-width: 1px 1px 3px;
 	margin-bottom: 10px;
 	margin-top: 30px;
 }
 
 .book-form input[type="submit"]:hover {
-	background: #109177;
+	background: #123456;
 }
 
 .book-form-image {
-	display: inline-block;  
+	display: inline-block;
+	width: 30%;  
 	vertical-align: top;
-	margin: 50px;
-	padding: 10px;
-	width: 330px;
-	border: 5px dashed powderblue;
+	padding: 0 50px 0 10px;
+	max-width: 260px;
+	height: auto;
+	box-sizing: border-box;
 }
 
 .book-form-image #image, .book-form-image #preview {
-	width: 300px;
+	max-width: 260px;
+	width: 100%;
 	height: auto;
 }
 
 .book-form-text {
 	display: inline-block;
 	vertical-align: top;
-	width: 500px;
-	padding: 10px 20px;
-	background: #f4f7f8;
-	margin: 10px auto;
+	width: 68%;
 	padding: 20px;
 	background: #f4f7f8;
 	border-radius: 8px;
-	font-family: Georgia, "Times New Roman", Times, serif;
+	box-sizing: border-box;
 }
 
-.book-form-text fieldset {
-	border: none;
+.book-form-text .item {
+	display: block
 }
 
-.book-form-text label {
-	display: block;
+.book-form-text .item label {
+	display: inline-block;
 	margin-bottom: 8px;
+	width: 30%;
+}
+
+.book-form-text .item span {
+	display: inline-block;
+	width: 68%;
 }
 
 .book-form-text input[type="text"], .book-form-text select {
@@ -668,7 +672,8 @@ textarea {
 	margin: 0;
 	outline: 0;
 	padding: 10px;
-	width: 100%;
+	display: inline-block;
+	width: 68%;
 	box-sizing: border-box; 
 	-webkit-box-sizing: border-box;
 	-moz-box-sizing: border-box; 
