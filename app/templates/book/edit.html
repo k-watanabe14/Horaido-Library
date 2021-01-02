@@ -1,12 +1,6 @@
 {% extends 'base.html' %}
 
-{% block title %}
-  <title>編集 "{{ book['title'] }}"</title>
-{% endblock %}
-
-{% block header %}
-  
-{% endblock %}
+{% block title %}本の編集 "{{ book['title'] }}"{% endblock %}
 
 {% block content %}
 
@@ -17,35 +11,35 @@
     </div>
 
     <div class="book-form-text">
-      <fieldset>
+      <div class="item">
         <label for="isbn">ISBN</label>
         <input type="text" name="isbn" value="{{ book['isbn'] }}" id="isbn" required>
+      </div>
 
+      <div class="item">
         <label for="title">タイトル</label>
         <input type="text" name="title" value="{{ book['title'] }}" id="title" required>
-    
+      </div>
+
+      <div class="item">
         <label for="author">著者</label>
         <input type="text" name="author" value="{{ book['author'] }}" id="author">
-        
+      </div>
+
+      <div class="item">
         <label for="publisher_name">出版社</label>
         <input type="text" name="publisher_name" value="{{ book['publisher_name'] }}" id="publisher_name">
-        
+      </div>
+
+      <div class="item">
         <label for="sales_date">出版年月日</label>
         <input type="text" name="sales_date" value="{{ book['sales_date'] }}" id="sales_date">
-                  
-        <label for="genre">ジャンル</label>
-        <select id="genre" name="genre">
-          <option value="unset">---</option>
-          <option value="general">一般</option>
-          <option value="education">教養</option>
-          <option value="practical-use">実用</option>
-          <option value="specialty">専門</option>
-          <option value="woman">婦人</option>
-          <option value="elementary-school">学参I(小中)</option>
-          <option value="high-school">学参II(高校)</option>
-          <option value="child">児童</option>
-          <option value="magazine">雑誌扱い</option>
-        </select>      
+      </div>
+        
+      <div class="item">
+        <label for="tag">タグ</label>
+        <input type="text" name="tag" id="tag">
+      </div>
 
       </fieldset>
     </div>

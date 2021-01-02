@@ -1,38 +1,40 @@
 {% extends 'base.html' %}
 
-{% block title %}
-  <title>手動で登録する</title>
-{% endblock %}
-
-{% block header %}
-
-{% endblock %}
+{% block title %}手動で登録する{% endblock %}
 
 {% block content %}
     
   <div class="book-form">
     <form action="/register/manual" method="post" enctype="multipart/form-data">
-      <div class="book-form-image">
-        画像ファイル<input type="file" name="book_image" id="book_image">
+      <div class="book-form-image">画像ファイル<input type="file" name="book_image" id="book_image">
         <img id="preview">
       </div>
 
       <div class="book-form-text">
-        <fieldset>
+        <div class="item">
           <label for="isbn">ISBN</label>
           <input type="text" name="isbn" id="isbn">
+        </div>
 
+        <div class="item">
           <label for="title">タイトル</label>
           <input type="text" name="title" id="title" required>
+        </div>
       
+        <div class="item">
           <label for="author">著者</label>
           <input type="text" name="author" id="author">
-          
+        </div>
+
+        <div class="item">
           <label for="publisher_name">出版社</label>
           <input type="text" name="publisher_name" id="publisher_name">
+        </div>
           
+        <div class="item">
           <label for="sales_date">出版年月日</label>
           <input type="text" name="sales_date" id="sales_date">
+        </div>
 
         </fieldset>
       </div>
