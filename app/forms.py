@@ -48,3 +48,6 @@ class RegisterBookForm(FlaskForm):
     author = StringField('著者')
     publisher_name = StringField('出版社')
     sales_date = StringField('出版年月日')
+    image_url = StringField()
+    borrower_id = IntegerField()
+    checkout_date = DateField()

@@ -4,7 +4,7 @@ from app.auth import login_required
 from app.models import Book, History, User
 from app import db
 from app.auth import load_logged_in_user
-import datetime
+from datetime import date
 from dateutil.relativedelta import relativedelta
  
 # Define the blueprint: 'register', set its url prefix: app.url/register
@@ -35,8 +35,8 @@ def borrow(book_id):
             flash(error)
         else:
             user_id = session.get('user_id')
-            checkout_date = datetime.datetime.today().strftime('%Y/%m/%d')
-            due_date = (datetime.datetime.today() + relativedelta(months=1)).strftime('%Y/%m/%d')
+            checkout_date = date.today()
+            due_date = (date.today() + relativedelta(months=1))
             return_date = None
 
             # Add history data into Rental History
@@ -73,11 +73,10 @@ def return_(book_id):
             history = History.query.filter(History.user_id==user_id, History.book_id==book_id).first()
 
             # Update return date in a rental_history record
-            history.return_date = datetime.datetime.today().strftime('%Y/%m/%d')
+            history.return_date = date.today()
             
             # Update Book data in a book record
             book.borrower_id = None
-            book.borrower_name = None
             book.checkout_date = None
             
             db.session.commit()
