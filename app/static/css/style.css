@@ -789,6 +789,7 @@ Header
 .main-logo .logo-text .site-title {
 	font-size: 22px;
 	font-weight: 500;
+	padding: 20px;
 }
 
 .main-logo .logo-text .site-title:hover {
@@ -917,6 +918,23 @@ footer {
 	padding: 15px;
 }
 
+.footer-media .fa-twitter:hover {
+    color: #00aced
+}
+
+.footer-media .fa-instagram:hover {
+	color: transparent;
+	background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
+	background: -webkit-radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
+	background-clip: text;
+	-webkit-background-clip: text;
+}
+
+.footer-media .fa-youtube:hover {
+	color: #bb0000;
+	background: radial-gradient(circle at 40%, white 0%, white 30%, #333333 40%);
+}
+
 .footer-copyright {
 	padding: 20px;
 	font-size: smaller;
@@ -964,7 +982,7 @@ Contents
 .book-container {
     width: 100%;
     display: block;
-    margin: 10px auto;
+    margin: 20px auto;
     background-color: white;   
     border-radius: 10px;
     box-shadow: 1px 1px 3px 1px #cccccc;
