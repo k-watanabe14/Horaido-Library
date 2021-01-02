@@ -46,7 +46,7 @@ class Book(db.Model):
     sales_date = db.Column(db.String(128))
     image_url = db.Column(db.String(128))
     borrower_id = db.Column(db.Integer)
-    checkout_date = db.Column(db.Date)
+    checkout_date = db.Column(db.DateTime)
 
     def __init__(self, isbn, title, author, publisher_name, sales_date, image_url, borrower_id, checkout_date):
 
@@ -70,9 +70,9 @@ class History(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     book_id = db.Column(db.Integer, nullable=False)
     user_id = db.Column(db.Integer, nullable=False)
-    checkout_date = db.Column(db.Date, nullable=False)
-    due_date = db.Column(db.String(128))
-    return_date = db.Column(db.Date)
+    checkout_date = db.Column(db.DateTime, nullable=False)
+    due_date = db.Column(db.DateTime)
+    return_date = db.Column(db.DateTime)
     
     def __init__(self, book_id, user_id, checkout_date, due_date, return_date):
         self.book_id = book_id

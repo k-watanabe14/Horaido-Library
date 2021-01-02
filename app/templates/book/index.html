@@ -68,11 +68,11 @@
         <tbody>
           <tr> 
             <td><span class="user_name">{{ history[1]['username'] }}</span></td>
-            <td><span class="checkout_date">{{ history[0]['checkout_date'] }}</span></td>
+            <td><span class="checkout_date">{{ history[0].checkout_date.strftime('%Y年%m月%d日')  }}</span></td>
             {% if history[0]['return_date'] is none %}
               <td><span class="return_date">未返却</span></td>
             {% else %}
-              <td><span class="return_date">{{ history[0]['return_date'] }}</span></td>
+              <td><span class="return_date">{{ history[0].return_date.strftime('%Y年%m月%d日')  }}</span></td>
             {% endif %}
           </tr>
         </tbody>
