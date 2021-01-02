@@ -35,8 +35,8 @@ def borrow(book_id):
             flash(error)
         else:
             user_id = session.get('user_id')
-            checkout_date = datetime.datetime.today().strftime('%Y/%m/%d')
-            due_date = (datetime.datetime.today() + relativedelta(months=1)).strftime('%Y/%m/%d')
+            checkout_date = datetime.datetime.today()
+            due_date = (datetime.datetime.today() + relativedelta(months=1))
             return_date = None
 
             # Add history data into Rental History
@@ -50,7 +50,7 @@ def borrow(book_id):
             
             db.session.commit()
 
-            flash(book.title + "を借りました。")
+            flash("「" + book.title + "」を借りました。")
 
             return redirect(url_for('index'))
 
@@ -73,16 +73,15 @@ def return_(book_id):
             history = History.query.filter(History.user_id==user_id, History.book_id==book_id).first()
 
             # Update return date in a rental_history record
-            history.return_date = datetime.datetime.today().strftime('%Y/%m/%d')
+            history.return_date = datetime.datetime.today()
             
             # Update Book data in a book record
             book.borrower_id = None
-            book.borrower_name = None
             book.checkout_date = None
             
             db.session.commit()
 
-            flash(book.title + "を返しました。")
+            flash("「" + book.title + "」を返しました。")
 
             return redirect(url_for('index'))
 

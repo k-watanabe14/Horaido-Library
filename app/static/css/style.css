@@ -394,6 +394,10 @@ textarea {
 	padding: 15px 20px 35px;
 }
 
+.form-wrapper .message p {
+	margin: 0;
+}
+
 .form-wrapper input {
 	display: block;
 	padding: 15px 10px;
@@ -594,66 +598,70 @@ textarea {
 	max-width: 1000px;
 	margin: 10px auto;
 	padding: 30px;
-	background-color: linen;
+	background-color: #eeeeee;
 	border-radius: 10px;
 }
 
 .book-form input[type="submit"] {
 	position: relative;
 	display: block;
-	padding: 19px 39px 18px 39px;
+	padding: 15px 39px;
 	color: #FFF;
 	margin: 0 auto;
-	background: #1abc9c;
+	background: #185184;
 	font-size: 18px;
 	text-align: center;
 	font-style: normal;
-	width: 50%;
-	max-width: 400px;
-	border: 1px solid #16a085;
+	width: 30%;
+	border: 1px solid #154260;
 	border-width: 1px 1px 3px;
 	margin-bottom: 10px;
 	margin-top: 30px;
 }
 
 .book-form input[type="submit"]:hover {
-	background: #109177;
+	background: #123456;
 }
 
 .book-form-image {
-	display: inline-block;  
+	display: inline-block;
+	width: 30%;  
 	vertical-align: top;
-	margin: 50px;
-	padding: 10px;
-	width: 330px;
-	border: 5px dashed powderblue;
+	padding: 0 50px 0 10px;
+	max-width: 260px;
+	height: auto;
+	box-sizing: border-box;
 }
 
 .book-form-image #image, .book-form-image #preview {
-	width: 300px;
+	max-width: 260px;
+	width: 100%;
 	height: auto;
 }
 
 .book-form-text {
 	display: inline-block;
 	vertical-align: top;
-	width: 500px;
-	padding: 10px 20px;
-	background: #f4f7f8;
-	margin: 10px auto;
+	width: 68%;
 	padding: 20px;
 	background: #f4f7f8;
 	border-radius: 8px;
-	font-family: Georgia, "Times New Roman", Times, serif;
+	box-sizing: border-box;
 }
 
-.book-form-text fieldset {
-	border: none;
+.book-form-text .item {
+	display: block
 }
 
-.book-form-text label {
-	display: block;
+.book-form-text .item label {
+	display: inline-block;
 	margin-bottom: 8px;
+	width: 30%;
+}
+
+.book-form-text .item span {
+	display: inline-block;
+	width: 68%;
 }
 
 .book-form-text input[type="text"], .book-form-text select {
@@ -664,7 +672,8 @@ textarea {
 	margin: 0;
 	outline: 0;
 	padding: 10px;
-	width: 100%;
+	display: inline-block;
+	width: 68%;
 	box-sizing: border-box; 
 	-webkit-box-sizing: border-box;
 	-moz-box-sizing: border-box; 
@@ -752,7 +761,6 @@ Header
 /*-----------------Main Header-----------------*/
 .main-header {
     width: 100%;
-    height: 70px;
     box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
     display: flex;
     justify-content: space-between;
@@ -761,7 +769,8 @@ Header
 /*-----------------Logo-----------------*/
 .main-logo {
     padding: 0;
-    display: flex
+	display: flex;
+	align-items: center;
 }
 
 .main-logo .logo-image {
@@ -780,7 +789,7 @@ Header
 .main-logo .logo-text .site-title {
 	font-size: 22px;
 	font-weight: 500;
-	line-height: 70px;
+	padding: 20px;
 }
 
 .main-logo .logo-text .site-title:hover {
@@ -789,7 +798,6 @@ Header
 
 .main-logo .logo-text .site-title a {
 	text-decoration:none;
-	padding: 23px;
 }
 
 /*-----------------Account-----------------*/  
@@ -840,8 +848,8 @@ Header
 
 /*-----------------Navigation Header-----------------*/
 .navigation-header {
-    height: 50px;
-    box-shadow: 0 2px 2px rgba(0, 0, 0, 0.3);
+	box-shadow: 0 2px 2px rgba(0, 0, 0, 0.3);
+	background-color: lightgray;
 }
 
 .navigation-container {
@@ -866,20 +874,16 @@ Header
 }
 
 .navigation-container ul li:hover {
-    background-color: whitesmoke;
+	background-color: #bbbbbb;
 }
 
 .navigation-container ul li a {
     display: block;
     text-align: center;
     text-decoration: none;
-    color: #555555;
+    color: #454545;
 	font-weight: bold;
 	padding: 13px 5px;
-}
-
-.navigation-container a:hover{
-    color: #555555;;
 }
 
 /*--------------------------------------------------------------
@@ -912,6 +916,23 @@ footer {
 	color: white;
 	font-size: 30px;
 	padding: 15px;
+}
+
+.footer-media .fa-twitter:hover {
+    color: #00aced
+}
+
+.footer-media .fa-instagram:hover {
+	color: transparent;
+	background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
+	background: -webkit-radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
+	background-clip: text;
+	-webkit-background-clip: text;
+}
+
+.footer-media .fa-youtube:hover {
+	color: #bb0000;
+	background: radial-gradient(circle at 40%, white 0%, white 30%, #333333 40%);
 }
 
 .footer-copyright {
@@ -961,7 +982,7 @@ Contents
 .book-container {
     width: 100%;
     display: block;
-    margin: 10px auto;
+    margin: 20px auto;
     background-color: white;   
     border-radius: 10px;
     box-shadow: 1px 1px 3px 1px #cccccc;
@@ -972,49 +993,54 @@ Contents
     height: auto;
     width: 10%;
     padding: 10px;
-	vertical-align: top;
-	max-width: 80px;
+	vertical-align: middle;
+	box-sizing: border-box;
 }
 
 .book-container .book-image img {
     height: auto;
-    width: auto;
+	width: 100%;
+	max-width: 80px;
 }
 
 .book-container .book-info {
     height: 100%;
     display: inline-block;
     width: 45%;
-    vertical-align: top;
+	vertical-align: middle;
+	box-sizing: border-box;
 }
 
 .book-container .book-info .book-title {
-    padding: 15px 10px 0;
+    padding: 5px 10px;
     font-size: 15px;
     font-weight: bold;
 }
 
 .book-container .book-info .book-author {
-    padding: 5px 10px 10px;
+    padding: 5px 10px;
 }
 
 .book-container .book-category {
     height: 100%;
     display: inline-block;
     width: 20%;
-    vertical-align: top;
+	vertical-align: middle;
+	box-sizing: border-box;
 }
 
 .book-container .book-category p {
-    margin-top: 30px;
+	margin: 0;
+	padding: 10px;
 }
 
 .book-container .book-status {
 	height: 100%;
 	padding: 10px;
     display: inline-block;
-    width: 20%;
-    vertical-align: top;
+    width: 23%;
+	vertical-align: middle;
+	box-sizing: border-box;
 }
 
 .book-container .book-status .text {
@@ -1102,13 +1128,8 @@ Contents
 	margin: 20px auto;
 }
 
-.history-list h3{
-	text-align: center;
-	margin: auto;
-}
-
 .history-list table {
-	max-width: 800px;
+	max-width: 960px;
 	border-collapse: collapse;
 	border: 0;
 	border-spacing: 0;
@@ -1121,17 +1142,18 @@ Contents
 }
 
 .history-list table thead {
-	background-color: #5aa533;
+	background-color: #123456;
 	color: #fff;
 	font-weight: 800;
 }
 
 .history-list table thead tr td {
 	padding: 10px 0;
+	width: 33.3%;
 }
 
 .history-list table tbody {
-	border-bottom: 2px solid #5aa53382;
+	border-bottom: 2px solid #123456;
 }
 
 .history-list table tbody tr td {
