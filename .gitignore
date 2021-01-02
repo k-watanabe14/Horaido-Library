@@ -145,6 +145,3 @@ cython_debug/
 
 # AWS
 .aws/
-
-# DB migration
-migrations/
