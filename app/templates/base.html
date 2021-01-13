@@ -51,7 +51,7 @@
 
     </div>
 
-    <nav class="navigation-header">  
+    <nav class="navigation-header">
       <div class="navigation-container">
         <ul>
           <li><a class="action" href="{{ url_for('index') }}">ホーム</a>
@@ -66,17 +66,17 @@
 
   <div id="site-contents" class="site-contents">
     <div class="stacked-section">
-    
+
       <div class="flash_section">
         {% for message in get_flashed_messages() %}
           <div class="flash">{{ message }}</div>
         {% endfor %}
       </div>
-    
+
       {% block content %}
-    
+
       {% endblock %}
-    
+
     </div>
   </div>
 

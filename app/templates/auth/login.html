@@ -8,7 +8,7 @@
       <form method="post">
         {{ form.hidden_tag() }}
         <p class="title">ログイン</p>
-        {{ form.username(placeholder="ユーザー名", autofocus=true) }} 
+        {{ form.username(placeholder="ユーザー名", autofocus=true) }}
         <i class="fa fa-user"></i>
         {{ form.password(placeholder="パスワード") }}
         <i class="fa fa-key"></i>
@@ -18,7 +18,7 @@
         <div class="text">
           <a href="{{ url_for('auth.signup') }}">新規登録はこちら</a>
         </div>
-        {{ form.submit(class="button") }}  
+        {{ form.submit(class="button") }}
       </form>
     </div>
   </div>

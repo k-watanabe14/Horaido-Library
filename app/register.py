@@ -7,7 +7,7 @@ import requests
 import io
 import datetime
 from app.s3 import upload_file
- 
+
 # Define the blueprint: 'register', set its url prefix: app.url/register
 mod_register = Blueprint('register', __name__, url_prefix='/register')
 
@@ -72,7 +72,7 @@ def manual():
         else:
             image_url = None
 
-        # Register book infromation into DB
+        # Register book information into DB
         isbn = request.form['isbn']
         title = request.form['title']
         author = request.form['author']
@@ -89,4 +89,3 @@ def manual():
         return redirect(url_for('index'))
 
     return render_template('register/manual.html')
-    

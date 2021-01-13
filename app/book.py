@@ -6,7 +6,7 @@ from app import db
 from app.auth import load_logged_in_user
 import datetime
 from dateutil.relativedelta import relativedelta
- 
+
 # Define the blueprint: 'register', set its url prefix: app.url/register
 mod_book = Blueprint('book', __name__, url_prefix='/book')
 
@@ -47,7 +47,7 @@ def borrow(book_id):
             borrower = User.query.filter_by(id=user_id).first()
             book.borrower_id = borrower.id
             book.checkout_date = checkout_date
-            
+
             db.session.commit()
 
             flash("「" + book.title + "」を借りました。")
@@ -74,11 +74,11 @@ def return_(book_id):
 
             # Update return date in a rental_history record
             history.return_date = datetime.datetime.today()
-            
+
             # Update Book data in a book record
             book.borrower_id = None
             book.checkout_date = None
-            
+
             db.session.commit()
 
             flash("「" + book.title + "」を返しました。")
@@ -92,7 +92,7 @@ def return_(book_id):
 @login_required
 def edit(book_id):
 
-    book = Book.query.filter_by(id=book_id).first()   
+    book = Book.query.filter_by(id=book_id).first()
 
     if request.method == 'POST':
         error = None
@@ -105,7 +105,7 @@ def edit(book_id):
             author = request.form['author']
             publisher_name = request.form['publisher_name']
             sales_date = request.form['sales_date']
-            donor = request.form['donor']            
+            donor = request.form['donor']
             db.session.commit()
             flash('編集しました')
             return redirect(url_for('index'))
