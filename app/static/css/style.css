@@ -25,8 +25,8 @@ b, u, i, center,
 dl, dt, dd, ol, ul, li,
 fieldset, form, label, legend,
 table, caption, tbody, tfoot, thead, tr, th, td,
-article, aside, canvas, details, embed, 
-figure, figcaption, footer, header, hgroup, 
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
 menu, nav, output, ruby, section, summary,
 time, mark, audio, video {
 	margin: 0;
@@ -37,7 +37,7 @@ time, mark, audio, video {
 	vertical-align: baseline;
 }
 /* HTML5 display-role reset for older browsers */
-article, aside, details, figcaption, figure, 
+article, aside, details, figcaption, figure,
 footer, header, hgroup, menu, nav, section {
 	display: block;
 }
@@ -333,13 +333,13 @@ input[type='text'], input[type='email'], input[type='url'], input[type='password
 	padding: 3px 6px;
 }
 
-input:focus::placeholder { 
-    color:transparent; 
+input:focus::placeholder {
+    color:transparent;
 }
 
 
-input.danger { 
-    color: #cc2f2e; 
+input.danger {
+    color: #cc2f2e;
 }
 
 textarea {
@@ -359,7 +359,7 @@ textarea {
 	box-sizing: border-box;
 }
 
-/*-----------------Login/Sinup Form-----------------*/
+/*-----------------Login/Sign up Form-----------------*/
 .form-wrapper {
 	display: flex;
 	align-items: center;
@@ -582,9 +582,9 @@ textarea {
 	outline: 0;
 	padding: 10px;
 	width: 100%;
-	box-sizing: border-box; 
+	box-sizing: border-box;
 	-webkit-box-sizing: border-box;
-	-moz-box-sizing: border-box; 
+	-moz-box-sizing: border-box;
 	background-color: #e8eeef;
 	color:#454545;
 	-webkit-box-shadow: 0 1px 0 rgba(0,0,0,0.03) inset;
@@ -625,7 +625,7 @@ textarea {
 
 .book-form-image {
 	display: inline-block;
-	width: 30%;  
+	width: 30%;
 	vertical-align: top;
 	padding: 0 50px 0 10px;
 	max-width: 260px;
@@ -674,9 +674,9 @@ textarea {
 	padding: 10px;
 	display: inline-block;
 	width: 68%;
-	box-sizing: border-box; 
+	box-sizing: border-box;
 	-webkit-box-sizing: border-box;
-	-moz-box-sizing: border-box; 
+	-moz-box-sizing: border-box;
 	background-color: #e8eeef;
 	color:#454545;
 	-webkit-box-shadow: 0 1px 0 rgba(0,0,0,0.03) inset;
@@ -723,7 +723,7 @@ textarea {
 	background:#eee;
 	border: none;
 }
-	
+
 .isbn-btn{
 	height:50px;
 	width:50px;
@@ -735,18 +735,18 @@ textarea {
 	border:none;
 	border-radius:0 5px 5px 0;
 }
-	
+
 .isbn-btn .fa-search{
 	font-size:20px;
 	position:absolute;
 	top:30%;
 	left:30%;
 }
-	
+
 .isbn-btn:before {
 	font-family: FontAwesome;
 }
-	
+
 .isbn-btn:hover{
 	color:#888;
 }
@@ -800,7 +800,7 @@ Header
 	text-decoration:none;
 }
 
-/*-----------------Account-----------------*/  
+/*-----------------Account-----------------*/
 .account-container {
     min-width: 200px;
 }
@@ -963,15 +963,15 @@ Contents
 }
 
 .flash_section {
-	margin: 0 auto 40px; 
+	margin: 0 auto 40px;
 }
 
-.flash { 
-    margin: 5px auto; 
-    padding: 16px; 
-    background: #cae6f6; 
+.flash {
+    margin: 5px auto;
+    padding: 16px;
+    background: #cae6f6;
 	border: 1px solid #377ba8;
-	width: 60%; 
+	width: 60%;
 }
 
 /*-----------------Book List-----------------*/
@@ -983,7 +983,7 @@ Contents
     width: 100%;
     display: block;
     margin: 20px auto;
-    background-color: white;   
+    background-color: white;
     border-radius: 10px;
     box-shadow: 1px 1px 3px 1px #cccccc;
 }
@@ -1000,7 +1000,7 @@ Contents
 .book-container .book-image img {
     height: auto;
 	width: 100%;
-	max-width: 80px;
+	max-width: 60px;
 }
 
 .book-container .book-info {
@@ -1058,7 +1058,7 @@ Contents
 	display: inline-block;
 	margin: 0 auto;
 }
-  
+
 .pagination a {
 	color: black;
 	float: left;
@@ -1082,7 +1082,7 @@ Contents
 	color: white;
 	border-radius: 5px;
 }
-  
+
 .pagination a:hover:not(.active) {
 	background-color: #ddd;
 }
