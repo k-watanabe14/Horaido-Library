@@ -5,7 +5,7 @@ from app.models import User
 from app import db, mail
 from app.forms import SignupForm, LoginFrom
 
- 
+
 # Define the blueprint: 'auth', set its url prefix: app.url/auth
 mod_auth = Blueprint('auth', __name__, url_prefix='/')
 

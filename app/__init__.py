@@ -53,25 +53,24 @@ def index():
             flash(error)
         else:
             return redirect(url_for('search', keyword=keyword))
-    
+
     return render_template('index.html', new_books = new_books, rental_books = rental_books)
 
 
 @app.route('/search', methods = ('GET', 'POST'))
 @login_required
 def search():
-    
+
     keyword = request.args.get('keyword')
     status = request.args.get('status')
 
     search_keyword = "%{}%".format(keyword)
-    search_status = "%{}%".format(status)
 
     # Search books contained keyword in title, author, publisher name.
     keywords= or_((Book.title.like(search_keyword)), ((Book.author.like(search_keyword))), (Book.publisher_name.like(search_keyword)))
 
     # For pagination
-    page = request.args.get('page', 1, type = int)  
+    page = request.args.get('page', 1, type = int)
 
     # "results" are collections of books.
     # Display 20 results per a page.
@@ -93,7 +92,7 @@ def search():
 @app.route('/return')
 @login_required
 def return_():
-    
+
     # SELECT *  FROM BOOK JOIN rental_history ON book.id = rental_history.book_id WHERE rental_history.user_id = user_id AND rental_history.return_date is NULL
     rental_books = db.session.query(Book).join(History, Book.id==History.book_id).filter(History.user_id == session.get('user_id'),  History.return_date == None)
 

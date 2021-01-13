@@ -17,18 +17,18 @@ class User(db.Model):
         self.email = email
         self.password = password
 
-    def get_reset_token(self, expires_sec=1800):  
-        s = Serializer(app.config['SECRET_KEY'], expires_sec)  
-        return s.dumps({'user_id': self.id}).decode('utf-8')  
-  
-    @staticmethod  
-    def verify_reset_token(token):  
-        s = Serializer(app.config['SECRET_KEY'])  
-        try:  
-            user_id = s.loads(token)['user_id']  
-        except:  
+    def get_reset_token(self, expires_sec=1800):
+        s = Serializer(app.config['SECRET_KEY'], expires_sec)
+        return s.dumps({'user_id': self.id}).decode('utf-8')
+
+    @staticmethod
+    def verify_reset_token(token):
+        s = Serializer(app.config['SECRET_KEY'])
+        try:
+            user_id = s.loads(token)['user_id']
+        except:
             return None
-        return User.query.get(user_id)  
+        return User.query.get(user_id)
 
     def __repr__(self):
         return '<User %r>' % self.id
@@ -73,7 +73,7 @@ class History(db.Model):
     checkout_date = db.Column(db.DateTime, nullable=False)
     due_date = db.Column(db.DateTime)
     return_date = db.Column(db.DateTime)
-    
+
     def __init__(self, book_id, user_id, checkout_date, due_date, return_date):
         self.book_id = book_id
         self.user_id = user_id

@@ -34,12 +34,12 @@
         <label for="publisher_name">出版社</label>
         <span name="publisher_name" id="publisher_name">{{ book['publisher_name'] }}</span>
       </div>
-      
+
       <div class="item">
         <label for="sales_date">出版年月日</label>
         <span name="sales_date" id="sales_date">{{ book['sales_date'] }}</span>
       </div>
-    
+
       {% if book['borrower_id'] is none %}
         <a class="action" href="{{ url_for('book.borrow', book_id = book['id']) }}">この本を借りる</a>
       {% elif book['borrower_id'] == g.user['id'] %}
@@ -66,7 +66,7 @@
       </thead>
       {% for history in histories %}
         <tbody>
-          <tr> 
+          <tr>
             <td><span class="user_name">{{ history[1]['username'] }}</span></td>
             <td><span class="checkout_date">{{ history[0].checkout_date.strftime('%Y年%m月%d日')  }}</span></td>
             {% if history[0]['return_date'] is none %}

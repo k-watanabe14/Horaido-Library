@@ -21,7 +21,7 @@
             <option value="all" {% if status=="all" %} selected="selected" {% endif %}>全て</option>
             <option value="loaned-out" {% if status=="loaned-out" %} selected="selected" {% endif %}>貸出中</option>
             <option value="available" {% if status=="available" %} selected="selected" {% endif %}>貸出可能</option>
-          </select>     
+          </select>
         </div>
       </div>
     </form>
@@ -71,21 +71,21 @@
           {% endfor %}
         </div>
 
-        <div class = "pagination">  
-          {% for page_num in results.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}  
-            {% if page_num %}  
-              {% if results.page == page_num %}  
-                <a class="btn" href="{{ url_for('search', keyword = keyword, status = status, genre = genre, donor = donor, page = page_num) }}">{{ page_num }}</a>  
-              {% else %}  
-                <a class="btn" href="{{ url_for('search', keyword = keyword, status = status, genre = genre, donor = donor, page = page_num) }}">{{ page_num }}</a>  
-              {% endif %}  
-            {% else %}  
-              <span>...</span>  
+        <div class = "pagination">
+          {% for page_num in results.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
+            {% if page_num %}
+              {% if results.page == page_num %}
+                <a class="btn" href="{{ url_for('search', keyword = keyword, status = status, genre = genre, donor = donor, page = page_num) }}">{{ page_num }}</a>
+              {% else %}
+                <a class="btn" href="{{ url_for('search', keyword = keyword, status = status, genre = genre, donor = donor, page = page_num) }}">{{ page_num }}</a>
+              {% endif %}
+            {% else %}
+              <span>...</span>
             {% endif %}
           {% endfor %}
-        </div>  
+        </div>
       {% endif %}
-    </div> 
+    </div>
   {% endif %}
 
 {% endblock %}

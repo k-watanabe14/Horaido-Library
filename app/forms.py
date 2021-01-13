@@ -1,7 +1,7 @@
-from flask_wtf import FlaskForm   
-from wtforms import StringField, IntegerField, DateField, PasswordField, SubmitField, BooleanField, TextAreaField  
-from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError  
-from app.models import User  
+from flask_wtf import FlaskForm
+from wtforms import StringField, IntegerField, DateField, PasswordField, SubmitField, BooleanField, TextAreaField
+from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
+from app.models import User
 from werkzeug.security import check_password_hash
 
 
@@ -34,8 +34,8 @@ class LoginFrom(FlaskForm):
 class RequestResetForm(FlaskForm):
     email = StringField('メールアドレス', validators=[DataRequired(), exists_email])
     submit = SubmitField('パスワード再設定のメールを送る')
-  
-  
+
+
 class ResetPasswordForm(FlaskForm):
     password = PasswordField('パスワード', validators=[DataRequired(), Length(min=8, max=15, message='有効なパスワードを入力してください。')])
     confirm_password = PasswordField('パスワード（確認用）', validators=[DataRequired(), EqualTo('password', message='パスワードとパスワード（確認用）に同じパスワードを設定してください。')])
