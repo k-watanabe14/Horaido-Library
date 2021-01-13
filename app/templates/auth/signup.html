@@ -8,13 +8,13 @@
       <form method="post">
         {{ form.hidden_tag() }}
         <p class="title">新規登録</p>
-        {{ form.username(placeholder="ユーザー名", autofocus=true) }} 
+        {{ form.username(placeholder="ユーザー名", autofocus=true) }}
         <i class="fa fa-user"></i>
         {{ form.email(placeholder="メールアドレス") }}
         <i class="fa fa-envelope"></i>
         {{ form.password(placeholder="パスワード（英数字8~15文字）") }}
         <i class="fa fa-key"></i>
-        {{ form.submit(class="button") }}  
+        {{ form.submit(class="button") }}
       </form>
     </div>
   </div>
