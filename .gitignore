@@ -145,3 +145,4 @@ cython_debug/
 
 # AWS
 .aws/
+AWSCLIV2.pkg
