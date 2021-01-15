@@ -17,7 +17,7 @@ def exists_email(form, field):
     if not User.query.filter_by(email=field.data).first():
         raise ValidationError('メールアドレスが間違っています。正しいメールアドレスを入力してください。')
 
-
+# TODO: Change all frorms to WTForm
 class SignupForm(FlaskForm):
     username = StringField('ユーザー名', validators=[DataRequired(), check_unique_username])
     email = StringField('メールアドレス', validators=[DataRequired(), Email(message='有効なメールアドレスを入力してください。'), check_unique_email])
