@@ -10,7 +10,7 @@ from dateutil.relativedelta import relativedelta
 # Define the blueprint: 'register', set its url prefix: app.url/register
 mod_book = Blueprint('book', __name__, url_prefix='/book')
 
-
+## BUG: Fix the UI of book information
 @mod_book.route('/<int:book_id>')
 @login_required
 def index(book_id):
