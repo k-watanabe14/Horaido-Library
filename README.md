@@ -1,29 +1,9 @@
-# Horaido
+# Horaido Library
 
 Book Management System for literary salon Horaido
 
-## Setting for local environment
-
-1. `pipenv shell`
-
-You have to set up follow environmetal valuables:
-
-- APP_SETTINGS
-- DATABASE_URL
-- MAIL_USERNAME
-- MAIL_PASSWORD
-
-For example, 
-- APP_SETTINGS = "config.DevelopmentConfig"
-- DATABASE_URL= "postgres://username:password@localhost/dbname"
-- MAIL_USERNAME = "username@gmail.com"
-- MAIL_PASSWORD = "password"
-
-2. `flask run`
-
 ## ToDo
 
-1. Implement filtering search
 1. Modify UI in book detail page and display rental history
 1. Modify UI in borrow, return, register and edit page
 1. Coding exception handling
