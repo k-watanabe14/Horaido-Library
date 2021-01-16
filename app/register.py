@@ -11,7 +11,7 @@ from app.s3 import upload_file
 # Define the blueprint: 'register', set its url prefix: app.url/register
 mod_register = Blueprint('register', __name__, url_prefix='/register')
 
-# TODO: Add a function for searching books to register
+# ENHANCE: Add a function for searching books to register
 @mod_register.route('/')
 @login_required
 def index():
