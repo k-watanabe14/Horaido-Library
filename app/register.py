@@ -1,4 +1,4 @@
-from flask import Blueprint, request, render_template, flash, redirect, url_for, g
+from flask import Blueprint, request, render_template, flash, redirect, url_for, g, session
 from werkzeug.exceptions import abort
 from app.auth import login_required
 from app.models import Book
@@ -26,12 +26,14 @@ def isbn():
     if isbn is not None:
         url = 'https://app.rakuten.co.jp/services/api/BooksBook/Search/20170404?applicationId=1053085901834686387&isbn=' + isbn
         response = requests.get(url)
+        session.pop('_flashes', None)
 
-        if response.json()['Items']:
-            book_data = response.json()['Items'][0]['Item']
+        if 'Items' in response.json() and response.json()['Items']:
+                book_data = response.json()['Items'][0]['Item']
 
         else:
             flash("該当する書籍が見つかりませんでした。再度ISBNを入力してください。")
+
 
     if request.method == 'POST' and book_data is None:
         isbn = request.form['isbn']
