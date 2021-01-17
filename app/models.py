@@ -84,7 +84,7 @@ class History(db.Model):
     def __repr__(self):
         return '<Lent %r>' % self.id
 
-
+# TODO: Add TagMaps and Tags to books
 class TagMaps(db.Model):
 
     __tablename__ = 'tag_maps'

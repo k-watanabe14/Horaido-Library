@@ -10,7 +10,7 @@ from werkzeug.security import generate_password_hash
 # Define the blueprint: 'register', set its url prefix: app.url/register
 mod_account = Blueprint('account', __name__, url_prefix='/account')
 
-# TODO: Implement account setting
+# ENHANCE: Implement account setting
 @mod_account.route('/')
 @login_required
 def index():
