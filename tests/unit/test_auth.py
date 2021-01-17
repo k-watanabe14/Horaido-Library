@@ -25,7 +25,7 @@ def login(client, username, password):
 def logout(client):
     return client.get('/logout', follow_redirects=True)
 
-# TODO: Make Unit Tests
+# ENHANCE: Make Unit Tests
 def test_login_logout(client):
     """Make sure login and logout works."""
 
