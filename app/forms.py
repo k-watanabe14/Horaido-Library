@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, IntegerField, DateField, PasswordField, SubmitField, BooleanField, TextAreaField
-from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
+from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError, Optional, NumberRange
 from app.models import User
 from werkzeug.security import check_password_hash
 
@@ -17,7 +17,7 @@ def exists_email(form, field):
     if not User.query.filter_by(email=field.data).first():
         raise ValidationError('メールアドレスが間違っています。正しいメールアドレスを入力してください。')
 
-
+# ENHANCE: Change all frorms to WTForm
 class SignupForm(FlaskForm):
     username = StringField('ユーザー名', validators=[DataRequired(), check_unique_username])
     email = StringField('メールアドレス', validators=[DataRequired(), Email(message='有効なメールアドレスを入力してください。'), check_unique_email])
@@ -43,7 +43,8 @@ class ResetPasswordForm(FlaskForm):
 
 
 class RegisterBookForm(FlaskForm):
-    isbn =  IntegerField('ISBN')
+    ## FIXME: Allow to empty isbn
+    isbn =  StringField('ISBN', validators=[Length(min=10, max=13, message='10桁もしくは13桁の数字を入力してください。')])
     title = StringField('タイトル', validators=[DataRequired()])
     author = StringField('著者')
     publisher_name = StringField('出版社')

@@ -87,7 +87,7 @@ def return_(book_id):
 
     return render_template('book/return.html', book=book)
 
-
+# TODO: Add function to edit book tags
 @mod_book.route('/<int:book_id>/edit', methods=('GET', 'POST'))
 @login_required
 def edit(book_id):
