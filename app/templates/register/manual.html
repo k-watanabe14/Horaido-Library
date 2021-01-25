@@ -3,44 +3,43 @@
 {% block title %}手動で登録する{% endblock %}
 
 {% block content %}
-
-  <div class="book-form">
-    <form action="/register/manual" method="post" enctype="multipart/form-data">
-      <div class="book-form-image">画像ファイル<input type="file" name="book_image" id="book_image">
-        <img id="preview">
-      </div>
-
-      <div class="book-form-text">
-        <div class="item">
-          <label for="isbn">ISBN</label>
-          <input type="text" name="isbn" id="isbn">
+  <div class="stacked-section-child">
+    <div class="book-form">
+      <form method="post">
+        {{ form.hidden_tag() }}
+        <div class="book-form-image">画像ファイル<input type="file" name="book_image" id="book_image">
+          <img id="preview">
         </div>
 
-        <div class="item">
-          <label for="title">タイトル</label>
-          <input type="text" name="title" id="title" required>
-        </div>
+        <div class="book-form-text">
+          <div class="item">
+            <label for="isbn">ISBN</label>
+            {{ form.isbn() }}
+          </div>
 
-        <div class="item">
-          <label for="author">著者</label>
-          <input type="text" name="author" id="author">
-        </div>
+          <div class="item">
+            <label for="title">タイトル</label>
+            {{ form.title(required=true) }}
+          </div>
 
-        <div class="item">
-          <label for="publisher_name">出版社</label>
-          <input type="text" name="publisher_name" id="publisher_name">
-        </div>
+          <div class="item">
+            <label for="author">著者</label>
+            {{ form.author() }}
+          </div>
 
-        <div class="item">
-          <label for="sales_date">出版年月日</label>
-          <input type="text" name="sales_date" id="sales_date">
-        </div>
+          <div class="item">
+            <label for="publisher_name">出版社</label>
+            {{ form.publisher_name() }}
+          </div>
 
-        </fieldset>
-      </div>
-      <input type="submit" value="登録する" />
-    </form>
+          <div class="item">
+            <label for="sales_date">出版年月日</label>
+            {{ form.sales_date() }}
+          </div>
+        </div>
+        <input type="submit" value="登録する" />
+      </form>
+    </div>
   </div>
-
 
 {% endblock %}

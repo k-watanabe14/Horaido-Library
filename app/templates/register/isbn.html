@@ -15,27 +15,27 @@
       <div class="book-form-text">
         <div class="item">
           <label for="isbn">ISBN</label>
-          <input type="text" name="isbn" value="{{ book_data['isbn'] }}" id="isbn" required>
+          {{ form.isbn(value="{{ book_data['isbn'] }}") }}
         </div>
 
         <div class="item">
           <label for="title">タイトル</label>
-          <input type="text" name="title" value="{{ book_data['title'] }}" id="title" required>
+          {{ form.title(value="{{ book_data['title'] }}", required=true) }}
         </div>
 
         <div class="item">
           <label for="author">著者</label>
-          <input type="text" name="author" value="{{ book_data['author'] }}" id="author">
+          {{ form.author(value="{{ book_data['author'] }}") }}
         </div>
 
         <div class="item">
           <label for="publisher_name">出版社</label>
-          <input type="text" name="publisher_name" value="{{ book_data['publisherName'] }}" id="publisher_name">
+          {{ form.publisher_name(value="{{ book_data['publisherName'] }}") }}
         </div>
 
         <div class="item">
           <label for="sales_date">出版年月日</label>
-          <input type="text" name="sales_date" value="{{ book_data['salesDate'] }}" id="sales_date">
+          {{ form.sales_date(value="{{ book_data['salesDate'] }}") }}
         </div>
 
       </div>
