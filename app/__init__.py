@@ -88,7 +88,7 @@ def search():
 
     return render_template('search.html', results = results, keyword = keyword, status = status)
 
-
+# ENHANCE: Send email before due date if not returning the book yet
 @app.route('/return')
 @login_required
 def return_():
@@ -101,3 +101,5 @@ def return_():
 
 if __name__ == '__main__':
     app.run()
+
+# ENHANCE: Add a function to post reviews

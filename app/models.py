@@ -39,7 +39,7 @@ class Book(db.Model):
     __tablename__ = 'book'
 
     id = db.Column(db.Integer, primary_key=True)
-    isbn = db.Column(db.BigInteger)
+    isbn = db.Column(db.String(128))
     title = db.Column(db.String(128), nullable=False)
     author = db.Column(db.String(128))
     publisher_name = db.Column(db.String(128))
@@ -84,7 +84,7 @@ class History(db.Model):
     def __repr__(self):
         return '<Lent %r>' % self.id
 
-
+# TODO: Add TagMaps and Tags to books
 class TagMaps(db.Model):
 
     __tablename__ = 'tag_maps'
