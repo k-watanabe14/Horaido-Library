@@ -11,6 +11,7 @@ class User(db.Model):
     username = db.Column(db.String(128), nullable=False)
     email = db.Column(db.String(128), nullable=False, unique=True)
     password = db.Column(db.String(192), nullable=False)
+    history = db.relationship('History', backref='user', lazy=True)
 
     def __init__(self, username, email, password):
         self.username = username
@@ -47,6 +48,8 @@ class Book(db.Model):
     image_url = db.Column(db.String(128))
     borrower_id = db.Column(db.Integer)
     checkout_date = db.Column(db.DateTime)
+    history = db.relationship('History', backref='book', lazy=True)
+    tag_maps = db.relationship('TagMaps', backref='book', lazy=True)
 
     def __init__(self, isbn, title, author, publisher_name, sales_date, image_url, borrower_id, checkout_date):
 
@@ -68,8 +71,8 @@ class History(db.Model):
     __tablename__ = 'rental_history'
 
     id = db.Column(db.Integer, primary_key=True)
-    book_id = db.Column(db.Integer, nullable=False)
-    user_id = db.Column(db.Integer, nullable=False)
+    book_id = db.Column(db.Integer, db.ForeignKey('book.id'), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     checkout_date = db.Column(db.DateTime, nullable=False)
     due_date = db.Column(db.DateTime)
     return_date = db.Column(db.DateTime)
@@ -90,8 +93,8 @@ class TagMaps(db.Model):
     __tablename__ = 'tag_maps'
 
     id = db.Column(db.Integer, primary_key=True)
-    book_id = db.Column(db.Integer, nullable=False)
-    tag_id = db.Column(db.Integer, nullable=False)
+    book_id = db.Column(db.Integer, db.ForeignKey('book.id'), nullable=False)
+    tag_id = db.Column(db.Integer, db.ForeignKey('tags.id'), nullable=False)
 
     def __init__(self, book_id, tag_id):
         self.book_id = book_id
@@ -104,6 +107,7 @@ class Tags(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     tag_name = db.Column(db.String(128), nullable=False)
+    tag_maps = db.relationship('TagMaps', backref='tags', lazy=True)
 
     def __init__(self, tag_name):
         self.tag_name = tag_name
