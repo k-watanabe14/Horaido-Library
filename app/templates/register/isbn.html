@@ -8,6 +8,7 @@
 
   <div class="book-form">
     <form method="post">
+      {{ form.hidden_tag() }}
       <div class="book-form-image">
         <img alt="{{ book_data['title'] }}" id="image" src="{{ book_data['largeImageUrl'] }}" width="200" height="200">
       </div>
@@ -15,27 +16,27 @@
       <div class="book-form-text">
         <div class="item">
           <label for="isbn">ISBN</label>
-          {{ form.isbn(value="{{ book_data['isbn'] }}") }}
+          {{ form.isbn(value=book_data['isbn']) }}
         </div>
 
         <div class="item">
           <label for="title">タイトル</label>
-          {{ form.title(value="{{ book_data['title'] }}", required=true) }}
+          {{ form.title(value=book_data['title'], required=true) }}
         </div>
 
         <div class="item">
           <label for="author">著者</label>
-          {{ form.author(value="{{ book_data['author'] }}") }}
+          {{ form.author(value=book_data['author']) }}
         </div>
 
         <div class="item">
           <label for="publisher_name">出版社</label>
-          {{ form.publisher_name(value="{{ book_data['publisherName'] }}") }}
+          {{ form.publisher_name(value=book_data['publisherName']) }}
         </div>
 
         <div class="item">
           <label for="sales_date">出版年月日</label>
-          {{ form.sales_date(value="{{ book_data['salesDate'] }}") }}
+          {{ form.sales_date(value=book_data['salesDate']) }}
         </div>
 
       </div>
