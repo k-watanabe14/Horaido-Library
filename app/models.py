@@ -72,7 +72,7 @@ class History(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     book_id = db.Column(db.Integer, db.ForeignKey('book.id'), nullable=False)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('auth_user.id'), nullable=False)
     checkout_date = db.Column(db.DateTime, nullable=False)
     due_date = db.Column(db.DateTime)
     return_date = db.Column(db.DateTime)
