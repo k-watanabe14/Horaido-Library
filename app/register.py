@@ -42,15 +42,19 @@ def isbn():
 
     if book is not None:
         if form.validate_on_submit():
+            if 'file' in request.files:
+                try:
+                    image_url = get_new_image_url(request.files['file'])
+                except Exception as e:
+                    flash("エラーが発生しました。もう一度やり直してください。")
+                    return redirect(url_for('index'))
+            else:
+                image_url = book['largeImageUrl']
             isbn = request.form['isbn']
             title = request.form['title']
             author = request.form['author']
             publisher_name = request.form['publisher_name']
             sales_date = request.form['sales_date']
-            if 'book_image' in request.files:
-                image_url = get_new_image_url(request.files)
-            else:
-                image_url = book['largeImageUrl']
             borrower_id = None
             checkout_date = None
 
@@ -73,10 +77,14 @@ def manual():
     form = BookForm()
 
     if form.validate_on_submit():
+        image_url = None
         if 'file' in request.files:
-            image_url = get_new_image_url(request.files['file'])
-        else:
-            image_url = None
+            try:
+                image_url = get_new_image_url(request.files['file'])
+            except:
+                flash("エラーが発生しました。もう一度やり直してください。")
+                return redirect(url_for('index'))
+
 
         # Register book information into DB
         isbn = request.form['isbn']

@@ -1,5 +1,5 @@
 // Read uploaded file
-$('#book_image').on('change', function (e) {
+$('#file').on('change', function (e) {
     var reader = new FileReader();
     reader.onload = function (e) {
 		$("#preview").attr('src', e.target.result);

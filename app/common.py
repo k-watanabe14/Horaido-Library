@@ -1,6 +1,6 @@
 from app import app
 import boto3
-from flask import flash
+from flask import flash, redirect, url_for
 import io
 import datetime
 
@@ -11,15 +11,11 @@ def display_errors(items):
 
 def get_new_image_url(image):
     # Save book image into S3 and set image url
-    try:
-        image_name = datetime.datetime.now().isoformat() + ".jpg"
-        body = io.BufferedReader(image).read()
-        key = f'books/{image_name}'
-        upload_file(body, key, 'image/jpeg')
-        image_url = "https://horaido-images.s3.us-east-2.amazonaws.com/books/" + image_name
-    except:
-        flash("エラーが発生しました。もう一度やり直してください。")
-        return redirect(url_for('index'))
+    image_name = datetime.datetime.now().isoformat() + ".jpg"
+    body = io.BufferedReader(image).read()
+    key = f'books/{image_name}'
+    upload_file(body, key, 'image/jpeg')
+    image_url = "https://horaido-images.s3.us-east-2.amazonaws.com/books/" + image_name
 
     return image_url
 
