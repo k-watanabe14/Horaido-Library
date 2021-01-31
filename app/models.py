@@ -11,7 +11,8 @@ class User(db.Model):
     username = db.Column(db.String(128), nullable=False)
     email = db.Column(db.String(128), nullable=False, unique=True)
     password = db.Column(db.String(192), nullable=False)
-    history = db.relationship('History', backref='user', lazy=True)
+    book = db.relationship('Book', backref='auth_user', lazy=True)
+    history = db.relationship('History', backref='auth_user', lazy=True)
 
     def __init__(self, username, email, password):
         self.username = username
@@ -46,7 +47,7 @@ class Book(db.Model):
     publisher_name = db.Column(db.String(128))
     sales_date = db.Column(db.String(128))
     image_url = db.Column(db.String(128))
-    borrower_id = db.Column(db.Integer)
+    borrower_id = db.Column(db.Integer, db.ForeignKey('auth_user.id'))
     checkout_date = db.Column(db.DateTime)
     history = db.relationship('History', backref='book', lazy=True)
     tag_maps = db.relationship('TagMaps', backref='book', lazy=True)
