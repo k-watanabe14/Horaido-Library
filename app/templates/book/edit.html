@@ -5,9 +5,12 @@
 {% block content %}
 
 <div class="book-form">
-  <form method="post">
+  <form method="post" enctype="multipart/form-data">
     {{ form.hidden_tag() }}
     <div class="book-form-image">
+      <span>画像を変更する</span>
+      <input type="file" name="file" id="file">
+      <img id="preview">
       <img alt="{{ book['title'] }}" id="image" src="{{ book['image_url'] }}">
     </div>
 
@@ -41,9 +44,15 @@
         <label for="tag">タグ</label>
         <input type="text" name="tag" id="tag">
       </div>
-
     </div>
-    <input type="submit" value="修正する" />
+
+    <div class="book-form-button">
+      <ul>
+        <li><input class="btn" type="submit" value="修正する" /></li>
+        <li><a class="btn back" href="{{ url_for('book.index', book_id=book['id']) }}">戻る</a></li>
+      </ul>
+    </div>
   </form>
+</div>
 
 {% endblock %}
