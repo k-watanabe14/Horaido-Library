@@ -52,12 +52,14 @@
       </div>
     </div>
     <div class="book-form-button">
-      {% if book['borrower_id'] is none %}
-        <a class="action" href="{{ url_for('book.borrow', book_id = book['id']) }}">この本を借りる</a>
-      {% elif book['borrower_id'] == g.user['id'] %}
-        <a class="action" href="{{ url_for('book.return_', book_id = book['id']) }}">この本を返す</a>
-      {% endif %}
-      <a class="action" href="{{ url_for('book.edit', book_id = book['id']) }}">編集する</a>
+      <ul>
+        {% if book['borrower_id'] is none %}
+          <li><a class="btn borrow" href="{{ url_for('book.borrow', book_id = book['id']) }}">この本を借りる</a></li>
+        {% elif book['borrower_id'] == g.user['id'] %}
+          <li><a class="btn return" href="{{ url_for('book.return_', book_id = book['id']) }}">この本を返す</a></li>
+        {% endif %}
+        <li><a class="btn edit" href="{{ url_for('book.edit', book_id = book['id']) }}">編集する</a></li>
+      </ul>
     </div>
   </div>
 </div>
