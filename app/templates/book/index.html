@@ -39,6 +39,17 @@
         <label for="sales_date">出版年月日</label>
         <span name="sales_date" id="sales_date">{{ book['sales_date'] }}</span>
       </div>
+
+      <div class="item">
+        <label for="tags">タグ</label>
+        <span name="tags" id="tags">
+          <ul>
+            {% for tag in tags %}
+              <li class="tag">{{ tag[1] }}</li>
+            {% endfor %}
+         </ul>
+        </span>
+      </div>
     </div>
     <div class="book-form-button">
       {% if book['borrower_id'] is none %}
