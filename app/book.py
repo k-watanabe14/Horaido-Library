@@ -18,7 +18,7 @@ mod_book = Blueprint('book', __name__, url_prefix='/book')
 def index(book_id):
 
     book = Book.query.filter_by(id=book_id).first()
-    histories = db.session.query(History, User).join(History, User.id == History.user_id).filter_by(book_id=book.id)
+    histories = History.join(User).add_columns(User.username).filter_by(book_id=book.id)
 
     # Page for Detail of book
     return render_template('book/index.html', book=book, histories=histories)
