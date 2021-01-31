@@ -107,6 +107,8 @@ def edit(book_id):
         book.author = request.form['author']
         book.publisher_name = request.form['publisher_name']
         book.sales_date = request.form['sales_date']
+        if 'book_image' in request.files:
+            book.image_url = get_new_image_url(request.files)
 
         db.session.commit()
 

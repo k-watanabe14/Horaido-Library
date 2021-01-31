@@ -5,9 +5,11 @@
 {% block content %}
   <div class="stacked-section-child">
     <div class="book-form">
-      <form method="post">
+      <form method="post" enctype="multipart/form-data">
         {{ form.hidden_tag() }}
-        <div class="book-form-image">画像ファイル<input type="file" name="book_image" id="book_image">
+        <div class="book-form-image">
+          <span>画像を追加する</span>
+          <input type="file" name="file" id="file">
           <img id="preview">
         </div>
 
@@ -37,7 +39,12 @@
             {{ form.sales_date() }}
           </div>
         </div>
-        <input type="submit" value="登録する" />
+        <div class="book-form-button">
+          <ul>
+            <li><input class="btn" type="submit" value="登録する" /></li>
+            <li><a class="btn back" href="{{ url_for('register.index') }}">戻る</a></li>
+          </ul>
+        </div>
       </form>
     </div>
   </div>
