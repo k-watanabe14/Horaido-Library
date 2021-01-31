@@ -4,11 +4,8 @@ from app.auth import login_required
 from app.models import Book
 from app import db
 import requests
-import io
-import datetime
-from app.s3 import upload_file
 from app.forms import BookForm
-from app.common import display_errors
+from app.common import display_errors, get_new_image_url
 
 # Define the blueprint: 'register', set its url prefix: app.url/register
 mod_register = Blueprint('register', __name__, url_prefix='/register')
@@ -45,12 +42,19 @@ def isbn():
 
     if book is not None:
         if form.validate_on_submit():
+            if 'file' in request.files:
+                try:
+                    image_url = get_new_image_url(request.files['file'])
+                except Exception as e:
+                    flash("エラーが発生しました。もう一度やり直してください。")
+                    return redirect(url_for('index'))
+            else:
+                image_url = book['largeImageUrl']
             isbn = request.form['isbn']
             title = request.form['title']
             author = request.form['author']
             publisher_name = request.form['publisher_name']
             sales_date = request.form['sales_date']
-            image_url = book['largeImageUrl']
             borrower_id = None
             checkout_date = None
 
@@ -73,20 +77,14 @@ def manual():
     form = BookForm()
 
     if form.validate_on_submit():
-        # Save book image into S3 and set image url
-        try:
-            if 'book_image' in request.files:
-                image = request.files['book_image']
-                image_name = datetime.datetime.now().isoformat() + ".jpg"
-                body = io.BufferedReader(image).read()
-                key = f'books/{image_name}'
-                upload_file(body, key, 'image/jpeg')
-                image_url = "https://horaido-images.s3.us-east-2.amazonaws.com/books/" + image_name
-            else:
-                image_url = None
-        except:
-            flash("エラーが発生しました。もう一度やり直してください。")
-            return redirect(url_for('register'))
+        image_url = None
+        if 'file' in request.files:
+            try:
+                image_url = get_new_image_url(request.files['file'])
+            except:
+                flash("エラーが発生しました。もう一度やり直してください。")
+                return redirect(url_for('index'))
+
 
         # Register book information into DB
         isbn = request.form['isbn']

@@ -39,14 +39,27 @@
         <label for="sales_date">出版年月日</label>
         <span name="sales_date" id="sales_date">{{ book['sales_date'] }}</span>
       </div>
+
+      <div class="item">
+        <label for="tags">タグ</label>
+        <span name="tags" id="tags">
+          <ul>
+            {% for tag in tags %}
+              <li class="tag">{{ tag[1] }}</li>
+            {% endfor %}
+         </ul>
+        </span>
+      </div>
     </div>
     <div class="book-form-button">
-      {% if book['borrower_id'] is none %}
-        <a class="action" href="{{ url_for('book.borrow', book_id = book['id']) }}">この本を借りる</a>
-      {% elif book['borrower_id'] == g.user['id'] %}
-        <a class="action" href="{{ url_for('book.return_', book_id = book['id']) }}">この本を返す</a>
-      {% endif %}
-      <a class="action" href="{{ url_for('book.edit', book_id = book['id']) }}">編集する</a>
+      <ul>
+        {% if book['borrower_id'] is none %}
+          <li><a class="btn borrow" href="{{ url_for('book.borrow', book_id = book['id']) }}">この本を借りる</a></li>
+        {% elif book['borrower_id'] == g.user['id'] %}
+          <li><a class="btn return" href="{{ url_for('book.return_', book_id = book['id']) }}">この本を返す</a></li>
+        {% endif %}
+        <li><a class="btn edit" href="{{ url_for('book.edit', book_id = book['id']) }}">編集する</a></li>
+      </ul>
     </div>
   </div>
 </div>

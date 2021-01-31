@@ -1,15 +1,16 @@
 // Read uploaded file
-$('#book_image').on('change', function (e) {
+$('#file').on('change', function (e) {
     var reader = new FileReader();
     reader.onload = function (e) {
-        $("#preview").attr('src', e.target.result);
+		$("#preview").attr('src', e.target.result);
     }
-    reader.readAsDataURL(e.target.files[0]);
+	reader.readAsDataURL(e.target.files[0]);
+	document.getElementById("image").style.display = "none";
 });
 
 // Footer Fixed
 new function(){
-	
+
 	var footerId = "site-footer";
 	function footerFixed(){
 		var dh = document.getElementsByTagName("body")[0].clientHeight;
@@ -26,9 +27,9 @@ new function(){
 			document.getElementById(footerId).style.top = (wh-fh-ft)+"px";
 		}
 	}
-	
+
 	function checkFontSize(func){
-	
+
 		var e = document.createElement("div");
 		var s = document.createTextNode("S");
 		e.appendChild(s);
@@ -37,7 +38,7 @@ new function(){
 		e.style.top="0"
 		document.body.appendChild(e);
 		var defHeight = e.offsetHeight;
-		
+
 		function checkBoxSize(){
 			if(defHeight != e.offsetHeight){
 				func();
@@ -46,7 +47,7 @@ new function(){
 		}
 		setInterval(checkBoxSize,1000)
 	}
-	
+
 	function addEvent(elm,listener,fn){
 		try{
 			elm.addEventListener(listener,fn,false);
@@ -60,5 +61,5 @@ new function(){
 		checkFontSize(footerFixed);
 	});
 	addEvent(window,"resize",footerFixed);
-	
+
 }
