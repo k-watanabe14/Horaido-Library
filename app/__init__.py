@@ -41,9 +41,9 @@ def not_found(error):
 @login_required
 def index():
 
-    new_books = db.session.query(Book, User).outerjoin(User, Book.borrower_id == User.id).order_by(Book.id.desc()).limit(10)
+    new_books = Book.query.outerjoin(User).add_columns(User.username).order_by(Book.id.desc()).limit(10)
 
-    rental_books = db.session.query(Book, User).join(History, Book.id == History.book_id).outerjoin(User, Book.borrower_id == User.id).order_by(History.id.desc()).limit(10)
+    rental_books = Book.query.join(History).outerjoin(User).add_columns(User.username).order_by(History.id.desc()).limit(10)
 
     if request.method == 'POST':
         keyword = request.form['keyword']
@@ -75,11 +75,11 @@ def search():
     # "results" are collections of books.
     # Display 20 results per a page.
     if status == "loaned-out":
-        results = db.session.query(Book, User).outerjoin(User, Book.borrower_id == User.id).filter(keywords, Book.borrower_id != None).paginate(page = page, per_page = 20)
+        results = Book.query.outerjoin(User).add_columns(User.username).filter(keywords, Book.borrower_id != None).paginate(page = page, per_page = 20)
     elif status == 'available':
-        results = db.session.query(Book, User).outerjoin(User, Book.borrower_id == User.id).filter(keywords, Book.borrower_id == None).paginate(page = page, per_page = 20)
+        results = Book.query.outerjoin(User).add_columns(User.username).filter(keywords, Book.borrower_id == None).paginate(page = page, per_page = 20)
     else:
-        results = db.session.query(Book, User).outerjoin(User, Book.borrower_id == User.id).filter(keywords).paginate(page = page, per_page = 20)
+        results = Book.query.outerjoin(User).add_columns(User.username).filter(keywords).paginate(page = page, per_page = 20)
 
     if request.method == 'POST':
         keyword = request.form['keyword']
@@ -94,7 +94,7 @@ def search():
 def return_():
 
     # SELECT *  FROM BOOK JOIN rental_history ON book.id = rental_history.book_id WHERE rental_history.user_id = user_id AND rental_history.return_date is NULL
-    rental_books = db.session.query(Book).join(History, Book.id==History.book_id).filter(History.user_id == session.get('user_id'),  History.return_date == None)
+    rental_books = Book.query.join(History).filter(History.user_id == session.get('user_id'),  History.return_date == None)
 
     return render_template('return.html', rental_books = rental_books)
 
