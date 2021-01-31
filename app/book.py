@@ -1,7 +1,7 @@
 from flask import Blueprint, request, render_template, flash, session, redirect, url_for, g
 from werkzeug.exceptions import abort
 from app.auth import login_required
-from app.models import Book, History, User
+from app.models import Book, History, User, TagMaps, Tags
 from app import db
 from app.auth import load_logged_in_user
 import datetime
@@ -18,10 +18,11 @@ mod_book = Blueprint('book', __name__, url_prefix='/book')
 def index(book_id):
 
     book = Book.query.filter_by(id=book_id).first()
+    tags = TagMaps.query.filter_by(book_id=book.id).join(Tags).add_columns(Tags.tag_name)
     histories = History.query.filter_by(book_id=book.id).join(User).add_columns(User.username)
 
     # Page for Detail of book
-    return render_template('book/index.html', book=book, histories=histories)
+    return render_template('book/index.html', book=book, tags=tags, histories=histories)
 
 
 @mod_book.route('/<int:book_id>/borrow', methods=('GET', 'POST'))
