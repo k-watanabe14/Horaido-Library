@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, IntegerField, DateField, PasswordField, SubmitField, BooleanField, TextAreaField
-from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError, Optional, NumberRange
+from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError, Optional
 from app.models import User
 from werkzeug.security import check_password_hash
 
@@ -44,7 +44,7 @@ class ResetPasswordForm(FlaskForm):
 
 class BookForm(FlaskForm):
     ## FIXME: Allow to empty isbn
-    isbn =  StringField('ISBN', validators=[Length(min=13, max=13, message='ISBNには13桁の数字を入力してください。')])
+    isbn =  StringField('ISBN', validators=[Length(min=13, max=13, message='ISBNには13桁の数字を入力してください。'), Optional()])
     title = StringField('タイトル', validators=[DataRequired(message='タイトルを入力してください。')])
     author = StringField('著者')
     publisher_name = StringField('出版社')
