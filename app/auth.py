@@ -4,6 +4,7 @@ from werkzeug.security import check_password_hash, generate_password_hash
 from app.models import User
 from app import db, mail
 from app.forms import SignupForm, LoginFrom
+from app.common import display_errors
 
 
 # Define the blueprint: 'auth', set its url prefix: app.url/auth
@@ -33,9 +34,7 @@ def signup():
         return redirect(url_for('index'))
 
     else:
-        for field, errors in form.errors.items():
-            for error in errors:
-                flash(error)
+        display_errors(form.errors.items)
 
     return render_template("auth/signup.html", form=form)
 
@@ -59,9 +58,7 @@ def login():
             return redirect(url_for('index'))
 
     else:
-        for field, errors in form.errors.items():
-            for error in errors:
-                flash(error)
+        display_errors(form.errors.items)
 
     return render_template('auth/login.html', form=form)
 
