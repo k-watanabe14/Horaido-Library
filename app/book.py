@@ -6,6 +6,8 @@ from app import db
 from app.auth import load_logged_in_user
 import datetime
 from dateutil.relativedelta import relativedelta
+from app.forms import BookForm
+from app.common import display_errors
 
 # Define the blueprint: 'register', set its url prefix: app.url/register
 mod_book = Blueprint('book', __name__, url_prefix='/book')
@@ -94,20 +96,23 @@ def edit(book_id):
 
     book = Book.query.filter_by(id=book_id).first()
 
-    if request.method == 'POST':
-        error = None
+    form = BookForm()
 
-        if error is not None:
-            flash(error)
-        else:
-            # Update date in a book record
-            title = request.form['title']
-            author = request.form['author']
-            publisher_name = request.form['publisher_name']
-            sales_date = request.form['sales_date']
-            donor = request.form['donor']
-            db.session.commit()
-            flash('編集しました')
-            return redirect(url_for('index'))
+    if form.validate_on_submit():
 
-    return render_template('book/edit.html', book=book)
+        # Update date in a book record
+        book.isbn = request.form['isbn']
+        book.title = request.form['title']
+        book.author = request.form['author']
+        book.publisher_name = request.form['publisher_name']
+        book.sales_date = request.form['sales_date']
+
+        db.session.commit()
+
+        flash('編集しました')
+        return redirect(url_for('book.index', book_id=book_id))
+
+    else:
+        display_errors(form.errors.items)
+
+    return render_template('book/edit.html', book=book, form=form)

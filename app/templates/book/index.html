@@ -39,7 +39,8 @@
         <label for="sales_date">出版年月日</label>
         <span name="sales_date" id="sales_date">{{ book['sales_date'] }}</span>
       </div>
-
+    </div>
+    <div class="book-form-button">
       {% if book['borrower_id'] is none %}
         <a class="action" href="{{ url_for('book.borrow', book_id = book['id']) }}">この本を借りる</a>
       {% elif book['borrower_id'] == g.user['id'] %}
