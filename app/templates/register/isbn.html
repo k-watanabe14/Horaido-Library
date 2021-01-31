@@ -7,9 +7,12 @@
   {% if isbn is not none and book is not none %}
 
   <div class="book-form">
-    <form method="post">
+    <form method="post" enctype="multipart/form-data">
       {{ form.hidden_tag() }}
       <div class="book-form-image">
+        <span>画像を変更する</span>
+        <input type="file" name="file" id="file">
+        <img id="preview">
         <img alt="{{ book['title'] }}" id="image" src="{{ book['largeImageUrl'] }}" width="200" height="200">
       </div>
 
@@ -40,11 +43,17 @@
         </div>
 
       </div>
-      <input type="submit" value="登録する" />
+      <div class="book-form-button">
+        <ul>
+          <li><input class="btn" type="submit" value="登録する"></li>
+          <li><a class="btn back" href="{{ url_for('register.index') }}">戻る</a></li>
+        </ul>
+      </div>
     </form>
   </div>
 
   {% else %}
+
   <div class="isbn-wrapper">
     <form method="post" class="isbn-form">
       <input name="isbn" class="isbn-box" value="{{ request.form['isbn'] }}" placeholder="ISBNを入力してください。" required>
