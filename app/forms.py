@@ -42,10 +42,10 @@ class ResetPasswordForm(FlaskForm):
     submit = SubmitField('パスワードを再設定する')
 
 
-class RegisterBookForm(FlaskForm):
+class BookForm(FlaskForm):
     ## FIXME: Allow to empty isbn
-    isbn =  StringField('ISBN', validators=[Length(min=10, max=13, message='10桁もしくは13桁の数字を入力してください。')])
-    title = StringField('タイトル', validators=[DataRequired()])
+    isbn =  StringField('ISBN', validators=[Length(min=13, max=13, message='ISBNには13桁の数字を入力してください。')])
+    title = StringField('タイトル', validators=[DataRequired(message='タイトルを入力してください。')])
     author = StringField('著者')
     publisher_name = StringField('出版社')
     sales_date = StringField('出版年月日')
