@@ -78,7 +78,7 @@ Typography
 body, button, input, select, textarea {
 	color: #333333;
 	font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
-	line-height: 1.5;
+	line-height: 1.5rem;
 	font-weight: 400;
 }
 
@@ -203,6 +203,7 @@ button, input, select, textarea {
 	margin: 0;
 	/* Addresses margins set differently in IE6/7, F3/4, S5, Chrome */
 	vertical-align: middle;
+	border-radius: 0;
 }
 
 button, input[type='button'], .btn {
@@ -521,11 +522,11 @@ button, input[type='button'], .btn {
 .book-form-text input[type="text"], .book-form-text select {
 	background: rgba(255,255,255,.1);
 	border: none;
-	border-radius: 4px;
-	font-size: 15px;
+	border-radius: 0.4rem;
+	font-size: 1.5rem;
 	margin: 0;
 	outline: 0;
-	padding: 10px;
+	padding: 1rem;
 	display: inline-block;
 	width: 68%;
 	box-sizing: border-box;
@@ -533,8 +534,8 @@ button, input[type='button'], .btn {
 	-moz-box-sizing: border-box;
 	background-color: #e8eeef;
 	color:#454545;
-	-webkit-box-shadow: 0 1px 0 rgba(0,0,0,0.03) inset;
-	box-shadow: 0 1px 0 rgba(0,0,0,0.03) inset;
+	-webkit-box-shadow: 0 0.1rem 0 rgba(0,0,0,0.03) inset;
+	box-shadow: 0 0.1rem 0 rgba(0,0,0,0.03) inset;
 	background-color: white;
 }
 
@@ -577,11 +578,11 @@ button, input[type='button'], .btn {
 }
 
 .book-form-button input[type="submit"], .book-form-button .edit {
-	background: #aaaa11;
+	background: #FFC605;
 }
 
 .book-form-button .borrow, .book-form-button .return {
-	background: #801717;
+	background: #1e8b38;
 }
 
 .book-form-button .back {
@@ -591,43 +592,43 @@ button, input[type='button'], .btn {
 /*-----------------ISBN Search Form-----------------*/
 .isbn-wrapper{
 	margin: auto;
-	height: 50px;
+	height: 5rem;
 	position: relative;
-	width: 350px;
+	width: 35rem;
 }
 
 .isbn-form{
 	position:relative;
-	margin-bottom:20px;
+	margin-bottom:2rem;
 }
 
 .isbn-box{
-	height:50px;
-	width: 300px;
-	padding:0 20px;
+	height:5rem;
+	width: 30rem;
+	padding:0 2rem;
 	position:absolute;
 	left:0;
 	top:0;
-	border-radius:5px;
+	border-radius:0.5rem;
 	outline:0;
 	background:#eee;
 	border: none;
 }
 
 .isbn-btn{
-	height:50px;
-	width:50px;
+	height:5rem;
+	width:5rem;
 	position:absolute;
-	left: calc(100% - 50px);
+	left: calc(100% - 5rem);
 	top:0;
 	background:#FFC605;
 	color:#fff;
 	border:none;
-	border-radius:0 5px 5px 0;
+	border-radius:0 0.5rem 0.5rem 0;
 }
 
 .isbn-btn .fa-search{
-	font-size:20px;
+	font-size:2rem;
 	position:absolute;
 	top:30%;
 	left:30%;
@@ -651,7 +652,7 @@ Header
 /*-----------------Main Header-----------------*/
 .main-header {
     width: 100%;
-    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 0.1rem 0.1rem rgba(0, 0, 0, 0.2);
     display: flex;
     justify-content: space-between;
 }
@@ -664,7 +665,7 @@ Header
 }
 
 .main-logo .logo-image {
-	padding: 20px 0;
+	padding: 2rem 0;
 }
 
 .main-logo .logo-image a img {
@@ -672,14 +673,14 @@ Header
 }
 
 .main-logo .logo-text {
-    margin-left: 100px;
-    margin-right: 20px;
+    margin-left: 10rem;
+    margin-right: 2rem;
 }
 
 .main-logo .logo-text .site-title {
-	font-size: 22px;
+	font-size: 2.2rem;
 	font-weight: 500;
-	padding: 20px;
+	padding: 2rem;
 }
 
 .main-logo .logo-text .site-title:hover {
@@ -692,13 +693,13 @@ Header
 
 /*-----------------Account-----------------*/
 .account-container {
-    min-width: 200px;
+    min-width: 20rem;
 }
 
 .account-container ul {
     margin: 0;
     height: 100%;
-    padding: 10px;
+    padding: 1rem;
     text-align: center;
     list-style: none;
 }
@@ -707,7 +708,7 @@ Header
     display: inline-block;
     text-align: center;
     text-decoration: none;
-	font-size: 14px;
+	font-size: 1.4rem;
 }
 
 .account-container ul li a {
@@ -716,9 +717,9 @@ Header
     text-decoration: none;
     color: #333333;
 	font-weight: bold;
-	border-radius: 1000px;
-	padding: 15px 20px;
-	margin: 0 5px;
+	border-radius: 100rem;
+	padding: 1.5rem 2rem;
+	margin: 0 0.5rem;
 }
 
 .account-container ul li a:hover {
@@ -726,8 +727,8 @@ Header
 }
 
 .account-container .fa {
-    font-size: 24px;
-    padding: 0 10px;
+    font-size: 2.4rem;
+    padding: 0 1rem;
     color: gray;
 }
 
@@ -1047,4 +1048,75 @@ Contents
 
 .history-list table tbody tr td {
 	padding: 20px 0;
+}
+
+/*-----------------Modal-----------------*/
+#mask-borrow, #mask-return {
+  background: rgba(0, 0, 0, 0.4);
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  z-index: 1;
+}
+
+.modal {
+  background: #fff;
+  color: #555;
+  width: 40%;
+  min-width: 30rem;
+  height: 25rem;
+  padding: 4rem;
+  border-radius: 0.4rem;
+  position: fixed;
+  top: 30%;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  z-index: 2;
+  transition: 0.4s;
+}
+
+#mask-borrow.hidden, #mask-return.hidden {
+  display: none;
+}
+
+.modal.hidden {
+  transform: translate(0, -60vh);
+}
+
+.modal ul {
+	text-align: center;
+}
+
+.modal li {
+	display: inline-block;
+	margin: 0 4rem;
+}
+
+.modal button, .modal input {
+	cursor: pointer;
+	width: 15rem;
+	border: 1px solid #ccc;
+	border-radius: 0.4rem;
+	text-align: center;
+	padding: 1.2rem;
+	margin: 1.6rem auto 0;
+	color: white;
+}
+
+.modal p {
+	text-align: center;
+	font-size: 1.6rem;
+	font-weight: bold;
+	margin: 4rem;
+}
+
+.modal input.borrow, .modal input.return {
+	background-color: #1e8b38;
+}
+
+.modal button.close, button.close  {
+	background-color: #666666;
 }
