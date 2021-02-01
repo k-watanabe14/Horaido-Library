@@ -89,14 +89,14 @@ def search():
     return render_template('search.html', results = results, keyword = keyword, status = status)
 
 # ENHANCE: Send email before due date if not returning the book yet
-@app.route('/return')
+@app.route('/rental')
 @login_required
-def return_():
+def rental():
 
     # SELECT *  FROM BOOK JOIN rental_history ON book.id = rental_history.book_id WHERE rental_history.user_id = user_id AND rental_history.return_date is NULL
     rental_books = Book.query.join(History).filter(History.user_id == session.get('user_id'),  History.return_date == None)
 
-    return render_template('return.html', rental_books = rental_books)
+    return render_template('rental.html', rental_books = rental_books)
 
 
 if __name__ == '__main__':
