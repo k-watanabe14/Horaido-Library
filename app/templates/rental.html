@@ -1,14 +1,10 @@
 {% extends 'base.html' %}
 
-{% block title %}本を返す{% endblock %}
+{% block title %}借りている本{% endblock %}
 
 {% block content %}
 
   <div class="stacked-section-child">
-    <div class="content-heading">
-      <h4 class="section-title">借りている本</h4>
-    </div>
-
     <div class="book-list">
       {% for book in rental_books %}
         <div class="book-container">
@@ -20,7 +16,7 @@
               <a href="{{ url_for('book.index', book_id = book['id']) }}">{{ book['title'] }}</a>
             </div>
             <div class="book-author">
-              <sapn class="author">{{ book['author'] }}</sapn>
+              <span class="author">{{ book['author'] }}</span>
             </div>
           </div>
           <div class="book-category">
@@ -28,7 +24,7 @@
           </div>
           <div class="book-status">
             <div class="self">
-              <a href="{{ url_for('book.return_', book_id = book['id']) }}">この本を返す</a>
+              <a href="{{ url_for('book.index', book_id = book['id']) }}">この本の詳細</a>
             </div>
           </div>
         </div>
