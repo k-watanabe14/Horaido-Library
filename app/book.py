@@ -57,13 +57,10 @@ def index(book_id):
     histories = History.query.filter_by(book_id=book.id).join(User).add_columns(User.username)
 
     if request.method == 'POST':
-        print('aaa')
         if 'borrow_button' in request.form:
-            print('a')
             borrow_book(book, book_id)
             return redirect(url_for('book.index', book_id=book_id))
         elif 'return_button' in request.form:
-            print('b')
             return_book(book, book_id)
             return redirect(url_for('book.index', book_id=book_id))
 
@@ -79,6 +76,8 @@ def edit(book_id):
     book = Book.query.filter_by(id=book_id).first()
 
     form = BookForm()
+
+    tags = TagMaps.query.filter_by(book_id=book.id).join(Tags).add_columns(Tags.tag_name)
 
     if form.validate_on_submit():
         # Update image url
@@ -105,4 +104,4 @@ def edit(book_id):
     else:
         display_errors(form.errors.items)
 
-    return render_template('book/edit.html', book=book, form=form)
+    return render_template('book/edit.html', book=book, form=form, tags=tags)
