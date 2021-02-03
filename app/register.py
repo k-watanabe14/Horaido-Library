@@ -31,7 +31,6 @@ def isbn():
 
         if 'Items' in response.json() and response.json()['Items']:
                 book = response.json()['Items'][0]['Item']
-
         else:
             flash("該当する書籍が見つかりませんでした。再度ISBNを入力してください。")
 
@@ -42,7 +41,7 @@ def isbn():
 
     if book is not None:
         if form.validate_on_submit():
-            if 'file' in request.files:
+            if 'file' in request.files and request.files['file'].filename != '':
                 try:
                     image_url = get_new_image_url(request.files['file'])
                 except Exception as e:
@@ -77,14 +76,13 @@ def manual():
     form = BookForm()
 
     if form.validate_on_submit():
-        image_url = None
-        if 'file' in request.files:
+        image_url = 'https://horaido-images.s3.us-east-2.amazonaws.com/books/2021-02-02T10:44:40.812244.jpg'
+        if 'file' in request.files and request.files['file'].filename != '':
             try:
                 image_url = get_new_image_url(request.files['file'])
             except:
                 flash("エラーが発生しました。もう一度やり直してください。")
                 return redirect(url_for('index'))
-
 
         # Register book information into DB
         isbn = request.form['isbn']
