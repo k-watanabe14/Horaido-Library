@@ -41,8 +41,14 @@
       </div>
 
       <div class="item">
-        <label for="tag">タグ</label>
-        <input type="text" name="tag" id="tag">
+        <label for="tags">タグ</label>
+        <span name="tags" id="tags">
+          <ul>
+            {% for tag in tags %}
+              <li class="tag">{{ tag[1] }}</li>
+            {% endfor %}
+         </ul>
+        </span>
       </div>
     </div>
 
