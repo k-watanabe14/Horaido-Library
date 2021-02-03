@@ -76,7 +76,7 @@ def manual():
     form = BookForm()
 
     if form.validate_on_submit():
-        image_url = None
+        image_url = 'https://horaido-images.s3.us-east-2.amazonaws.com/books/2021-02-02T10:44:40.812244.jpg'
         if 'file' in request.files and request.files['file'].filename != '':
             try:
                 image_url = get_new_image_url(request.files['file'])
