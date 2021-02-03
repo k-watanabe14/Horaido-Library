@@ -23,6 +23,15 @@
             <option value="available" {% if status=="available" %} selected="selected" {% endif %}>貸出可能</option>
           </select>
         </div>
+        <div class="option">
+          <label for="tag">タグ</label>
+          <select id="tag-options" name="tag">
+            <option value="-1">全て</option>
+            {% for t in tags %}
+              <option value="{{ t['id'] }}" {% if (t['id'] == tag|int) %} selected="selected" {% endif %}>{{ t['tag_name'] }}</option>
+            {% endfor %}
+          </select>
+        </div>
       </div>
     </form>
   </div>
@@ -56,16 +65,18 @@
                 </div>
               </div>
               <div class="book-category">
-                <p class="category">小説</p>
+                <p class="category"></p>
               </div>
               <div class="book-status">
-                {% if result[0]['borrower_id'] is none %}
-                  <div class="available"><a href="{{ url_for('book.borrow', book_id = result[0]['id']) }}">この本を借りる</a></div>
-                {% elif result[0]['borrower_id'] == g.user['id'] %}
-                  <div class="self"><a href="{{ url_for('book.return_', book_id = result[0]['id']) }}">この本を返す</a></div>
-                {% else %}
-                  <div class="others">{{ result[1] }}さんが借りています。</div>
-                {% endif %}
+                <div class="text">
+                  {% if result[0]['borrower_id'] is none %}
+                    <span>貸し出し可能です。</span>
+                  {% elif result[0]['borrower_id'] == g.user['id'] %}
+                    <span>あなたが借りています。</span>
+                  {% else %}
+                    <span>{{ result[1] }}さんが借りています。</span>
+                  {% endif %}
+                </div>
               </div>
             </div>
           {% endfor %}
@@ -75,9 +86,9 @@
           {% for page_num in results.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
             {% if page_num %}
               {% if results.page == page_num %}
-                <a class="btn" href="{{ url_for('search', keyword = keyword, status = status, genre = genre, donor = donor, page = page_num) }}">{{ page_num }}</a>
+                <a class="btn" href="{{ url_for('search', keyword = keyword, status = status, page = page_num) }}">{{ page_num }}</a>
               {% else %}
-                <a class="btn" href="{{ url_for('search', keyword = keyword, status = status, genre = genre, donor = donor, page = page_num) }}">{{ page_num }}</a>
+                <a class="btn" href="{{ url_for('search', keyword = keyword, status = status, page = page_num) }}">{{ page_num }}</a>
               {% endif %}
             {% else %}
               <span>...</span>

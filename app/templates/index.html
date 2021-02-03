@@ -5,8 +5,8 @@
 {% block content %}
 
   <div class="stacked-section-child">
-    <div class="search-bar-wrapper">
-      <form class="search-bar" method="post" autocomplete="off">
+    <div class="search-form-wrapper">
+      <form class="search-form" method="post" autocomplete="off">
         <input class="search-input" placeholder="タイトル・著者名・出版社" type="text" name="keyword" id="keyword" value="{{ request.form['keyword'] }}" required>
         <button class="search-button" type="submit" method="post"><i class="fas fa-search"></i></button>
       </form>
@@ -33,16 +33,22 @@
             </div>
           </div>
           <div class="book-category">
-            <p class="category">小説</p>
+            {% if book[2] == none %}
+              <p class="category"></p>
+            {% else %}
+              <p class="category">{{ book[2] }}</p>
+            {% endif %}
           </div>
           <div class="book-status">
-            {% if book[0]['borrower_id'] is none %}
-              <div class="text"><a href="{{ url_for('book.borrow', book_id = book[0]['id']) }}">この本を借りる</a></div>
-            {% elif book[0]['borrower_id'] == g.user['id'] %}
-              <div class="text"><a href="{{ url_for('book.return_', book_id = book[0]['id']) }}">この本を返す</a></div>
-            {% else %}
-              <div class="text"><span>{{ book[1] }}さんが借りています。</span></div>
-            {% endif %}
+            <div class="text">
+              {% if book[0]['borrower_id'] is none %}
+                <span>貸し出し可能です。</span>
+              {% elif book[0]['borrower_id'] == g.user['id'] %}
+                <span>あなたが借りています。</span>
+              {% else %}
+                <span>{{ book[1] }}さんが借りています。</span>
+              {% endif %}
+            </div>
           </div>
         </div>
       {% endfor %}
@@ -69,16 +75,22 @@
             </div>
           </div>
           <div class="book-category">
-            <p class="category">小説</p>
+            {% if book[2] == none %}
+              <p class="category"></p>
+            {% else %}
+              <p class="category">{{ book[2] }}</p>
+            {% endif %}
           </div>
           <div class="book-status">
-            {% if book[0]['borrower_id'] is none %}
-              <div class="text"><a href="{{ url_for('book.borrow', book_id = book[0]['id']) }}">この本を借りる</a></div>
-            {% elif book[0]['borrower_id'] == g.user['id'] %}
-              <div class="text"><a href="{{ url_for('book.return_', book_id = book[0]['id']) }}">この本を返す</a></div>
-            {% else %}
-              <div class="text"><span>{{ book[1] }}さんが借りています。</span></div>
-            {% endif %}
+            <div class="text">
+              {% if book[0]['borrower_id'] is none %}
+                <span>貸し出し可能です。</span>
+              {% elif book[0]['borrower_id'] == g.user['id'] %}
+                <span>あなたが借りています。</span>
+              {% else %}
+                <span>{{ book[1] }}さんが借りています。</span>
+              {% endif %}
+            </div>
           </div>
         </div>
       {% endfor %}

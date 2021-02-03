@@ -2,7 +2,7 @@ import os
 from flask import Flask, request, render_template, session, redirect, url_for, flash
 from flask_sqlalchemy import SQLAlchemy
 from flask_mail import Mail
-from sqlalchemy import or_
+from sqlalchemy import and_, or_
 
 
 app = Flask(__name__)
@@ -28,7 +28,7 @@ app.register_blueprint(mod_book)
 from app.auth import login_required
 
 # Import Book Model
-from app.models import Book, History, User
+from app.models import Book, History, User, TagMaps, Tags
 
 
 @app.errorhandler(404)
@@ -41,9 +41,9 @@ def not_found(error):
 @login_required
 def index():
 
-    new_books = Book.query.outerjoin(User).add_columns(User.username).order_by(Book.id.desc()).limit(10)
+    new_books = Book.query.outerjoin(User, TagMaps, Tags).filter(or_(TagMaps.tag_id <= 9, TagMaps.tag_id == None)).add_columns(User.username, Tags.tag_name).order_by(Book.id.desc()).limit(10)
 
-    rental_books = Book.query.join(History).outerjoin(User).add_columns(User.username).order_by(History.id.desc()).limit(10)
+    rental_books = Book.query.join(History).outerjoin(User, TagMaps, Tags).filter(or_(TagMaps.tag_id <= 9, TagMaps.tag_id == None)).add_columns(User.username, Tags.tag_name).order_by(History.id.desc()).limit(10)
 
     if request.method == 'POST':
         keyword = request.form['keyword']
@@ -54,49 +54,58 @@ def index():
         else:
             return redirect(url_for('search', keyword=keyword))
 
-    return render_template('index.html', new_books = new_books, rental_books = rental_books)
+    return render_template('index.html', new_books=new_books, rental_books=rental_books)
 
 
 @app.route('/search', methods = ('GET', 'POST'))
 @login_required
 def search():
 
+    tags = Tags.query
+
     keyword = request.args.get('keyword')
     status = request.args.get('status')
+    tag = request.args.get('tag') if request.args.get('tag') else '-1'
 
-    search_keyword = "%{}%".format(keyword)
+    f_keyword = "%{}%".format(keyword)
 
     # Search books contained keyword in title, author, publisher name.
-    keywords= or_((Book.title.like(search_keyword)), ((Book.author.like(search_keyword))), (Book.publisher_name.like(search_keyword)))
+    keywords= or_((Book.title.like(f_keyword)), ((Book.author.like(f_keyword))), (Book.publisher_name.like(f_keyword)))
 
     # For pagination
     page = request.args.get('page', 1, type = int)
 
+    status_condition = and_(True)
+    if status == "loaned-out":
+        status_condition = and_(Book.borrower_id != None)
+    elif status == 'available':
+        status_condition = and_(Book.borrower_id == None)
+
+    tag_condition = and_(True)
+    if tag != '-1':
+        tag_condition = and_(TagMaps.tag_id == tag)
+
     # "results" are collections of books.
     # Display 20 results per a page.
-    if status == "loaned-out":
-        results = Book.query.outerjoin(User).add_columns(User.username).filter(keywords, Book.borrower_id != None).paginate(page = page, per_page = 20)
-    elif status == 'available':
-        results = Book.query.outerjoin(User).add_columns(User.username).filter(keywords, Book.borrower_id == None).paginate(page = page, per_page = 20)
-    else:
-        results = Book.query.outerjoin(User).add_columns(User.username).filter(keywords).paginate(page = page, per_page = 20)
+    results = Book.query.outerjoin(User, TagMaps).filter(keywords, status_condition, tag_condition).add_columns(User.username).paginate(page = page, per_page = 20)
 
     if request.method == 'POST':
         keyword = request.form['keyword']
         status = request.form.get('status')
-        return redirect(url_for('search', keyword = keyword, status = status))
+        tag = request.form.get('tag')
+        return redirect(url_for('search', keyword=keyword, status=status, tag=tag))
 
-    return render_template('search.html', results = results, keyword = keyword, status = status)
+    return render_template('search.html', results=results, keyword=keyword, status=status, tags=tags, tag=tag)
 
 # ENHANCE: Send email before due date if not returning the book yet
-@app.route('/return')
+@app.route('/rental')
 @login_required
-def return_():
+def rental():
 
     # SELECT *  FROM BOOK JOIN rental_history ON book.id = rental_history.book_id WHERE rental_history.user_id = user_id AND rental_history.return_date is NULL
-    rental_books = Book.query.join(History).filter(History.user_id == session.get('user_id'),  History.return_date == None)
+    rental_books = Book.query.join(History).outerjoin(TagMaps, Tags).add_columns(Tags.tag_name).filter(Book.borrower_id == session.get('user_id'), or_(TagMaps.tag_id <= 9, TagMaps.tag_id == None))
 
-    return render_template('return.html', rental_books = rental_books)
+    return render_template('rental.html', rental_books=rental_books)
 
 
 if __name__ == '__main__':

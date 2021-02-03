@@ -6,7 +6,7 @@
 
 <div class="stacked-section-child">
   <div class="content-heading">
-    <h4 class="section-title">{{ book['title']}}</h4>
+    <h4 class="section-title">"{{ book['title']}}"の詳細</h4>
   </div>
 
   <div class="book-form">
@@ -54,13 +54,30 @@
     <div class="book-form-button">
       <ul>
         {% if book['borrower_id'] is none %}
-          <li><a class="btn borrow" href="{{ url_for('book.borrow', book_id = book['id']) }}">この本を借りる</a></li>
+          <li><button class="btn borrow" id="open-borrow" >この本を借りる</button></li>
         {% elif book['borrower_id'] == g.user['id'] %}
-          <li><a class="btn return" href="{{ url_for('book.return_', book_id = book['id']) }}">この本を返す</a></li>
+          <li><button class="btn return" id="open-return" >この本を返す</button></li>
         {% endif %}
         <li><a class="btn edit" href="{{ url_for('book.edit', book_id = book['id']) }}">編集する</a></li>
       </ul>
     </div>
+    <div id="mask-borrow" class="hidden"></div>
+    <section id="modal-borrow" class="modal hidden">
+      <p>この本を借りますか？</p>
+      <ul>
+        <li><form method="post"><input type="submit" name="borrow_button" class="borrow" value="借りる"></form></li>
+        <li><button id="close-borrow" class="close">閉じる</button></li>
+      </ul>
+    </section>
+
+    <div id="mask-return" class="hidden"></div>
+    <section id="modal-return" class="modal hidden">
+      <p>この本を返しますか</p>
+      <ul>
+        <li><form method="post"><input type="submit" name="return_button" class="return" value="返す"></form></li>
+        <li><button id="close-return" class="close">閉じる</button></li>
+      </ul>
+    </section>
   </div>
 </div>
 
