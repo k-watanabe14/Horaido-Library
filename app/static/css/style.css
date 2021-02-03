@@ -72,6 +72,10 @@ body {
 	font-size: 1.4em;
 }
 
+select {
+	appearance: none;
+}
+
 /*--------------------------------------------------------------
 Typography
 --------------------------------------------------------------*/
@@ -324,62 +328,15 @@ button, input[type='button'], .btn {
 	box-shadow: 0 0.5rem 1rem 0 rgba(0,0,0,0.12), 0 0.3rem 2rem 0 rgba(0,0,0,0.12), 0 0.5rem 0.6rem -0.2rem rgba(0,0,0,0.2);
 }
 
-/*-----------------Search Bar-----------------*/
-.search-bar-wrapper {
-    max-width: 36rem;
-    padding: 1.5rem 0;
-    position: relative;
-    margin: auto;
-}
-
-.search-bar-wrapper .search-bar {
-    background-color: white;
-    box-sizing: border-box;
-    outline: none;
-    position: relative;
-    border: 0.1rem solid #DFE1E2;
-    box-shadow: 0.1rem 0.1rem 0.3rem 0.1rem #DFE1E2;
-    border-radius: 2rem;
-    padding: 0.8rem 2rem;
-    height: 4rem;
-    width: 36rem;
-    vertical-align: top;
-}
-
-.search-bar-wrapper  .search-bar .search-input {
-    border: none;
-    height: 1.6rem;
-    font-weight: 500;
-}
-
-.search-bar-wrapper  .search-bar .search-input:focus {
-    outline: 0;
-}
-
-.search-bar-wrapper .search-bar .search-button {
-    font-family: FontAwesome;
-    font-size: 1.3em;
-    border: none;
-    background: none;
-    color: #cccccc;
-    position: absolute;
-    width: 2.5em;
-    height: 2.5em;
-    right: 0;
-    top: -0.2rem;
-	outline : none;
-}
-
 /*-----------------Search Form-----------------*/
 .search-form-wrapper {
-    width: 80rem;
     padding: 1.5rem 0;
     position: relative;
 	margin: auto;
 	border-radius: 1.4rem;
 }
 
-.search-form-wrapper .search-form {
+.search-form {
     background-color: white;
     box-sizing: border-box;
     outline: none;
@@ -388,23 +345,24 @@ button, input[type='button'], .btn {
     box-shadow: 0.1rem 0.1rem 0.3rem 0.1rem #DFE1E2;
 	border-radius: 2rem;
 	margin: 0 auto;
-    padding: 0.8rem 2rem;
+    padding: 0 2rem;
     height: 4rem;
     width: 36rem;
     vertical-align: top;
 }
 
-.search-form-wrapper  .search-form .search-input {
+.search-form .search-input {
     border: none;
-    height: 1.6rem;
+	height: 100%;
+	width: 100%;
     font-weight: 500;
 }
 
-.search-form-wrapper  .search-form .search-input:focus {
+.search-form .search-input:focus {
     outline: 0;
 }
 
-.search-form-wrapper .search-form .search-button {
+.search-form .search-button {
     font-family: FontAwesome;
     font-size: 1.3em;
     border: none;
@@ -412,7 +370,7 @@ button, input[type='button'], .btn {
     color: #cccccc;
     position: absolute;
     width: 2.5em;
-    height: 2.5em;
+    height: 2.3em;
     right: 0;
     top: -0.2rem;
 	outline : none;
@@ -436,19 +394,26 @@ button, input[type='button'], .btn {
 	border: none;
 	border-radius: 2rem;
 	font-size: 1.5rem;
-	margin: 0;
+	margin: 1.5rem 0;
 	outline: 0;
 	padding: 1rem;
 	width: 100%;
 	box-sizing: border-box;
 	-webkit-box-sizing: border-box;
 	-moz-box-sizing: border-box;
-	background-color: #e8eeef;
-	color:#454545;
 	-webkit-box-shadow: 0 0.1rem 0 rgba(0,0,0,0.03) inset;
 	box-shadow: 0 0.1rem 0 rgba(0,0,0,0.03) inset;
-	margin-bottom: 1.5rem;
 	background-color: white;
+}
+
+.search-form-wrapper .options-section .option::after {
+	content: "\25bc";
+	font-size: 1.6rem;
+	color: #333333;
+	line-height: 6.4rem;
+	position: absolute;
+	pointer-events: none;
+	margin: 0 -2.5rem;
 }
 
 /*-----------------Book From-----------------*/
@@ -936,7 +901,7 @@ Contents
 
 .book-container .book-status .text {
 	display: flex;
-	justify-content: center;
+	margin-left: 5%;
 }
 
 /*-----------------Search Page-----------------*/
@@ -1066,7 +1031,7 @@ Contents
   color: #555;
   width: 40%;
   min-width: 30rem;
-  height: 25rem;
+  min-height: 25rem;
   padding: 4rem;
   border-radius: 0.4rem;
   position: fixed;
@@ -1083,7 +1048,7 @@ Contents
 }
 
 .modal.hidden {
-  transform: translate(0, -60vh);
+  transform: translate(0, calc(-50vh - 30rem));
 }
 
 .modal ul {
