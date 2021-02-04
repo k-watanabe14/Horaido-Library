@@ -899,7 +899,7 @@ Contents
 	box-sizing: border-box;
 }
 
-.book-container .book-status .text {
+.book-container .book-status span {
 	display: flex;
 	margin-left: 5%;
 }

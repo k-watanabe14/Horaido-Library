@@ -7,13 +7,13 @@
   <div class="stacked-section-child">
     <div class="book-list">
       {% for book in rental_books %}
-        <div class="book-container">
+        <a class="book-container" href="{{ url_for('book.index', book_id = book[0]['id']) }}">
           <div class="book-image">
             <img alt="{{ book[0]['title'] }}" id="image" src="{{ book[0]['image_url'] }}">
           </div>
           <div class="book-info">
             <div class="book-title">
-              <a href="{{ url_for('book.index', book_id = book[0]['id']) }}">{{ book[0]['title'] }}</a>
+              <span class="title">{{ book[0]['title'] }}</span>
             </div>
             <div class="book-author">
               <span class="author">{{ book[0]['author'] }}</span>
@@ -27,9 +27,9 @@
             {% endif %}
           </div>
           <div class="book-status">
-            <div class="text"><a href="{{ url_for('book.index', book_id = book[0]['id']) }}">この本の詳細</a></div>
+            <span class="text">この本の詳細</span>
           </div>
-        </div>
+        </a>
       {% endfor %}
     </div>
   </div>
