@@ -52,13 +52,13 @@
       {% else %}
         <div class="book-list">
           {% for result in results.items %}
-            <div class="book-container">
+            <a class="book-container" href="{{ url_for('book.index', book_id = result[0]['id']) }}">
               <div class="book-image">
                 <img alt="{{ result[0]['title'] }}" id="image" src="{{ result[0]['image_url'] }}">
               </div>
               <div class="book-info">
                 <div class="book-title">
-                  <a href="{{ url_for('book.index', book_id = result[0]['id']) }}">{{ result[0]['title'] }}</a>
+                  <span class="title">{{ result[0]['title'] }}</span>
                 </div>
                 <div class="book-author">
                   <span class="author">{{ result[0]['author'] }}</span>
@@ -68,7 +68,7 @@
                 <p class="category"></p>
               </div>
               <div class="book-status">
-                <div class="text">
+                <div class="status">
                   {% if result[0]['borrower_id'] is none %}
                     <span>貸し出し可能です。</span>
                   {% elif result[0]['borrower_id'] == g.user['id'] %}
@@ -78,7 +78,7 @@
                   {% endif %}
                 </div>
               </div>
-            </div>
+            </a>
           {% endfor %}
         </div>
 

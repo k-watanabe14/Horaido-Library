@@ -30,6 +30,7 @@ def signup():
         session.clear()
         session['user_id'] = User.query.filter_by(username=username).first().id
 
+        app.logger.info('%s logged in successfully', username)
         flash('ユーザーを登録しました')
         return redirect(url_for('index'))
 
