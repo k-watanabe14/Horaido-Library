@@ -2,7 +2,7 @@ import functools
 from flask import Blueprint, request, render_template, flash, session, redirect, url_for, g
 from werkzeug.security import check_password_hash, generate_password_hash
 from app.models import User
-from app import db, mail
+from app import app, db, mail
 from app.forms import SignupForm, LoginFrom
 from app.common import display_errors
 
