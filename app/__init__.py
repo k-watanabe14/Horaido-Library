@@ -3,7 +3,7 @@ from flask import Flask, render_template, request, session, redirect, \
     url_for, g
 from flask_sqlalchemy import SQLAlchemy
 from flask_mail import Mail
-from sqlalchemy import and_, or_
+from sqlalchemy import and_, or_, is_, isnot
 
 app = Flask(__name__)
 app.config.from_object(os.environ['APP_SETTINGS'])
@@ -42,11 +42,11 @@ def not_found(error):
 def index():
 
     new_books = Book.query.outerjoin(User, TagMaps, Tags).filter(
-        or_(TagMaps.tag_id <= 9, TagMaps.tag_id is None)).add_columns(
+        or_(TagMaps.tag_id <= 9, TagMaps.tag_id.is_(None))).add_columns(
         User.username, Tags.tag_name).order_by(Book.id.desc()).limit(10)
 
     rental_books = Book.query.join(History).outerjoin(User, TagMaps, Tags)\
-        .filter(or_(TagMaps.tag_id <= 9, TagMaps.tag_id is None)).add_columns(
+        .filter(or_(TagMaps.tag_id <= 9, TagMaps.tag_id.is_(None))).add_columns(
         User.username, Tags.tag_name).order_by(History.id.desc()).limit(10)
 
     if request.method == 'POST':
@@ -80,9 +80,9 @@ def search():
 
     status_condition = and_(True)
     if status == 'loaned-out':
-        status_condition = and_(Book.borrower_id is not None)
+        status_condition = and_(Book.borrower_id.isnot(None))
     elif status == 'available':
-        status_condition = and_(Book.borrower_id is None)
+        status_condition = and_(Book.borrower_id.isnot(None))
 
     tag_condition = and_(True)
     if tag != '-1':
@@ -115,7 +115,7 @@ def rental():
     rental_books = Book.query.join(History).outerjoin(TagMaps, Tags)\
         .add_columns(Tags.tag_name).filter(
         Book.borrower_id == session.get('user_id'),
-        or_(TagMaps.tag_id <= 9, TagMaps.tag_id is None))
+        or_(TagMaps.tag_id <= 9, TagMaps.tag_id.is_(None)))
 
     return render_template('rental.html', rental_books=rental_books)
 
