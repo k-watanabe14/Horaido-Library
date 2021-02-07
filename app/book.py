@@ -107,7 +107,7 @@ def edit(book_id):
 
         db.session.commit()
 
-        flash('編集しました')
+        flash('保存しました。')
         app.logger.info('%s edited %s', g.user.username, book.title)
         return redirect(url_for('book.index', book_id=book_id))
 
