@@ -1,5 +1,5 @@
 from app import app, db
-from sqlalchemy import BigInteger
+from flask import g
 from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 
 
@@ -28,7 +28,9 @@ class User(db.Model):
         s = Serializer(app.config['SECRET_KEY'])
         try:
             user_id = s.loads(token)['user_id']
-        except:
+        except Exception as e:
+            app.logger.exception(
+                '%s accessed by wrong token: %s', g.user.username, e)
             return None
         return User.query.get(user_id)
 
@@ -52,7 +54,8 @@ class Book(db.Model):
     history = db.relationship('History', backref='book', lazy=True)
     tag_maps = db.relationship('TagMaps', backref='book', lazy=True)
 
-    def __init__(self, isbn, title, author, publisher_name, sales_date, image_url, borrower_id, checkout_date):
+    def __init__(self, isbn, title, author, publisher_name, sales_date,
+                 image_url, borrower_id, checkout_date):
 
         self.isbn = isbn
         self.title = title
@@ -73,7 +76,8 @@ class History(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     book_id = db.Column(db.Integer, db.ForeignKey('book.id'), nullable=False)
-    user_id = db.Column(db.Integer, db.ForeignKey('auth_user.id'), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey(
+        'auth_user.id'), nullable=False)
     checkout_date = db.Column(db.DateTime, nullable=False)
     due_date = db.Column(db.DateTime)
     return_date = db.Column(db.DateTime)
@@ -88,7 +92,7 @@ class History(db.Model):
     def __repr__(self):
         return '<Lent %r>' % self.id
 
-# TODO: Add TagMaps and Tags to books
+
 class TagMaps(db.Model):
 
     __tablename__ = 'tag_maps'
