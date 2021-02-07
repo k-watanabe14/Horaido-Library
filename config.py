@@ -6,7 +6,7 @@ basedir = os.path.abspath(os.path.dirname(__file__))
 dictConfig({
     'version': 1,
     'formatters': {'default': {
-        'format': '[%(levelname)s in %(module)s: %(message)s',
+        'format': '[%(levelname)s] in %(module)s: %(message)s',
     }},
     'handlers': {'wsgi': {
         'class': 'logging.StreamHandler',
@@ -24,7 +24,7 @@ class Config(object):
     DEBUG = False
     TESTING = False
     CSRF_ENABLED = True
-    SECRET_KEY = os.urandom(24)
+    SECRET_KEY = os.environ['FLASK_SECRET_KEY']
 
     # DB settings
     SQLALCHEMY_DATABASE_URI = os.environ['DATABASE_URL']
