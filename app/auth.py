@@ -1,11 +1,11 @@
-import functools
-from flask import Blueprint, request, render_template, flash, session, redirect, url_for, g
+from flask import render_template, flash, session, redirect, url_for, \
+    g, Blueprint
 from werkzeug.security import check_password_hash, generate_password_hash
 from app.models import User
-from app import app, db, mail
+from app import app, db
 from app.forms import SignupForm, LoginFrom
 from app.common import display_errors
-
+import functools
 
 # Define the blueprint: 'auth', set its url prefix: app.url/auth
 mod_auth = Blueprint('auth', __name__, url_prefix='/')
@@ -30,14 +30,14 @@ def signup():
         session.clear()
         session['user_id'] = User.query.filter_by(username=username).first().id
 
-        app.logger.info('%s logged in successfully', username)
+        app.logger.info('%s singed up successfully', username)
         flash('ユーザーを登録しました')
         return redirect(url_for('index'))
 
     else:
         display_errors(form.errors.items)
 
-    return render_template("auth/signup.html", form=form)
+    return render_template('auth/signup.html', form=form)
 
 
 @mod_auth.route('/login/', methods=['GET', 'POST'])
@@ -51,11 +51,13 @@ def login():
     if form.validate_on_submit():
         user = User.query.filter_by(username=username).first()
         if not user or not check_password_hash(user.password, password):
-            flash('ユーザー名もしくはパスワードが間違っています。')
+            app.logger.info('%s input wrong username or password', username)
+            flash('ユーザー名もしくはパスワードが間違っています。', 'warning')
 
         else:
             session.clear()
             session['user_id'] = user.id
+            app.logger.info('%s logged in successfully', username)
             return redirect(url_for('index'))
 
     else:
@@ -85,7 +87,6 @@ def logout():
 
 def login_required(view):
     @functools.wraps(view)
-
     def wrapped_view(**kwargs):
         if g.user is None:
             return redirect(url_for('auth.login'))

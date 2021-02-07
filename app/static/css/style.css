@@ -830,6 +830,11 @@ Contents
 	width: 60%;
 }
 
+.flash.warning {
+	background: #f6caca;
+	border: 1px solid #a83737;
+}
+
 /*-----------------Book List-----------------*/
 .book-list {
     max-width: 1480px;
