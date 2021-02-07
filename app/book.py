@@ -1,9 +1,8 @@
-from flask import Blueprint, request, render_template, flash, session, redirect, url_for, g
-from werkzeug.exceptions import abort
+from flask import request, render_template, flash, session, redirect, \
+    url_for, g, Blueprint
 from app.auth import login_required
 from app.models import Book, History, User, TagMaps, Tags
-from app import db
-from app.auth import load_logged_in_user
+from app import app, db
 import datetime
 from dateutil.relativedelta import relativedelta
 from app.forms import BookForm
@@ -20,7 +19,8 @@ def borrow_book(book, book_id):
     return_date = None
 
     # Add history data into Rental History
-    history_data = History(book_id, user_id, checkout_date, due_date, return_date)
+    history_data = History(
+        book_id, user_id, checkout_date, due_date, return_date)
     db.session.add(history_data)
 
     # Update book data in a book record
@@ -32,9 +32,11 @@ def borrow_book(book, book_id):
 
     flash('「' + book.title + '」を借りました。')
 
+
 def return_book(book, book_id):
     user_id = session.get('user_id')
-    history = History.query.filter(History.user_id==user_id, History.book_id==book_id).first()
+    history = History.query.filter(
+        History.user_id == user_id, History.book_id == book_id).first()
 
     # Update return date in a rental_history record
     history.return_date = datetime.datetime.today()
@@ -53,19 +55,24 @@ def return_book(book, book_id):
 def index(book_id):
 
     book = Book.query.filter_by(id=book_id).first()
-    tags = TagMaps.query.filter_by(book_id=book.id).join(Tags).add_columns(Tags.tag_name)
-    histories = History.query.filter_by(book_id=book.id).join(User).add_columns(User.username)
+    tags = TagMaps.query.filter_by(book_id=book.id).join(
+        Tags).add_columns(Tags.tag_name)
+    histories = History.query.filter_by(
+        book_id=book.id).join(User).add_columns(User.username)
 
     if request.method == 'POST':
         if 'borrow_button' in request.form:
             borrow_book(book, book_id)
+            app.logger.info('%s borrowed %s', g.user.username, book.id)
             return redirect(url_for('book.index', book_id=book_id))
         elif 'return_button' in request.form:
             return_book(book, book_id)
+            app.logger.info('%s returned %s', g.user.username, book.id)
             return redirect(url_for('book.index', book_id=book_id))
 
     # Page for Detail of book
-    return render_template('book/index.html', book=book, tags=tags, histories=histories)
+    return render_template('book/index.html', book=book,
+                           tags=tags, histories=histories)
 
 
 # TODO: Add function to edit book tags
@@ -77,7 +84,8 @@ def edit(book_id):
 
     form = BookForm()
 
-    tags = TagMaps.query.filter_by(book_id=book.id).join(Tags).add_columns(Tags.tag_name)
+    tags = TagMaps.query.filter_by(book_id=book.id).join(
+        Tags).add_columns(Tags.tag_name)
 
     if form.validate_on_submit():
         # Update image url
@@ -85,7 +93,8 @@ def edit(book_id):
             try:
                 book.image_url = get_new_image_url(request.files['file'])
             except Exception as e:
-                # TODO: Make a function for Logging
+                app.logger.exception(
+                    '%s could not upload an image: %s', g.user.username, e)
                 flash('エラーが発生しました。もう一度やり直してください。')
                 return redirect(url_for('index'))
 
