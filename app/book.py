@@ -63,11 +63,11 @@ def index(book_id):
     if request.method == 'POST':
         if 'borrow_button' in request.form:
             borrow_book(book, book_id)
-            app.logger.info('%s borrowed %s', g.user.username, book.id)
+            app.logger.info('%s borrowed %s', g.user.username, book.title)
             return redirect(url_for('book.index', book_id=book_id))
         elif 'return_button' in request.form:
             return_book(book, book_id)
-            app.logger.info('%s returned %s', g.user.username, book.id)
+            app.logger.info('%s returned %s', g.user.username, book.title)
             return redirect(url_for('book.index', book_id=book_id))
 
     # Page for Detail of book
@@ -108,6 +108,7 @@ def edit(book_id):
         db.session.commit()
 
         flash('編集しました')
+        app.logger.info('%s edited %s', g.user.username, book.title)
         return redirect(url_for('book.index', book_id=book_id))
 
     else:
