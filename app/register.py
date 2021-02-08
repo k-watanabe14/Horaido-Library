@@ -20,6 +20,7 @@ def index():
 
 
 @mod_register.route('/isbn', methods=('GET', 'POST'))
+@login_required
 def isbn():
     isbn = request.args.get('isbn')
     book = None
@@ -38,7 +39,7 @@ def isbn():
             flash('該当する書籍が見つかりませんでした。再度ISBNを入力してください。')
 
     if request.method == 'POST' and book is None:
-        isbn = request.form['isbn']
+        isbn = form.isbn.data
         return redirect(url_for('register.isbn', isbn=isbn))
 
     if book is not None:
@@ -55,11 +56,11 @@ def isbn():
             else:
                 image_url = book['largeImageUrl']
 
-            isbn = request.form['isbn']
-            title = request.form['title']
-            author = request.form['author']
-            publisher_name = request.form['publisher_name']
-            sales_date = request.form['sales_date']
+            isbn = form.isbn.data
+            title = form.title.data
+            author = form.author.data
+            publisher_name = form.publisher_name.data
+            sales_date = form.sales_date.data
             borrower_id = None
             checkout_date = None
 
@@ -69,17 +70,20 @@ def isbn():
             db.session.commit()
 
             flash('本を登録しました。')
-            app.logger.info('%s registered %s', g.user.username, title)
+            app.logger.info('%s registered %s successfully',
+                            g.user.username, title)
             return redirect(url_for('index'))
 
         else:
             display_errors(form.errors.items)
+            app.logger.info('%s failed to register %s', g.user.username, title)
 
     return render_template('register/isbn.html', isbn=isbn,
                            book=book, form=form)
 
 
 @mod_register.route('/manual', methods=('GET', 'POST'))
+@login_required
 def manual():
 
     form = BookForm()
@@ -97,11 +101,11 @@ def manual():
                 return redirect(url_for('index'))
 
         # Register book information into DB
-        isbn = request.form['isbn']
-        title = request.form['title']
-        author = request.form['author']
-        publisher_name = request.form['publisher_name']
-        sales_date = request.form['sales_date']
+        isbn = form.isbn.data
+        title = form.title.data
+        author = form.author.data
+        publisher_name = form.publisher_name.data
+        sales_date = form.sales_date.data
         borrower_id = None
         checkout_date = None
 
@@ -111,10 +115,12 @@ def manual():
         db.session.commit()
 
         flash('本を登録しました。')
-        app.logger.info('%s registered %s', g.user.username, title)
+        app.logger.info('%s registered %s successfully',
+                        g.user.username, title)
         return redirect(url_for('index'))
 
     else:
         display_errors(form.errors.items)
+        app.logger.info('%s failed to register %s', g.user.username, title)
 
     return render_template('register/manual.html', form=form)

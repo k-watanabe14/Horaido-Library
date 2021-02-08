@@ -24,7 +24,7 @@ def borrow_book(book, book_id):
     db.session.add(history_data)
 
     # Update book data in a book record
-    borrower = User.query.filter_by(id=user_id).first()
+    borrower = User.query.get(user_id)
     book.borrower_id = borrower.id
     book.checkout_date = checkout_date
 
@@ -54,7 +54,7 @@ def return_book(book, book_id):
 @login_required
 def index(book_id):
 
-    book = Book.query.filter_by(id=book_id).first()
+    book = Book.query.get(book_id)
     tags = TagMaps.query.filter_by(book_id=book.id).join(
         Tags).add_columns(Tags.tag_name)
     histories = History.query.filter_by(
@@ -64,11 +64,10 @@ def index(book_id):
         if 'borrow_button' in request.form:
             borrow_book(book, book_id)
             app.logger.info('%s borrowed %s', g.user.username, book.title)
-            return redirect(url_for('book.index', book_id=book_id))
         elif 'return_button' in request.form:
             return_book(book, book_id)
             app.logger.info('%s returned %s', g.user.username, book.title)
-            return redirect(url_for('book.index', book_id=book_id))
+        return redirect(url_for('book.index', book_id=book_id))
 
     # Page for Detail of book
     return render_template('book/index.html', book=book,
@@ -80,7 +79,7 @@ def index(book_id):
 @login_required
 def edit(book_id):
 
-    book = Book.query.filter_by(id=book_id).first()
+    book = Book.query.get(book_id)
 
     form = BookForm()
 
@@ -93,21 +92,21 @@ def edit(book_id):
             try:
                 book.image_url = get_new_image_url(request.files['file'])
             except Exception as e:
+                flash('エラーが発生しました。もう一度やり直してください。')
                 app.logger.exception(
                     '%s could not upload an image: %s', g.user.username, e)
-                flash('エラーが発生しました。もう一度やり直してください。')
                 return redirect(url_for('index'))
 
         # Update other data in a book record
-        book.isbn = request.form['isbn']
-        book.title = request.form['title']
-        book.author = request.form['author']
-        book.publisher_name = request.form['publisher_name']
-        book.sales_date = request.form['sales_date']
+        book.isbn = form.isbn.data
+        book.title = form.title.data
+        book.author = form.author.data
+        book.publisher_name = form.publisher_name.data
+        book.sales_date = form.sales_date.data
 
         db.session.commit()
 
-        flash('編集しました')
+        flash('保存しました。')
         app.logger.info('%s edited %s', g.user.username, book.title)
         return redirect(url_for('book.index', book_id=book_id))
 

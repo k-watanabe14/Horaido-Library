@@ -9,7 +9,8 @@
   <title>{% block title %}{% endblock %} - 朋来堂ライブラリー</title>
 
   <!-- Font Awesome -->
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+    integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
 
   <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 
@@ -18,7 +19,8 @@
 
   {% endblock %}
 </head>
-  <!-- ENHANCE: Add base color -->
+<!-- ENHANCE: Add base color -->
+
 <body>
   <header id="site-header" class="site-header" role="banner">
 
@@ -40,9 +42,9 @@
       <div class="account-container">
         <ul>
           {% if g.user %}
-            <li><a href="{{ url_for('account.index') }}"><i class="fa fa-user"></i><span>{{ g.user['username'] }}</span></a>
+            <li><a href="{{ url_for('account.index') }}"><i class="fa fa-user"></i><span>{{ g.user['username']}}</span></a>
             <li><a href="{{ url_for('auth.logout') }}"><i class="fa fa-sign-out-alt"></i><span>ログアウト</span></a>
-           {% else %}
+          {% else %}
             <li><a href="{{ url_for('auth.signup') }}"><i class="fa fa-user-plus"></i><span>新規登録</span></a>
             <li><a href="{{ url_for('auth.login') }}"><i class="fa fa-sign-in-alt"></i><span>ログイン</span></a>
           {% endif %}
@@ -71,7 +73,7 @@
         {% with messages = get_flashed_messages(with_categories=true) %}
           {% if messages %}
             {% for category, message in messages %}
-              <div class="flash {{ category }}">{{ message}}</div>
+            <div class="flash {{ category }}">{{ message}}</div>
             {% endfor %}
           {% endif %}
         {% endwith %}
