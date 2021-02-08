@@ -98,11 +98,11 @@ def edit(book_id):
                 return redirect(url_for('index'))
 
         # Update other data in a book record
-        book.isbn = request.form['isbn']
-        book.title = request.form['title']
-        book.author = request.form['author']
-        book.publisher_name = request.form['publisher_name']
-        book.sales_date = request.form['sales_date']
+        book.isbn = form.isbn.data
+        book.title = form.title.data
+        book.author = form.author.data
+        book.publisher_name = form.publisher_name.data
+        book.sales_date = form.sales_date.data
 
         db.session.commit()
 

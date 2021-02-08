@@ -25,8 +25,8 @@ def index():
 
     if request.method == 'POST' and 'profile_button' in request.form:
         if account_form.validate_on_submit():
-            user.username = request.form['username']
-            user.email = request.form['email']
+            user.username = account_form.username.data
+            user.email = account_form.email.data
             db.session.commit()
             flash('プロフィールを保存しました。')
             app.logger.info('%s changed his/her profile', user.username)
