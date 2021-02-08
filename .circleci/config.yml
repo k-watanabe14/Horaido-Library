@@ -3,7 +3,7 @@ jobs:
   build:
     working_directory: ~/Horaido-Library
     docker:
-      - image: circleci/python:3.6.4
+      - image: circleci/python:3.9
         environment:
           PIPENV_VENV_IN_PROJECT: true
           DATABASE_URL: postgresql://root@localhost/circle_test?sslmode=disable
