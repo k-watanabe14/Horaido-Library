@@ -11,7 +11,7 @@ jobs:
         environment:
           POSTGRES_USER: postgres
           POSTGRES_HOST_AUTH_METHOD: trust
-          POSTGRES_DB: horaido
+          POSTGRES_DB: circle_test
     steps:
       - checkout
       - run: sudo chown -R circleci:circleci /usr/local/bin

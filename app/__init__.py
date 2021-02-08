@@ -89,9 +89,14 @@ def search():
         tag_condition = and_(TagMaps.tag_id == tag)
 
     # results of book collections are displayed 20 results per a page.
-    results = Book.query.outerjoin(User, TagMaps).filter(
-        keywords, status_condition, tag_condition).add_columns(
-        User.username).paginate(page=page, per_page=20)
+    if tag == '-1':
+        results = Book.query.outerjoin(User).filter(
+            keywords, status_condition).add_columns(
+            User.username).paginate(page=page, per_page=20)
+    else:
+        results = Book.query.outerjoin(User, TagMaps).filter(
+            keywords, status_condition, tag_condition).add_columns(
+            User.username).paginate(page=page, per_page=20)
 
     if request.method == 'POST':
         keyword = request.form['keyword']

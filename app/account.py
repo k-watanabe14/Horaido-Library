@@ -56,27 +56,28 @@ def request_reset_password():
 
     form = RequestResetForm()
 
-    if form.validate_on_submit():
-        user = User.query.filter_by(email=form.email.data).first()
-        try:
-            send_email_for_reset(user)
-            flash('パスワード再設定のメールを送りました。30分以内にパスワードを再設定してください。')
-            app.logger.info('%s requested password reset', user.username)
-        except Exception as e:
-            flash('エラーが発生しました。時間をおいてから再度試してください。', 'warning')
-            app.logger.exception(
-                '%s could not get a password reset mail: %s', user.username, e)
-        return redirect(url_for('auth.login'))
+    if request.method == 'POST':
+        if form.validate_on_submit():
+            user = User.query.filter_by(email=form.email.data).first()
+            try:
+                send_email_for_reset(user)
+                flash('パスワード再設定のメールを送りました。30分以内にパスワードを再設定してください。')
+                app.logger.info('%s requested password reset', user.username)
+            except Exception as e:
+                flash('エラーが発生しました。時間をおいてから再度試してください。', 'warning')
+                app.logger.exception(
+                    '%s failed to get a password reset mail: %s', user.username, e)
+            return redirect(url_for('auth.login'))
 
-    else:
-        display_errors(form.errors.items)
-        app.logger.info(
-            '%s failed to request to reset password', user.username)
+        else:
+            display_errors(form.errors.items)
+            app.logger.info(
+                '%s failed to request to reset password', user.username)
 
     return render_template('account/request_reset_password.html', form=form)
 
 
-@app.route('/reset_password/<token>', methods=['GET', 'POST'])
+@ app.route('/reset_password/<token>', methods=['GET', 'POST'])
 def reset_password(token):
 
     user = User.verify_reset_token(token)
@@ -87,18 +88,19 @@ def reset_password(token):
 
     form = ResetPasswordForm()
 
-    if form.validate_on_submit():
-        hashed_password = generate_password_hash(form.password.data)
-        user.password = hashed_password
-        db.session.commit()
-        app.logger.info('%s reset password successfully', user.username)
-        flash('パスワードを再設定しました。')
+    if request.method == 'POST':
+        if form.validate_on_submit():
+            hashed_password = generate_password_hash(form.password.data)
+            user.password = hashed_password
+            db.session.commit()
+            app.logger.info('%s reset password successfully', user.username)
+            flash('パスワードを再設定しました。')
 
-        return redirect(url_for('auth.login'))
+            return redirect(url_for('auth.login'))
 
-    else:
-        display_errors(form.errors.items)
-        app.logger.info('%s failed to reset password', user.username)
+        else:
+            display_errors(form.errors.items)
+            app.logger.info('%s failed to reset password', user.username)
 
     return render_template('account/reset_password.html', form=form)
 
