@@ -2,7 +2,8 @@ from flask import render_template, flash, redirect, url_for, Blueprint, \
     request, session
 from app.auth import login_required
 from app import app, db, mail
-from app.forms import RequestResetForm, ResetPasswordForm, AccountForm
+from app.forms import RequestResetForm, ResetPasswordForm, \
+    AccountInfoForm, PasswordForm
 from app.models import User
 from flask_mail import Message
 from werkzeug.security import generate_password_hash
@@ -20,33 +21,35 @@ def index():
     user_id = session.get('user_id')
     user = User.query.get(user_id)
 
-    return render_template('account/index.html', user=user)
+    account_form = AccountInfoForm()
+    password_form = PasswordForm()
 
+    if request.method == 'POST' and 'profile_button' in request.form:
+        print('profile_button')
+        if account_form.validate_on_submit():
+            print('profile_button_submit')
+            user.username = request.form['username']
+            user.email = request.form['email']
+            flash('プロフィールを保存しました。')
+            app.logger.info('%s changed his/her profile', user.username)
+        else:
+            print('profile_button_error')
+            display_errors(account_form.errors.items)
 
-@mod_account.route('/edit', methods=('GET', 'POST'))
-@login_required
-def edit():
+    if request.method == 'POST' and 'password_button' in request.form:
+        print('profile_password')
+        if password_form.validate_on_submit():
+            print('profile_password_submit')
+            user.password = request.form['password']
+            flash('パスワードを変更しました。')
+            app.logger.info('%s changed his/her password', user.username)
+        else:
+            print('profile_password_error')
+            display_errors(account_form.errors.items)
 
-    form = AccountForm()
-
-    user_id = session.get('user_id')
-    user = User.query.get(user_id)
-
-    if form.validate_on_submit():
-
-        # Update USer data in a user record
-        user.username = request.form['username']
-        user.email = request.form['email']
-        user.password = request.form['password']
-
-        db.session.commit()
-
-        flash('保存しました。')
-        app.logger.info('%s edited profile', user.username)
-
-        return redirect(url_for('account.index'))
-
-    return render_template('account/edit.html', form=form, user=user)
+    print('end')
+    return render_template('account/index.html', account_form=account_form,
+                           password_form=password_form, user=user)
 
 
 @mod_account.route('/request_reset_password/', methods=('GET', 'POST'))

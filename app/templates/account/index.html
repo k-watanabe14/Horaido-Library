@@ -4,21 +4,71 @@
 
 {% block content %}
 <div class="stacked-section-child">
-	<div class="account-form">
-		<div class="item">
-			<label for="username">ユーザー名</label>
-			<span name="username" id="username">{{ user['username'] }}</span>
-		</div>
+  <div class="account-form">
+    <div class="account-form-contents">
+      <div class="item">
+        <label for="username">ユーザー名</label>
+        <span name="username" id="username">{{ user['username'] }}</span>
+      </div>
 
-		<div class="item">
-			<label for="email">メールアドレス</label>
-			<span name="email" id="email">{{ user['email'] }}</span>
-		</div>
-
-    <div class="account-form-button">
-      <a class="btn edit" href="{{ url_for('account.edit') }}">設定を変更する</a>
+      <div class="item">
+        <label for="email">メールアドレス</label>
+        <span name="email" id="email">{{ user['email'] }}</span>
+      </div>
     </div>
 
-	</div>
+    <div class="account-form-button">
+      <ul>
+        <li><button class="btn profile" id="open-profile">プロフィールを修正する</button></li>
+        <li><button class="btn password" id="open-password">パスワードを変更する</button></li>
+      </ul>
+    </div>
+
+    <div id="mask-profile" class="hidden"></div>
+    <section id="modal-profile" class="modal hidden">
+      <p>プロフィール修正</p>
+      <form method="post">
+        {{ account_form.hidden_tag() }}
+        <div class="account-form-contents">
+          <div class="item">
+            <label for="username">ユーザー名</label>
+            {{ account_form.username(value=user['username']) }}
+          </div>
+
+          <div class="item">
+            <label for="email">メールアドレス</label>
+            {{ account_form.email(value=user['email']) }}
+          </div>
+        </div>
+        <ul>
+          <li><button type="submit" name="profile_button" class="profile save" value="保存する">保存する</button></li>
+          <li><button type="button" id="close-profile" class="close">閉じる</button></li>
+        </ul>
+      </form>
+    </section>
+
+    <div id="mask-password" class="hidden"></div>
+    <section id="modal-password" class="modal hidden">
+      <p>パスワード変更</p>
+      <form method="post">
+        {{ password_form.hidden_tag() }}
+        <div class="account-form-contents">
+          <div class="item">
+            <label for="current_password">現在のパスワード</label>
+            {{ password_form.current_password() }}
+          </div>
+
+          <div class="item">
+            <label for="new_password">新しいパスワード</label>
+            {{ password_form.new_password() }}
+          </div>
+        </div>
+        <ul>
+          <li><button type="submit" name="password_button" class="password save" value="変更する">変更する</button></li>
+          <li><button type="button" id="close-password" class="close">閉じる</button></li>
+        </ul>
+      </form>
+    </section>
+  </div>
 </div>
 {% endblock %}
