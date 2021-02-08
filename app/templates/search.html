@@ -4,99 +4,103 @@
 
 {% block content %}
 
-  <div class="stacked-section-child">
-    <form class="search-form-wrapper" method="post">
-      <div class="search-form"  autocomplete="off">
-        {% if keyword is none %}
-        <input class="search-input" type="text" placeholder="タイトル・著者名・出版社" name="keyword" id="keyword">
-        {% else %}
-        <input class="search-input" type="text" name="keyword" id="keyword" value="{{ keyword }}">
-        {% endif %}
-        <button id="search-button" class="search-button" type="submit" method="post"><i class="fas fa-search"></i></button>
+<div class="stacked-section-child">
+  <form class="search-form-wrapper" method="post">
+    <div class="search-form" autocomplete="off">
+      {% if keyword is none %}
+      <input class="search-input" type="text" placeholder="タイトル・著者名・出版社" name="keyword" id="keyword">
+      {% else %}
+      <input class="search-input" type="text" name="keyword" id="keyword" value="{{ keyword }}">
+      {% endif %}
+      <button id="search-button" class="search-button" type="submit" method="post"><i
+          class="fas fa-search"></i></button>
+    </div>
+    <div class="options-section" id="options-section">
+      <div class="option">
+        <label for="status">貸出状況</label>
+        <select id="status-options" name="status">
+          <option value="all" {% if status=="all" %} selected="selected" {% endif %}>全て</option>
+          <option value="loaned-out" {% if status=="loaned-out" %} selected="selected" {% endif %}>貸出中</option>
+          <option value="available" {% if status=="available" %} selected="selected" {% endif %}>貸出可能</option>
+        </select>
       </div>
-      <div class="options-section" id ="options-section">
-        <div class="option">
-          <label for="status">貸出状況</label>
-          <select id="status-options" name="status">
-            <option value="all" {% if status=="all" %} selected="selected" {% endif %}>全て</option>
-            <option value="loaned-out" {% if status=="loaned-out" %} selected="selected" {% endif %}>貸出中</option>
-            <option value="available" {% if status=="available" %} selected="selected" {% endif %}>貸出可能</option>
-          </select>
-        </div>
-        <div class="option">
-          <label for="tag">タグ</label>
-          <select id="tag-options" name="tag">
-            <option value="-1">全て</option>
-            {% for t in tags %}
-              <option value="{{ t['id'] }}" {% if (t['id'] == tag|int) %} selected="selected" {% endif %}>{{ t['tag_name'] }}</option>
-            {% endfor %}
-          </select>
-        </div>
+      <div class="option">
+        <label for="tag">タグ</label>
+        <select id="tag-options" name="tag">
+          <option value="-1">全て</option>
+          {% for t in tags %}
+          <option value="{{ t['id'] }}" {% if (t['id']==tag|int) %} selected="selected" {% endif %}>{{ t['tag_name'] }}
+          </option>
+          {% endfor %}
+        </select>
       </div>
-    </form>
+    </div>
+  </form>
+</div>
+
+{% if keyword is not none %}
+<div class="stacked-section-child">
+  <div class="content-heading">
+    <h4 class="section-title">"{{ keyword }}" の検索結果</h4>
   </div>
 
-  {% if keyword is not none %}
-    <div class="stacked-section-child">
-      <div class="content-heading">
-        <h4 class="section-title">"{{ keyword }}" の検索結果</h4>
-      </div>
-
-      {% if results.total == 0 %}
-      <div class="content-heading">
-        <div class="no-result-message">
-          <span>検索結果はありません。</span>
-        </div>
-      </div>
-
-      {% else %}
-        <div class="book-list">
-          {% for result in results.items %}
-            <a class="book-container" href="{{ url_for('book.index', book_id = result[0]['id']) }}">
-              <div class="book-image">
-                <img alt="{{ result[0]['title'] }}" id="image" src="{{ result[0]['image_url'] }}">
-              </div>
-              <div class="book-info">
-                <div class="book-title">
-                  <span class="title">{{ result[0]['title'] }}</span>
-                </div>
-                <div class="book-author">
-                  <span class="author">{{ result[0]['author'] }}</span>
-                </div>
-              </div>
-              <div class="book-category">
-                <p class="category"></p>
-              </div>
-              <div class="book-status">
-                <div class="status">
-                  {% if result[0]['borrower_id'] is none %}
-                    <span>貸し出し可能です。</span>
-                  {% elif result[0]['borrower_id'] == g.user['id'] %}
-                    <span>あなたが借りています。</span>
-                  {% else %}
-                    <span>{{ result[1] }}さんが借りています。</span>
-                  {% endif %}
-                </div>
-              </div>
-            </a>
-          {% endfor %}
-        </div>
-
-        <div class = "pagination">
-          {% for page_num in results.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
-            {% if page_num %}
-              {% if results.page == page_num %}
-                <a class="btn" href="{{ url_for('search', keyword = keyword, status = status, page = page_num) }}">{{ page_num }}</a>
-              {% else %}
-                <a class="btn" href="{{ url_for('search', keyword = keyword, status = status, page = page_num) }}">{{ page_num }}</a>
-              {% endif %}
-            {% else %}
-              <span>...</span>
-            {% endif %}
-          {% endfor %}
-        </div>
-      {% endif %}
+  {% if results.total == 0 %}
+  <div class="content-heading">
+    <div class="no-result-message">
+      <span>検索結果はありません。</span>
     </div>
+  </div>
+
+  {% else %}
+  <div class="book-list">
+    {% for result in results.items %}
+    <a class="book-container" href="{{ url_for('book.index', book_id = result[0]['id']) }}">
+      <div class="book-image">
+        <img alt="{{ result[0]['title'] }}" id="image" src="{{ result[0]['image_url'] }}">
+      </div>
+      <div class="book-info">
+        <div class="book-title">
+          <span class="title">{{ result[0]['title'] }}</span>
+        </div>
+        <div class="book-author">
+          <span class="author">{{ result[0]['author'] }}</span>
+        </div>
+      </div>
+      <div class="book-category">
+        <p class="category"></p>
+      </div>
+      <div class="book-status">
+        <div class="status">
+          {% if result[0]['borrower_id'] is none %}
+          <span>貸し出し可能です。</span>
+          {% elif result[0]['borrower_id'] == g.user['id'] %}
+          <span>あなたが借りています。</span>
+          {% else %}
+          <span>{{ result[1] }}さんが借りています。</span>
+          {% endif %}
+        </div>
+      </div>
+    </a>
+    {% endfor %}
+  </div>
+
+  <div class="pagination">
+    {% for page_num in results.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
+    {% if page_num %}
+    {% if results.page == page_num %}
+    <a class="btn" href="{{ url_for('search', keyword=keyword, status=status, tag=tag, page=page_num) }}">{{
+      page_num}}</a>
+    {% else %}
+    <a class="btn" href="{{ url_for('search', keyword=keyword, status=status, tag=tag, page=page_num) }}">{{
+      page_num}}</a>
+    {% endif %}
+    {% else %}
+    <span>...</span>
+    {% endif %}
+    {% endfor %}
+  </div>
   {% endif %}
+</div>
+{% endif %}
 
 {% endblock %}
