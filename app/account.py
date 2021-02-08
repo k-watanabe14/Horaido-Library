@@ -1,7 +1,8 @@
-from flask import render_template, flash, redirect, url_for, Blueprint
+from flask import render_template, flash, redirect, url_for, Blueprint, \
+    request, session
 from app.auth import login_required
 from app import app, db, mail
-from app.forms import RequestResetForm, ResetPasswordForm
+from app.forms import RequestResetForm, ResetPasswordForm, AccountForm
 from app.models import User
 from flask_mail import Message
 from werkzeug.security import generate_password_hash
@@ -11,11 +12,41 @@ from app.common import display_errors
 mod_account = Blueprint('account', __name__, url_prefix='/account')
 
 
-# ENHANCE: Implement account setting
-@mod_account.route('/')
+# TODO: Implement account setting
+@mod_account.route('/', methods=('GET', 'POST'))
 @login_required
 def index():
-    return render_template('account/index.html')
+
+    user_id = session.get('user_id')
+    user = User.query.get(user_id)
+
+    return render_template('account/index.html', user=user)
+
+
+@mod_account.route('/edit', methods=('GET', 'POST'))
+@login_required
+def edit():
+
+    form = AccountForm()
+
+    user_id = session.get('user_id')
+    user = User.query.get(user_id)
+
+    if form.validate_on_submit():
+
+        # Update USer data in a user record
+        user.username = request.form['username']
+        user.email = request.form['email']
+        user.password = request.form['password']
+
+        db.session.commit()
+
+        flash('保存しました。')
+        app.logger.info('%s edited profile', user.username)
+
+        return redirect(url_for('account.index'))
+
+    return render_template('account/edit.html', form=form, user=user)
 
 
 @mod_account.route('/request_reset_password/', methods=('GET', 'POST'))

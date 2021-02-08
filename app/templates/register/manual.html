@@ -3,50 +3,51 @@
 {% block title %}手動で登録する{% endblock %}
 
 {% block content %}
-  <div class="stacked-section-child">
-    <div class="book-form">
-      <form method="post" enctype="multipart/form-data">
-        {{ form.hidden_tag() }}
-        <div class="book-form-image">
-          <span>画像を追加する</span>
-          <input type="file" name="file" id="file">
-          <img id="preview">
+
+<div class="stacked-section-child">
+  <div class="book-form">
+    <form method="post" enctype="multipart/form-data">
+      {{ form.hidden_tag() }}
+      <div class="book-form-image">
+        <span>画像を追加する</span>
+        <input type="file" name="file" id="file">
+        <img id="preview">
+      </div>
+
+      <div class="book-form-text">
+        <div class="item">
+          <label for="isbn">ISBN</label>
+          {{ form.isbn() }}
         </div>
 
-        <div class="book-form-text">
-          <div class="item">
-            <label for="isbn">ISBN</label>
-            {{ form.isbn() }}
-          </div>
-
-          <div class="item">
-            <label for="title">タイトル</label>
-            {{ form.title() }}
-          </div>
-
-          <div class="item">
-            <label for="author">著者</label>
-            {{ form.author() }}
-          </div>
-
-          <div class="item">
-            <label for="publisher_name">出版社</label>
-            {{ form.publisher_name() }}
-          </div>
-
-          <div class="item">
-            <label for="sales_date">出版年月日</label>
-            {{ form.sales_date() }}
-          </div>
+        <div class="item">
+          <label for="title">タイトル</label>
+          {{ form.title() }}
         </div>
-        <div class="book-form-button">
-          <ul>
-            <li><input class="btn" type="submit" value="登録する" /></li>
-            <li><a class="btn back" href="{{ url_for('register.index') }}">戻る</a></li>
-          </ul>
+
+        <div class="item">
+          <label for="author">著者</label>
+          {{ form.author() }}
         </div>
-      </form>
-    </div>
+
+        <div class="item">
+          <label for="publisher_name">出版社</label>
+          {{ form.publisher_name() }}
+        </div>
+
+        <div class="item">
+          <label for="sales_date">出版年月日</label>
+          {{ form.sales_date() }}
+        </div>
+      </div>
+      <div class="book-form-button">
+        <ul>
+          <li><input class="btn" type="submit" value="登録する" /></li>
+          <li><a class="btn back" href="{{ url_for('register.index') }}">戻る</a></li>
+        </ul>
+      </div>
+    </form>
   </div>
+</div>
 
 {% endblock %}

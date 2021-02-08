@@ -4,8 +4,8 @@
 
 {% block content %}
 
-  {% if isbn is not none and book is not none %}
-
+{% if isbn is not none and book is not none %}
+<div class="stacked-section-child">
   <div class="book-form">
     <form method="post" enctype="multipart/form-data">
       {{ form.hidden_tag() }}
@@ -51,16 +51,16 @@
       </div>
     </form>
   </div>
-
-  {% else %}
-
+</div>
+{% else %}
+<div class="stacked-section-child">
   <div class="isbn-wrapper">
     <form method="post" class="isbn-form">
       <input name="isbn" class="isbn-box" value="{{ request.form['isbn'] }}" placeholder="ISBNを入力してください。" required>
       <button class="isbn-btn" type="submit"><i class="fas fa-search"></i></button>
     </form>
   </div>
-
-  {% endif %}
+</div>
+{% endif %}
 
 {% endblock %}
