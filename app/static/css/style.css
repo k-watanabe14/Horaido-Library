@@ -607,6 +607,10 @@ button, input[type='button'], .btn {
 	color:#888;
 }
 
+/*-----------------Account Form-----------------*/
+
+
+
 /*--------------------------------------------------------------
 Header
 --------------------------------------------------------------*/
@@ -648,10 +652,6 @@ Header
 	padding: 2rem;
 }
 
-.main-logo .logo-text .site-title:hover {
-    background-color: whitesmoke;
-}
-
 .main-logo .logo-text .site-title a {
 	text-decoration:none;
 }
@@ -677,7 +677,7 @@ Header
 }
 
 .account-container ul li a {
-    display: block;
+    display: flex;
     text-align: center;
     text-decoration: none;
     color: #333333;
@@ -685,6 +685,7 @@ Header
 	border-radius: 100rem;
 	padding: 1.5rem 2rem;
 	margin: 0 0.5rem;
+	vertical-align: middle;
 }
 
 .account-container ul li a:hover {
@@ -700,6 +701,7 @@ Header
 .account-container span {
     vertical-align: text-bottom;
     color: dimgray;
+	line-height: 2.4rem;
 }
 
 /*-----------------Navigation Header-----------------*/

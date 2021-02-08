@@ -24,7 +24,7 @@ def borrow_book(book, book_id):
     db.session.add(history_data)
 
     # Update book data in a book record
-    borrower = User.query.filter_by(id=user_id).first()
+    borrower = User.query.get(user_id)
     book.borrower_id = borrower.id
     book.checkout_date = checkout_date
 
@@ -54,7 +54,7 @@ def return_book(book, book_id):
 @login_required
 def index(book_id):
 
-    book = Book.query.filter_by(id=book_id).first()
+    book = Book.query.get(book_id)
     tags = TagMaps.query.filter_by(book_id=book.id).join(
         Tags).add_columns(Tags.tag_name)
     histories = History.query.filter_by(

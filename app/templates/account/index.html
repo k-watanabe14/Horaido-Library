@@ -3,5 +3,22 @@
 {% block title %}アカウント設定{% endblock %}
 
 {% block content %}
+<div class="stacked-section-child">
+	<div class="account-form">
+		<div class="item">
+			<label for="username">ユーザー名</label>
+			<span name="username" id="username">{{ user['username'] }}</span>
+		</div>
 
+		<div class="item">
+			<label for="email">メールアドレス</label>
+			<span name="email" id="email">{{ user['email'] }}</span>
+		</div>
+
+    <div class="account-form-button">
+      <a class="btn edit" href="{{ url_for('account.edit') }}">設定を変更する</a>
+    </div>
+
+	</div>
+</div>
 {% endblock %}

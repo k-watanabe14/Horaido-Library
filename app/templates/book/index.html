@@ -45,18 +45,18 @@
         <span name="tags" id="tags">
           <ul>
             {% for tag in tags %}
-              <li class="tag">{{ tag[1] }}</li>
+            <li class="tag">{{ tag[1] }}</li>
             {% endfor %}
-         </ul>
+          </ul>
         </span>
       </div>
     </div>
     <div class="book-form-button">
       <ul>
         {% if book['borrower_id'] is none %}
-          <li><button class="btn borrow" id="open-borrow" >この本を借りる</button></li>
+        <li><button class="btn borrow" id="open-borrow">この本を借りる</button></li>
         {% elif book['borrower_id'] == g.user['id'] %}
-          <li><button class="btn return" id="open-return" >この本を返す</button></li>
+        <li><button class="btn return" id="open-return">この本を返す</button></li>
         {% endif %}
         <li><a class="btn edit" href="{{ url_for('book.edit', book_id = book['id']) }}">編集する</a></li>
       </ul>
@@ -65,7 +65,9 @@
     <section id="modal-borrow" class="modal hidden">
       <p>この本を借りますか？</p>
       <ul>
-        <li><form method="post"><input type="submit" name="borrow_button" class="borrow" value="借りる"></form></li>
+        <li>
+          <form method="post"><input type="submit" name="borrow_button" class="borrow" value="借りる"></form>
+        </li>
         <li><button id="close-borrow" class="close">閉じる</button></li>
       </ul>
     </section>
@@ -74,7 +76,9 @@
     <section id="modal-return" class="modal hidden">
       <p>この本を返しますか</p>
       <ul>
-        <li><form method="post"><input type="submit" name="return_button" class="return" value="返す"></form></li>
+        <li>
+          <form method="post"><input type="submit" name="return_button" class="return" value="返す"></form>
+        </li>
         <li><button id="close-return" class="close">閉じる</button></li>
       </ul>
     </section>
@@ -96,17 +100,17 @@
         </tr>
       </thead>
       {% for history in histories %}
-        <tbody>
-          <tr>
-            <td><span class="user_name">{{ history[1] }}</span></td>
-            <td><span class="checkout_date">{{ history[0].checkout_date.strftime('%Y年%m月%d日')  }}</span></td>
-            {% if history[0]['return_date'] is none %}
-              <td><span class="return_date">未返却</span></td>
-            {% else %}
-              <td><span class="return_date">{{ history[0].return_date.strftime('%Y年%m月%d日')  }}</span></td>
-            {% endif %}
-          </tr>
-        </tbody>
+      <tbody>
+        <tr>
+          <td><span class="user_name">{{ history[1] }}</span></td>
+          <td><span class="checkout_date">{{ history[0].checkout_date.strftime('%Y年%m月%d日') }}</span></td>
+          {% if history[0]['return_date'] is none %}
+          <td><span class="return_date">未返却</span></td>
+          {% else %}
+          <td><span class="return_date">{{ history[0].return_date.strftime('%Y年%m月%d日') }}</span></td>
+          {% endif %}
+        </tr>
+      </tbody>
       {% endfor %}
     </table>
   </div>
