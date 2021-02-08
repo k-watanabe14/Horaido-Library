@@ -70,6 +70,8 @@ def request_reset_password():
 
     else:
         display_errors(form.errors.items)
+        app.logger.info(
+            '%s failed to request to reset password', user.username)
 
     return render_template('account/request_reset_password.html', form=form)
 
@@ -96,6 +98,7 @@ def reset_password(token):
 
     else:
         display_errors(form.errors.items)
+        app.logger.info('%s failed to reset password', user.username)
 
     return render_template('account/reset_password.html', form=form)
 

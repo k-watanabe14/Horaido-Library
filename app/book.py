@@ -92,9 +92,9 @@ def edit(book_id):
             try:
                 book.image_url = get_new_image_url(request.files['file'])
             except Exception as e:
+                flash('エラーが発生しました。もう一度やり直してください。')
                 app.logger.exception(
                     '%s could not upload an image: %s', g.user.username, e)
-                flash('エラーが発生しました。もう一度やり直してください。')
                 return redirect(url_for('index'))
 
         # Update other data in a book record
