@@ -86,31 +86,35 @@ def edit(book_id):
     tags = TagMaps.query.filter_by(book_id=book.id).join(
         Tags).add_columns(Tags.tag_name)
 
-    if form.validate_on_submit():
-        # Update image url
-        if 'file' in request.files and request.files['file'].filename != '':
-            try:
-                book.image_url = get_new_image_url(request.files['file'])
-            except Exception as e:
-                flash('エラーが発生しました。もう一度やり直してください。')
-                app.logger.exception(
-                    '%s could not upload an image: %s', g.user.username, e)
-                return redirect(url_for('index'))
+    if request.method == 'POST':
+        if form.validate_on_submit():
+            # Update image url
+            if 'file' in request.files and \
+                    request.files['file'].filename != '':
+                try:
+                    book.image_url = get_new_image_url(request.files['file'])
+                except Exception as e:
+                    flash('エラーが発生しました。もう一度やり直してください。')
+                    app.logger.exception(
+                        '%s failed to upload an image: %s', g.user.username, e)
+                    return redirect(url_for('index'))
 
-        # Update other data in a book record
-        book.isbn = form.isbn.data
-        book.title = form.title.data
-        book.author = form.author.data
-        book.publisher_name = form.publisher_name.data
-        book.sales_date = form.sales_date.data
+            # Update other data in a book record
+            book.isbn = form.isbn.data
+            book.title = form.title.data
+            book.author = form.author.data
+            book.publisher_name = form.publisher_name.data
+            book.sales_date = form.sales_date.data
 
-        db.session.commit()
+            db.session.commit()
 
-        flash('保存しました。')
-        app.logger.info('%s edited %s', g.user.username, book.title)
-        return redirect(url_for('book.index', book_id=book_id))
+            flash('保存しました。')
+            app.logger.info('%s edited %s', g.user.username, book.title)
+            return redirect(url_for('book.index', book_id=book_id))
 
-    else:
-        display_errors(form.errors.items)
+        else:
+            display_errors(form.errors.items)
+            app.logger.info('%s failed to edit %s',
+                            g.user.username, book.title)
 
     return render_template('book/edit.html', book=book, form=form, tags=tags)

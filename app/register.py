@@ -36,22 +36,22 @@ def isbn():
         if 'Items' in response.json() and response.json()['Items']:
             book = response.json()['Items'][0]['Item']
         else:
-            flash('該当する書籍が見つかりませんでした。再度ISBNを入力してください。')
+            flash('該当する書籍が見つかりませんでした。再度ISBNを入力してください。', 'warning')
 
     if request.method == 'POST' and book is None:
         isbn = form.isbn.data
         return redirect(url_for('register.isbn', isbn=isbn))
 
-    if book is not None:
+    if request.method == 'POST' and book is not None:
         if form.validate_on_submit():
             if 'file' in request.files \
                     and request.files['file'].filename != '':
                 try:
                     image_url = get_new_image_url(request.files['file'])
                 except Exception as e:
-                    flash('エラーが発生しました。もう一度やり直してください。')
+                    flash('エラーが発生しました。もう一度やり直してください。', 'warning')
                     app.logger.exception(
-                        '%s could not upload image %s', g.user.username, e)
+                        '%s failed to upload an image %s', g.user.username, e)
                     return redirect(url_for('index'))
             else:
                 image_url = book['largeImageUrl']
@@ -76,7 +76,8 @@ def isbn():
 
         else:
             display_errors(form.errors.items)
-            app.logger.info('%s failed to register %s', g.user.username, title)
+            app.logger.info('%s failed to register %s',
+                            g.user.username, form.title.data)
 
     return render_template('register/isbn.html', isbn=isbn,
                            book=book, form=form)
@@ -88,39 +89,42 @@ def manual():
 
     form = BookForm()
 
-    if form.validate_on_submit():
-        image_url = 'https://horaido-images.s3.us-east-2.amazonaws.com/\
-                    books/2021-02-02T10:44:40.812244.jpg'
-        if 'file' in request.files and request.files['file'].filename != '':
-            try:
-                image_url = get_new_image_url(request.files['file'])
-            except Exception as e:
-                flash('エラーが発生しました。もう一度やり直してください。')
-                app.logger.exception(
-                    '%s could not upload an image: %s', g.user.username, e)
-                return redirect(url_for('index'))
+    if request.method == 'POST':
+        if form.validate_on_submit():
+            image_url = 'https://horaido-images.s3.us-east-2.amazonaws.com/\
+                        books/2021-02-02T10:44:40.812244.jpg'
+            if 'file' in request.files \
+                    and request.files['file'].filename != '':
+                try:
+                    image_url = get_new_image_url(request.files['file'])
+                except Exception as e:
+                    flash('エラーが発生しました。もう一度やり直してください。', 'warning')
+                    app.logger.exception(
+                        '%s failed to upload an image: %s', g.user.username, e)
+                    return redirect(url_for('index'))
 
-        # Register book information into DB
-        isbn = form.isbn.data
-        title = form.title.data
-        author = form.author.data
-        publisher_name = form.publisher_name.data
-        sales_date = form.sales_date.data
-        borrower_id = None
-        checkout_date = None
+            # Register book information into DB
+            isbn = form.isbn.data
+            title = form.title.data
+            author = form.author.data
+            publisher_name = form.publisher_name.data
+            sales_date = form.sales_date.data
+            borrower_id = None
+            checkout_date = None
 
-        data = Book(isbn, title, author, publisher_name,
-                    sales_date, image_url, borrower_id, checkout_date)
-        db.session.add(data)
-        db.session.commit()
+            data = Book(isbn, title, author, publisher_name,
+                        sales_date, image_url, borrower_id, checkout_date)
+            db.session.add(data)
+            db.session.commit()
 
-        flash('本を登録しました。')
-        app.logger.info('%s registered %s successfully',
-                        g.user.username, title)
-        return redirect(url_for('index'))
+            flash('本を登録しました。')
+            app.logger.info('%s registered %s successfully',
+                            g.user.username, title)
+            return redirect(url_for('index'))
 
-    else:
-        display_errors(form.errors.items)
-        app.logger.info('%s failed to register %s', g.user.username, title)
+        else:
+            display_errors(form.errors.items)
+            app.logger.info('%s failed to register %s',
+                            g.user.username, form.title.data)
 
     return render_template('register/manual.html', form=form)
