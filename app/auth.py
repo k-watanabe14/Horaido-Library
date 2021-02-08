@@ -3,7 +3,6 @@ from flask import render_template, flash, session, redirect, url_for, \
 from werkzeug.security import check_password_hash, generate_password_hash
 from app.models import User
 from app import app, db
-from app.forms import SignupForm, LoginFrom
 from app.common import display_errors
 import functools
 
@@ -14,6 +13,7 @@ mod_auth = Blueprint('auth', __name__, url_prefix='/')
 @mod_auth.route('/signup/', methods=['GET', 'POST'])
 def signup():
 
+    from app.forms import SignupForm
     form = SignupForm()
 
     if form.validate_on_submit():
@@ -43,6 +43,7 @@ def signup():
 @mod_auth.route('/login/', methods=['GET', 'POST'])
 def login():
 
+    from app.forms import LoginFrom
     form = LoginFrom()
 
     username = form.username.data

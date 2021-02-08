@@ -13,7 +13,6 @@ from app.common import display_errors
 mod_account = Blueprint('account', __name__, url_prefix='/account')
 
 
-# TODO: Implement account setting
 @mod_account.route('/', methods=('GET', 'POST'))
 @login_required
 def index():
@@ -25,29 +24,29 @@ def index():
     password_form = PasswordForm()
 
     if request.method == 'POST' and 'profile_button' in request.form:
-        print('profile_button')
         if account_form.validate_on_submit():
-            print('profile_button_submit')
             user.username = request.form['username']
             user.email = request.form['email']
+            db.session.commit()
             flash('プロフィールを保存しました。')
             app.logger.info('%s changed his/her profile', user.username)
         else:
-            print('profile_button_error')
             display_errors(account_form.errors.items)
+            app.logger.info(
+                '%s failed to change his/her profile', user.username)
 
     if request.method == 'POST' and 'password_button' in request.form:
-        print('profile_password')
         if password_form.validate_on_submit():
-            print('profile_password_submit')
-            user.password = request.form['password']
+            user.password = generate_password_hash(
+                password_form.new_password.data)
+            db.session.commit()
             flash('パスワードを変更しました。')
             app.logger.info('%s changed his/her password', user.username)
         else:
-            print('profile_password_error')
-            display_errors(account_form.errors.items)
+            display_errors(password_form.errors.items)
+            app.logger.info(
+                '%s failed to change his/her password', user.username)
 
-    print('end')
     return render_template('account/index.html', account_form=account_form,
                            password_form=password_form, user=user)
 
