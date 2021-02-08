@@ -20,6 +20,7 @@ def index():
 
 
 @mod_register.route('/isbn', methods=('GET', 'POST'))
+@login_required
 def isbn():
     isbn = request.args.get('isbn')
     book = None
@@ -69,17 +70,20 @@ def isbn():
             db.session.commit()
 
             flash('本を登録しました。')
-            app.logger.info('%s registered %s', g.user.username, title)
+            app.logger.info('%s registered %s successfully',
+                            g.user.username, title)
             return redirect(url_for('index'))
 
         else:
             display_errors(form.errors.items)
+            app.logger.info('%s failed to register %s', g.user.username, title)
 
     return render_template('register/isbn.html', isbn=isbn,
                            book=book, form=form)
 
 
 @mod_register.route('/manual', methods=('GET', 'POST'))
+@login_required
 def manual():
 
     form = BookForm()
@@ -111,10 +115,12 @@ def manual():
         db.session.commit()
 
         flash('本を登録しました。')
-        app.logger.info('%s registered %s', g.user.username, title)
+        app.logger.info('%s registered %s successfully',
+                        g.user.username, title)
         return redirect(url_for('index'))
 
     else:
         display_errors(form.errors.items)
+        app.logger.info('%s failed to register %s', g.user.username, title)
 
     return render_template('register/manual.html', form=form)
