@@ -63,12 +63,13 @@ class BookForm(FlaskForm):
     checkout_date = DateField()
 
 
-class AccountForm(FlaskForm):
-    username = StringField('ユーザー名', validators=[
-                           DataRequired(), check_unique_username])
+class AccountInfoForm(FlaskForm):
+    username = StringField('ユーザー名', validators=[DataRequired()])
     email = StringField('メールアドレス', validators=[DataRequired(), Email(
         message='有効なメールアドレスを入力してください。'), check_unique_email])
-    current_password = PasswordField('パスワード', validators=[DataRequired(
-        ), Length(min=8, max=15, message='有効なパスワードを入力してください。')])
-    new_password = PasswordField('パスワード', validators=[DataRequired(), Length(
-        min=8, max=15, message='有効なパスワードを入力してください。')])
+
+
+class PasswordForm(FlaskForm):
+    current_password = PasswordField('現在のパスワード', validators=[DataRequired()])
+    new_password = PasswordField('新しいパスワード', validators=[Length(
+        min=8, max=15, message='有効なパスワードを設定してください。'), DataRequired()])

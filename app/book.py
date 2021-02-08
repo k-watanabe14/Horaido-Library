@@ -64,11 +64,10 @@ def index(book_id):
         if 'borrow_button' in request.form:
             borrow_book(book, book_id)
             app.logger.info('%s borrowed %s', g.user.username, book.title)
-            return redirect(url_for('book.index', book_id=book_id))
         elif 'return_button' in request.form:
             return_book(book, book_id)
             app.logger.info('%s returned %s', g.user.username, book.title)
-            return redirect(url_for('book.index', book_id=book_id))
+        return redirect(url_for('book.index', book_id=book_id))
 
     # Page for Detail of book
     return render_template('book/index.html', book=book,
@@ -80,7 +79,7 @@ def index(book_id):
 @login_required
 def edit(book_id):
 
-    book = Book.query.filter_by(id=book_id).first()
+    book = Book.query.get(book_id)
 
     form = BookForm()
 
