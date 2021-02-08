@@ -1,7 +1,9 @@
-from flask import render_template, flash, redirect, url_for, Blueprint
+from flask import render_template, flash, redirect, url_for, Blueprint, \
+    request, session
 from app.auth import login_required
 from app import app, db, mail
-from app.forms import RequestResetForm, ResetPasswordForm
+from app.forms import RequestResetForm, ResetPasswordForm, \
+    AccountInfoForm, PasswordForm
 from app.models import User
 from flask_mail import Message
 from werkzeug.security import generate_password_hash
@@ -11,11 +13,42 @@ from app.common import display_errors
 mod_account = Blueprint('account', __name__, url_prefix='/account')
 
 
-# ENHANCE: Implement account setting
-@mod_account.route('/')
+@mod_account.route('/', methods=('GET', 'POST'))
 @login_required
 def index():
-    return render_template('account/index.html')
+
+    user_id = session.get('user_id')
+    user = User.query.get(user_id)
+
+    account_form = AccountInfoForm()
+    password_form = PasswordForm()
+
+    if request.method == 'POST' and 'profile_button' in request.form:
+        if account_form.validate_on_submit():
+            user.username = account_form.username.data
+            user.email = account_form.email.data
+            db.session.commit()
+            flash('プロフィールを保存しました。')
+            app.logger.info('%s changed his/her profile', user.username)
+        else:
+            display_errors(account_form.errors.items)
+            app.logger.info(
+                '%s failed to change his/her profile', user.username)
+
+    if request.method == 'POST' and 'password_button' in request.form:
+        if password_form.validate_on_submit():
+            user.password = generate_password_hash(
+                password_form.new_password.data)
+            db.session.commit()
+            flash('パスワードを変更しました。')
+            app.logger.info('%s changed his/her password', user.username)
+        else:
+            display_errors(password_form.errors.items)
+            app.logger.info(
+                '%s failed to change his/her password', user.username)
+
+    return render_template('account/index.html', account_form=account_form,
+                           password_form=password_form, user=user)
 
 
 @mod_account.route('/request_reset_password/', methods=('GET', 'POST'))
@@ -37,6 +70,8 @@ def request_reset_password():
 
     else:
         display_errors(form.errors.items)
+        app.logger.info(
+            '%s failed to request to reset password', user.username)
 
     return render_template('account/request_reset_password.html', form=form)
 
@@ -63,6 +98,7 @@ def reset_password(token):
 
     else:
         display_errors(form.errors.items)
+        app.logger.info('%s failed to reset password', user.username)
 
     return render_template('account/reset_password.html', form=form)
 
