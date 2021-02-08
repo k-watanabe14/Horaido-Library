@@ -6,9 +6,10 @@ import pytest
 from app import app
 from app.auth import login, logout
 
+
 @pytest.fixture
 def client():
-    db_fd  = tempfile.mkstemp()
+    db_fd = tempfile.mkstemp()
     app.config.from_object('config.TestingConfig')
 
     with app.test_client() as client:
@@ -26,6 +27,8 @@ def logout(client):
     return client.get('/logout', follow_redirects=True)
 
 # ENHANCE: Make Unit Tests
+
+
 def test_login_logout(client):
     """Make sure login and logout works."""
 
