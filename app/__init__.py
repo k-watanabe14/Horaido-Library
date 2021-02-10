@@ -11,7 +11,6 @@ app.config.from_object(os.environ['APP_SETTINGS'])
 db = SQLAlchemy(app)
 mail = Mail(app)
 
-
 # Import a module / component using its blueprint handler
 from app.auth import mod_auth
 from app.account import mod_account
