@@ -71,7 +71,7 @@ def request_reset_password():
 
         else:
             display_errors(form.errors.items)
-            app.logger.info('someone failed to request to reset password')
+            app.logger.info('Someone failed to request to reset password')
 
     return render_template('account/request_reset_password.html', form=form)
 
