@@ -1,5 +1,5 @@
-from flask import render_template, flash, session, redirect, url_for, \
-    g, Blueprint, request
+from flask import render_template, flash, session, redirect, url_for
+from flask import g, Blueprint, request
 from werkzeug.security import check_password_hash, generate_password_hash
 from app.models import User
 from app import app, db
@@ -12,8 +12,8 @@ mod_auth = Blueprint('auth', __name__, url_prefix='/')
 
 @mod_auth.route('/signup/', methods=['GET', 'POST'])
 def signup():
-
     from app.forms import SignupForm
+
     form = SignupForm()
 
     username = form.username.data
@@ -45,8 +45,8 @@ def signup():
 
 @mod_auth.route('/login/', methods=['GET', 'POST'])
 def login():
-
     from app.forms import LoginFrom
+
     form = LoginFrom()
 
     username = form.username.data
