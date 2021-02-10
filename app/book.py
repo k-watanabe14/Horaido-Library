@@ -51,7 +51,6 @@ def return_book(book, book_id):
 
 
 @mod_book.route('/<int:book_id>', methods=('GET', 'POST'))
-@login_required
 def index(book_id):
 
     book = Book.query.get(book_id)
