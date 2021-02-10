@@ -1,5 +1,4 @@
 from app import app, db
-from flask import g
 from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 
 
@@ -11,13 +10,15 @@ class User(db.Model):
     username = db.Column(db.String(128), nullable=False)
     email = db.Column(db.String(128), nullable=False, unique=True)
     password = db.Column(db.String(192), nullable=False)
+    admin = db.Column(db.Boolean)
     book = db.relationship('Book', backref='auth_user', lazy=True)
     history = db.relationship('History', backref='auth_user', lazy=True)
 
-    def __init__(self, username, email, password):
+    def __init__(self, username, email, password, admin):
         self.username = username
         self.email = email
         self.password = password
+        self.admin = False
 
     def get_reset_token(self, expires_sec=1800):
         s = Serializer(app.config['SECRET_KEY'], expires_sec)
@@ -30,7 +31,7 @@ class User(db.Model):
             user_id = s.loads(token)['user_id']
         except Exception as e:
             app.logger.exception(
-                '%s accessed by wrong token: %s', g.user.username, e)
+                'Someone accessed by wrong token: %s', e)
             return None
         return User.query.get(user_id)
 

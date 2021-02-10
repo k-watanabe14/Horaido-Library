@@ -42,12 +42,12 @@
       <div class="account-container">
         <ul>
           {% if g.user %}
-            <li><a href="{{ url_for('account.index') }}"><i class="fa fa-user"></i><span>{{ g.user['username']}}</span></a>
-            <li><a href="{{ url_for('auth.logout') }}"><i class="fa fa-sign-out-alt"></i><span>ログアウト</span></a>
-          {% else %}
-            <li><a href="{{ url_for('auth.signup') }}"><i class="fa fa-user-plus"></i><span>新規登録</span></a>
-            <li><a href="{{ url_for('auth.login') }}"><i class="fa fa-sign-in-alt"></i><span>ログイン</span></a>
-          {% endif %}
+          <li><a href="{{ url_for('account.index') }}"><i class="fa fa-user"></i><span>{{
+                g.user['username']}}</span></a>
+          <li><a href="{{ url_for('auth.logout') }}"><i class="fa fa-sign-out-alt"></i><span>ログアウト</span></a>
+            {% else %}
+          <li><a href="{{ url_for('auth.login') }}"><i class="fa fa-sign-in-alt"></i><span>ログイン</span></a>
+            {% endif %}
         </ul>
       </div>
 
@@ -58,8 +58,12 @@
         <ul>
           <li><a class="action" href="{{ url_for('index') }}">ホーム</a>
           <li><a class="action" href="{{ url_for('search') }}">本を探す</a>
-          <li><a class="action" href="{{ url_for('register.index') }}">本を登録する</a>
+            {% if g.user %}
           <li><a class="action" href="{{ url_for('rental') }}">借りている本</a>
+            {% if g.user.admin %}
+          <li><a class="action" href="{{ url_for('register.index') }}">本を登録する</a>
+            {% endif %}
+            {% endif %}
         </ul>
       </div>
     </nav>
@@ -71,11 +75,11 @@
 
       <div class="flash_section">
         {% with messages = get_flashed_messages(with_categories=true) %}
-          {% if messages %}
-            {% for category, message in messages %}
-            <div class="flash {{ category }}">{{ message}}</div>
-            {% endfor %}
-          {% endif %}
+        {% if messages %}
+        {% for category, message in messages %}
+        <div class="flash {{ category }}">{{ message}}</div>
+        {% endfor %}
+        {% endif %}
         {% endwith %}
       </div>
 
