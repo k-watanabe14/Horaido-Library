@@ -10,39 +10,6 @@ import functools
 mod_auth = Blueprint('auth', __name__, url_prefix='/')
 
 
-@mod_auth.route('/signup/', methods=['GET', 'POST'])
-def signup():
-    from app.forms import SignupForm
-
-    form = SignupForm()
-
-    username = form.username.data
-    email = form.email.data
-    password = form.password.data
-
-    if request.method == 'POST':
-        if form.validate_on_submit():
-
-            user = User(username, email, generate_password_hash(password))
-            db.session.add(user)
-            db.session.commit()
-
-            # Automatically login
-            session.clear()
-            session['user_id'] = User.query.filter_by(
-                username=username).first().id
-
-            flash('ユーザーを登録しました')
-            app.logger.info('%s singed up successfully', username)
-            return redirect(url_for('index'))
-
-        else:
-            display_errors(form.errors.items)
-            app.logger.info('someone failed to sing up', username)
-
-    return render_template('auth/signup.html', form=form)
-
-
 @mod_auth.route('/login/', methods=['GET', 'POST'])
 def login():
     from app.forms import LoginFrom
