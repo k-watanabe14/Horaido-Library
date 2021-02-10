@@ -2,8 +2,6 @@ from flask import render_template, flash, redirect, url_for, Blueprint, \
     request, session
 from app.auth import login_required
 from app import app, db, mail
-from app.forms import RequestResetForm, ResetPasswordForm, \
-    AccountInfoForm, PasswordForm
 from app.models import User
 from flask_mail import Message
 from werkzeug.security import generate_password_hash
@@ -16,6 +14,7 @@ mod_account = Blueprint('account', __name__, url_prefix='/account')
 @mod_account.route('/', methods=('GET', 'POST'))
 @login_required
 def index():
+    from app.forms import AccountInfoForm, PasswordForm
 
     user_id = session.get('user_id')
     user = User.query.get(user_id)
@@ -53,6 +52,7 @@ def index():
 
 @mod_account.route('/request_reset_password/', methods=('GET', 'POST'))
 def request_reset_password():
+    from app.forms import RequestResetForm
 
     form = RequestResetForm()
 
@@ -79,6 +79,7 @@ def request_reset_password():
 
 @ app.route('/reset_password/<token>', methods=['GET', 'POST'])
 def reset_password(token):
+    from app.forms import ResetPasswordForm
 
     user = User.verify_reset_token(token)
 
