@@ -48,7 +48,7 @@ def check_correct_password(form, field):
         raise ValidationError('現在のパスワードが間違っています。')
 
 
-class SignupForm(FlaskForm):
+class UserForm(FlaskForm):
     username = StringField('ユーザー名', validators=[
         DataRequired(), check_unique_username])
     email = StringField('メールアドレス', validators=[DataRequired(), Email(

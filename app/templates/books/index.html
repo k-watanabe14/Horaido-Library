@@ -6,12 +6,12 @@
 
 <div class="stacked-section-child">
   <div class="content-heading">
-    <h4 class="section-title">"{{ book['title']}}"の詳細</h4>
+    <h4 class="section-title">"{{ book.title}}"の詳細</h4>
   </div>
 
   <div class="book-form">
     <div class="book-form-image">
-      <img alt="{{ book['title'] }}" id="image" src="{{ book['image_url'] }}" width="200" height="200">
+      <img alt="{{ book.title }}" id="image" src="{{ book.image_url }}" width="200" height="200">
     </div>
 
     <div class="book-form-text">
@@ -52,29 +52,39 @@
       </div>
     </div>
     <div class="book-form-button">
+      {% if g.user.admin %}
       <ul>
         {% if book['borrower_id'] is none %}
-        <li><button class="btn borrow" id="open-borrow">この本を借りる</button></li>
-        {% elif book['borrower_id'] == g.user['id'] %}
+        <li><button class="btn borrow" id="open-borrow">この本を貸す</button></li>
+        {% else %}
         <li><button class="btn return" id="open-return">この本を返す</button></li>
         {% endif %}
-        <li><a class="btn edit" href="{{ url_for('book.edit', book_id = book['id']) }}">編集する</a></li>
+        <li><a class="btn edit" href="{{ url_for('books.edit', book_id = book['id']) }}">編集する</a></li>
       </ul>
+      {% endif %}
     </div>
     <div id="mask-borrow" class="hidden"></div>
     <section id="modal-borrow" class="modal hidden">
-      <p>この本を借りますか？</p>
-      <ul>
-        <li>
-          <form method="post"><button type="submit" name="borrow_button" class="borrow" value="借りる">借りる</button></form>
-        </li>
-        <li><button id="close-borrow" class="close">閉じる</button></li>
-      </ul>
+      <p>この本を貸しますか？</p>
+      <form method="post">
+        <div class="borrower">
+          借りる人
+          <select id="borrower-options" name="borrower">
+            {% for user in users %}
+            <option value="{{ user.id }}">{{ user.username }}</option>
+            {% endfor %}
+          </select>
+        </div>
+        <ul>
+          <li><button type="submit" name="borrow_button" class="borrow" value="貸す">貸す</button></li>
+          <li><button type="button" id="close-borrow" class="close">閉じる</button></li>
+        </ul>
+      </form>
     </section>
 
     <div id="mask-return" class="hidden"></div>
     <section id="modal-return" class="modal hidden">
-      <p>この本を返しますか</p>
+      <p>この本を返しますか？</p>
       <ul>
         <li>
           <form method="post"><button type="submit" name="return_button" class="return" value="返す">返す</button></form>
