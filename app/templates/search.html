@@ -54,7 +54,7 @@
   {% else %}
   <div class="book-list">
     {% for result in results.items %}
-    <a class="book-container" href="{{ url_for('book.index', book_id = result[0]['id']) }}">
+    <a class="book-container" href="{{ url_for('books.index', book_id = result[0]['id']) }}">
       <div class="book-image">
         <img alt="{{ result[0]['title'] }}" id="image" src="{{ result[0]['image_url'] }}">
       </div>

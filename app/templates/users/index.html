@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block title %}朋来堂会員{% endblock %}
+
+{% block content %}
+<div class="stacked-section-child">
+  {% if g.user.admin %}
+    <div class="register-page">
+      <a class="btn user" href="{{ url_for('users.register') }}">会員を登録する</a>
+    </div>
+  {% endif %}
+</div>
+
+<div class="stacked-section-child">
+  <div class="content-heading">
+    <h4 class="section-title">朋来堂会員一覧</h4>
+  </div>
+  <div class="user-list">
+    <ul>
+    {% for user in users %}
+      <li class="user-container">
+        <div class="username">{{ user.username }}</div>
+        <div class="detail">
+          {% if user.admin %}
+            <span>管理人</span>
+          {% endif %}
+        </div>
+      </li>
+    {% endfor %}
+    </ul>
+  </div>
+</div>
+
+{% endblock %}

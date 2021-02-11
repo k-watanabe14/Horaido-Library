@@ -15,13 +15,15 @@ mail = Mail(app)
 from app.auth import mod_auth
 from app.account import mod_account
 from app.register import mod_register
-from app.book import mod_book
+from app.books import mod_books
+from app.users import mod_users
 
 # Register blueprints
 app.register_blueprint(mod_auth)
 app.register_blueprint(mod_account)
 app.register_blueprint(mod_register)
-app.register_blueprint(mod_book)
+app.register_blueprint(mod_books)
+app.register_blueprint(mod_users)
 
 # Import login_required
 from app.auth import login_required
@@ -37,7 +39,6 @@ def not_found(error):
 
 
 @app.route('/', methods=('GET', 'POST'))
-@login_required
 def index():
 
     new_books = Book.query.outerjoin(User, TagMaps, Tags).filter(
@@ -59,7 +60,6 @@ def index():
 
 
 @app.route('/search', methods=('GET', 'POST'))
-@login_required
 def search():
 
     tags = Tags.query
@@ -101,8 +101,12 @@ def search():
         keyword = request.form['keyword']
         status = request.form.get('status')
         tag = request.form.get('tag')
-        app.logger.info('%s searched %s with %s status and tag %s',
-                        g.user.username, keyword, status, tag)
+        if g.user:
+            app.logger.info('%s searched %s with %s status and tag %s',
+                            g.user.username, keyword, status, tag)
+        else:
+            app.logger.info('Someone searched %s with %s status and tag %s',
+                            keyword, status, tag)
         return redirect(url_for('search', keyword=keyword,
                                 status=status, tag=tag))
 
