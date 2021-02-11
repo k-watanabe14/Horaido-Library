@@ -1200,3 +1200,29 @@ Contents
 .modal button.close, button.close  {
 	background-color: #666666;
 }
+
+.modal .borrower {
+	margin: 3rem auto;
+	text-align: center;
+}
+
+.modal .borrower span {
+	margin: 0 6rem;
+}
+
+.modal .borrower select {
+	margin: 0 2rem;
+	background-color: whitesmoke;
+	padding: 1rem 2.5rem;
+	border-radius: 2rem;
+}
+
+.modal .borrower::after {
+	content: "\25bc";
+	font-size: 1.6rem;
+	color: #666666;
+	line-height: 3.6rem;
+	position: absolute;
+	pointer-events: none;
+	margin: 0 -4.5rem;
+}
