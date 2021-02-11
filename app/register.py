@@ -1,18 +1,18 @@
-from flask import Blueprint, request, render_template, flash, redirect, url_for, g, session
-from werkzeug.exceptions import abort
+from flask import request, render_template, flash, redirect, url_for, \
+    session, Blueprint, g
 from app.auth import login_required
 from app.models import Book
-from app import db
+from app import app, db
 import requests
-import io
-import datetime
-from app.s3 import upload_file
-from app.forms import RegisterBookForm
+from app.forms import BookForm
+from app.common import display_errors, get_new_image_url
+
 
 # Define the blueprint: 'register', set its url prefix: app.url/register
 mod_register = Blueprint('register', __name__, url_prefix='/register')
-
 # ENHANCE: Add a function for searching books to register
+
+
 @mod_register.route('/')
 @login_required
 def index():
@@ -20,94 +20,111 @@ def index():
 
 
 @mod_register.route('/isbn', methods=('GET', 'POST'))
+@login_required
 def isbn():
     isbn = request.args.get('isbn')
-    book_data = None
+    book = None
 
-    form = RegisterBookForm()
+    form = BookForm()
 
     if isbn is not None:
-        url = 'https://app.rakuten.co.jp/services/api/BooksBook/Search/20170404?applicationId=1053085901834686387&isbn=' + isbn
+        url = 'https://app.rakuten.co.jp/services/api/BooksBook/Search/\
+                20170404?applicationId=1053085901834686387&isbn=' + isbn
         response = requests.get(url)
         session.pop('_flashes', None)
 
         if 'Items' in response.json() and response.json()['Items']:
-                book_data = response.json()['Items'][0]['Item']
-
+            book = response.json()['Items'][0]['Item']
         else:
-            flash("該当する書籍が見つかりませんでした。再度ISBNを入力してください。")
+            flash('該当する書籍が見つかりませんでした。再度ISBNを入力してください。', 'warning')
 
-
-    if request.method == 'POST' and book_data is None:
-        isbn = request.form['isbn']
+    if request.method == 'POST' and book is None:
+        isbn = form.isbn.data
         return redirect(url_for('register.isbn', isbn=isbn))
 
-    if book_data is not None:
+    if request.method == 'POST' and book is not None:
         if form.validate_on_submit():
-            isbn = request.form['isbn']
-            title = request.form['title']
-            author = request.form['author']
-            publisher_name = request.form['publisher_name']
-            sales_date = request.form['sales_date']
-            image_url = book_data['largeImageUrl']
+            if 'file' in request.files \
+                    and request.files['file'].filename != '':
+                try:
+                    image_url = get_new_image_url(request.files['file'])
+                except Exception as e:
+                    flash('エラーが発生しました。もう一度やり直してください。', 'warning')
+                    app.logger.exception(
+                        '%s failed to upload an image %s', g.user.username, e)
+                    return redirect(url_for('index'))
+            else:
+                image_url = book['largeImageUrl']
+
+            isbn = form.isbn.data
+            title = form.title.data
+            author = form.author.data
+            publisher_name = form.publisher_name.data
+            sales_date = form.sales_date.data
             borrower_id = None
             checkout_date = None
 
-            data = Book(isbn, title, author, publisher_name, sales_date, image_url, borrower_id, checkout_date)
+            data = Book(isbn, title, author, publisher_name,
+                        sales_date, image_url, borrower_id, checkout_date)
             db.session.add(data)
             db.session.commit()
 
-            flash("本を登録しました。")
+            flash('本を登録しました。')
+            app.logger.info('%s registered %s successfully',
+                            g.user.username, title)
             return redirect(url_for('index'))
 
         else:
-            for field, errors in form.errors.items():
-                for error in errors:
-                    flash(error)
+            display_errors(form.errors.items)
+            app.logger.info('%s failed to register %s',
+                            g.user.username, form.title.data)
 
-    return render_template('register/isbn.html', isbn=isbn, book_data=book_data, form=form)
+    return render_template('register/isbn.html', isbn=isbn,
+                           book=book, form=form)
 
 
 @mod_register.route('/manual', methods=('GET', 'POST'))
+@login_required
 def manual():
 
-    form = RegisterBookForm()
+    form = BookForm()
 
-    if form.validate_on_submit():
-        # Save book image into S3 and set image url
-        try:
-            if 'book_image' in request.files:
-                image = request.files['book_image']
-                image_name = datetime.datetime.now().isoformat() + ".jpg"
-                body = io.BufferedReader(image).read()
-                key = f'books/{image_name}'
-                upload_file(body, key, 'image/jpeg')
-                image_url = "https://horaido-images.s3.us-east-2.amazonaws.com/books/" + image_name
-            else:
-                image_url = None
-        except:
-            flash("エラーが発生しました。もう一度やり直してください。")
-            return redirect(url_for('register'))
+    if request.method == 'POST':
+        if form.validate_on_submit():
+            image_url = 'https://horaido-images.s3.us-east-2.amazonaws.com/\
+                        books/2021-02-02T10:44:40.812244.jpg'
+            if 'file' in request.files \
+                    and request.files['file'].filename != '':
+                try:
+                    image_url = get_new_image_url(request.files['file'])
+                except Exception as e:
+                    flash('エラーが発生しました。もう一度やり直してください。', 'warning')
+                    app.logger.exception(
+                        '%s failed to upload an image: %s', g.user.username, e)
+                    return redirect(url_for('index'))
 
-        # Register book information into DB
-        isbn = request.form['isbn']
-        title = request.form['title']
-        author = request.form['author']
-        publisher_name = request.form['publisher_name']
-        sales_date = request.form['sales_date']
-        borrower_id = None
-        checkout_date = None
+            # Register book information into DB
+            isbn = form.isbn.data
+            title = form.title.data
+            author = form.author.data
+            publisher_name = form.publisher_name.data
+            sales_date = form.sales_date.data
+            borrower_id = None
+            checkout_date = None
 
-        data = Book(isbn, title, author, publisher_name, sales_date, image_url, borrower_id, checkout_date)
-        db.session.add(data)
-        db.session.commit()
+            data = Book(isbn, title, author, publisher_name,
+                        sales_date, image_url, borrower_id, checkout_date)
+            db.session.add(data)
+            db.session.commit()
 
-        flash("本を登録しました。")
-        return redirect(url_for('index'))
+            flash('本を登録しました。')
+            app.logger.info('%s registered %s successfully',
+                            g.user.username, title)
+            return redirect(url_for('index'))
 
-    else:
-        for field, errors in form.errors.items():
-            for error in errors:
-                flash(error)
+        else:
+            display_errors(form.errors.items)
+            app.logger.info('%s failed to register %s',
+                            g.user.username, form.title.data)
 
     return render_template('register/manual.html', form=form)

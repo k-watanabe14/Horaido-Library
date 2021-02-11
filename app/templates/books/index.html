@@ -1,0 +1,129 @@
+{% extends 'base.html' %}
+
+{% block title %}本の詳細 "{{ book.title }}"{% endblock %}
+
+{% block content %}
+
+<div class="stacked-section-child">
+  <div class="content-heading">
+    <h4 class="section-title">"{{ book.title}}"の詳細</h4>
+  </div>
+
+  <div class="book-form">
+    <div class="book-form-image">
+      <img alt="{{ book.title }}" id="image" src="{{ book.image_url }}" width="200" height="200">
+    </div>
+
+    <div class="book-form-text">
+      <div class="item">
+        <label for="isbn">ISBN</label>
+        <span name="isbn" id="isbn">{{ book['isbn'] }}</span>
+      </div>
+
+      <div class="item">
+        <label for="title">タイトル</label>
+        <span name="title" id="title">{{ book['title'] }}</span>
+      </div>
+
+      <div class="item">
+        <label for="author">著者</label>
+        <span name="author" id="author">{{ book['author'] }}</span>
+      </div>
+
+      <div class="item">
+        <label for="publisher_name">出版社</label>
+        <span name="publisher_name" id="publisher_name">{{ book['publisher_name'] }}</span>
+      </div>
+
+      <div class="item">
+        <label for="sales_date">出版年月日</label>
+        <span name="sales_date" id="sales_date">{{ book['sales_date'] }}</span>
+      </div>
+
+      <div class="item">
+        <label for="tags">タグ</label>
+        <span name="tags" id="tags">
+          <ul>
+            {% for tag in tags %}
+            <li class="tag">{{ tag[1] }}</li>
+            {% endfor %}
+          </ul>
+        </span>
+      </div>
+    </div>
+    <div class="book-form-button">
+      {% if g.user.admin %}
+      <ul>
+        {% if book['borrower_id'] is none %}
+        <li><button class="btn borrow" id="open-borrow">この本を貸す</button></li>
+        {% else %}
+        <li><button class="btn return" id="open-return">この本を返す</button></li>
+        {% endif %}
+        <li><a class="btn edit" href="{{ url_for('books.edit', book_id = book['id']) }}">編集する</a></li>
+      </ul>
+      {% endif %}
+    </div>
+    <div id="mask-borrow" class="hidden"></div>
+    <section id="modal-borrow" class="modal hidden">
+      <p>この本を貸しますか？</p>
+      <form method="post">
+        <div class="borrower">
+          <span>借りる人</span>
+          <select id="borrower-options" name="borrower">
+            {% for user in users %}
+            <option value="{{ user.id }}">{{ user.username }}</option>
+            {% endfor %}
+          </select>
+        </div>
+        <ul>
+          <li><button type="submit" name="borrow_button" class="borrow" value="貸す">貸す</button></li>
+          <li><button type="button" id="close-borrow" class="close">閉じる</button></li>
+        </ul>
+      </form>
+    </section>
+
+    <div id="mask-return" class="hidden"></div>
+    <section id="modal-return" class="modal hidden">
+      <p>この本を返しますか？</p>
+      <ul>
+        <li>
+          <form method="post"><button type="submit" name="return_button" class="return" value="返す">返す</button></form>
+        </li>
+        <li><button id="close-return" class="close">閉じる</button></li>
+      </ul>
+    </section>
+  </div>
+</div>
+
+<div class="stacked-section-child">
+  <div class="content-heading">
+    <h4 class="section-title">貸し出し履歴</h4>
+  </div>
+
+  <div class="history-list">
+    <table>
+      <thead>
+        <tr>
+          <td>借りた人</td>
+          <td>貸出日</td>
+          <td>返却日</td>
+        </tr>
+      </thead>
+      {% for history in histories %}
+      <tbody>
+        <tr>
+          <td><span class="user_name">{{ history[1] }}</span></td>
+          <td><span class="checkout_date">{{ history[0].checkout_date.strftime('%Y年%m月%d日') }}</span></td>
+          {% if history[0]['return_date'] is none %}
+          <td><span class="return_date">未返却</span></td>
+          {% else %}
+          <td><span class="return_date">{{ history[0].return_date.strftime('%Y年%m月%d日') }}</span></td>
+          {% endif %}
+        </tr>
+      </tbody>
+      {% endfor %}
+    </table>
+  </div>
+</div>
+
+{% endblock %}
