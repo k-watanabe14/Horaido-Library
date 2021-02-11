@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+
+{% block title %}ISBNで登録する{% endblock %}
+
+{% block content %}
+
+  {% if isbn is not none and book_data is not none %}
+
+  <div class="book-form">
+    <form method="post">
+      {{ form.hidden_tag() }}
+      <div class="book-form-image">
+        <img alt="{{ book_data['title'] }}" id="image" src="{{ book_data['largeImageUrl'] }}" width="200" height="200">
+      </div>
+
+      <div class="book-form-text">
+        <div class="item">
+          <label for="isbn">ISBN</label>
+          {{ form.isbn(value=book_data['isbn']) }}
+        </div>
+
+        <div class="item">
+          <label for="title">タイトル</label>
+          {{ form.title(value=book_data['title'], required=true) }}
+        </div>
+
+        <div class="item">
+          <label for="author">著者</label>
+          {{ form.author(value=book_data['author']) }}
+        </div>
+
+        <div class="item">
+          <label for="publisher_name">出版社</label>
+          {{ form.publisher_name(value=book_data['publisherName']) }}
+        </div>
+
+        <div class="item">
+          <label for="sales_date">出版年月日</label>
+          {{ form.sales_date(value=book_data['salesDate']) }}
+        </div>
+
+      </div>
+      <input type="submit" value="登録する" />
+    </form>
+  </div>
+
+  {% else %}
+  <div class="isbn-wrapper">
+    <form method="post" class="isbn-form">
+      <input name="isbn" class="isbn-box" value="{{ request.form['isbn'] }}" placeholder="ISBNを入力してください。" required>
+      <button class="isbn-btn" type="submit"><i class="fas fa-search"></i></button>
+    </form>
+  </div>
+
+  {% endif %}
+
+{% endblock %}

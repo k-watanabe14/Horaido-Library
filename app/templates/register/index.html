@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block title %}本を登録する{% endblock %}
+
+{% block content %}
+<div class="stacked-section-child">
+  <div class="register-page">
+    <a class="btn isbn" href="{{ url_for('register.isbn') }}">ISBNコードで検索する</a>
+    <a class="btn manual" href="{{ url_for('register.manual') }}">手動で登録する</a>
+  </div>
+</div>
+{% endblock %}

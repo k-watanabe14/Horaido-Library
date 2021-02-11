@@ -1,0 +1,1161 @@
+@charset "UTF-8";
+
+/*--------------------------------------------------------------
+>>> TABLE OF CONTENTS:
+----------------------------------------------------------------
+# Normalize
+# Typography
+# Elements
+# Links
+# Forms
+# Header
+# Footer
+# Contents
+--------------------------------------------------------------*/
+
+/*--------------------------------------------------------------
+Normalize
+--------------------------------------------------------------*/
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+/*--------------------------------------------------------------
+Typography
+--------------------------------------------------------------*/
+body, button, input, select, textarea {
+	color: #333333;
+	font-family: 'Montserrat', sans-serif;
+	font-size: 14px;
+	line-height: 1.5;
+	font-weight: 400;
+}
+
+body {
+    background-color: whitesmoke;
+}
+
+b, strong {
+	font-weight: bold;
+}
+
+dfn, cite, em, i {
+	font-style: italic;
+}
+
+blockquote {
+	margin: 0 15px;
+	font-size: 20px;
+	font-style: italic;
+	font-family: 'Montserrat', sans-serif;
+	font-weight: 300;
+}
+
+address {
+	margin: 0 0 15px;
+}
+
+pre {
+	background: #eeeeee;
+	font-family: 'Montserrat', sans-serif;
+	font-size: 15px;
+	font-size: 1.5rem;
+	line-height: 1.6;
+	margin-bottom: 1.6em;
+	max-width: 100%;
+	overflow: auto;
+	padding: 1.6em;
+}
+
+code, kbd, tt, var {
+	font: 15px Monaco, Consolas, 'Andale Mono', 'DejaVu Sans Mono', monospace;
+}
+
+abbr, acronym {
+	border-bottom: 1px dotted #666666;
+	cursor: help;
+}
+
+mark, ins {
+	background: #fff9c0;
+	text-decoration: none;
+}
+
+sup, sub {
+	font-size: 75%;
+	height: 0;
+	line-height: 0;
+	position: relative;
+	vertical-align: baseline;
+}
+
+sup {
+	bottom: 1ex;
+}
+
+sub {
+	top: 0.5ex;
+}
+
+small {
+	font-size: 75%;
+}
+
+big {
+	font-size: 125%;
+}
+
+h1 {
+	font-size: 36px;
+}
+
+h2 {
+	font-size: 30px;
+}
+
+h3 {
+	font-size: 25px;
+}
+
+h4 {
+	font-size: 20px;
+}
+
+h5 {
+	font-size: 18px;
+}
+
+h6 {
+	font-size: 16px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	font-weight: 700;
+}
+
+/*--------------------------------------------------------------
+Elements
+--------------------------------------------------------------*/
+hr {
+	background-color: #cccccc;
+	border: 0;
+	height: 1px;
+	margin-bottom: 15px;
+}
+
+ul, ol {
+	margin: 0 0 15px 20px;
+}
+
+ul {
+	list-style: disc;
+}
+
+ol {
+	list-style: decimal;
+}
+
+li > ul, li > ol {
+	margin-bottom: 0;
+	margin-left: 15px;
+}
+
+dt {
+	font-weight: bold;
+}
+
+dd {
+	margin: 0 15px 15px;
+}
+
+img {
+	height: auto;
+	/* Make sure images are scaled correctly. */
+	max-width: 100%;
+	/* Adhere to tg-container width. */
+	vertical-align: middle;
+}
+
+figure {
+	margin: 0;
+}
+
+table {
+	text-align: center;
+	width: 100%;
+	font-size: 14px;
+}
+
+p {
+	margin: 0 0 30px;
+}
+
+/*--------------------------------------------------------------
+Links
+--------------------------------------------------------------*/
+a {
+	color: #333333;
+	text-decoration: none;
+	-o-transition: all 0.3s ease-in-out;
+	transition: all 0.3s ease-in-out;
+	-webkit-transition: all 0.3s ease-in-out;
+	-moz-transition: all 0.3s ease-in-out;
+}
+
+a a:hover {
+	color: #000000;
+}
+
+/*--------------------------------------------------------------
+Forms
+--------------------------------------------------------------*/
+button, input, select, textarea {
+	font-size: 100%;
+	/* Corrects font size not being inherited in all browsers */
+	margin: 0;
+	/* Addresses margins set differently in IE6/7, F3/4, S5, Chrome */
+	vertical-align: middle;
+}
+
+.navigation .nav-links a, .bttn, button {
+	background: #333333;
+	color: #ffffff;
+	cursor: pointer;
+	/* Improves usability and consistency of cursor style between image-type 'input' and others */
+	font-size: 14px;
+	line-height: 13px;
+	border: none;
+	padding: 10px 15px;
+	font-weight: 400;
+	display: inline-block;
+	position: relative;
+	text-shadow: none;
+	-webkit-transition: background 0.5s ease;
+	-o-transition: background 0.5s ease;
+	transition: background 0.5s ease;
+	border-radius: 0;
+	-webkit-appearance: none;
+	-webkit-border-radius: 0;
+}
+
+input[type='button'], input[type='reset'], input[type='submit'] {
+	background: #333333;
+	color: #ffffff;
+	cursor: pointer;
+	/* Improves usability and consistency of cursor style between image-type 'input' and others */
+	font-size: 14px;
+	line-height: 13px;
+	border: none;
+	padding: 10px 15px;
+	font-weight: 400;
+	display: inline-block;
+	position: relative;
+	text-shadow: none;
+	-webkit-transition: background 0.5s ease;
+	-o-transition: background 0.5s ease;
+	transition: background 0.5s ease;
+	border-radius: 0;
+	-webkit-appearance: none;
+	-webkit-border-radius: 0;
+}
+
+.navigation .nav-links a:hover, .bttn:hover, button {
+	color: #ffffff;
+}
+
+input[type='button']:hover, input[type='reset']:hover, input[type='submit']:hover {
+	color: #ffffff;
+}
+
+input[type='checkbox'], input[type='radio'] {
+	padding: 0;
+}
+
+input[type='text'], input[type='email'], input[type='url'], input[type='password'], input[type='search'] {
+	color: #666666;
+	border: 1px solid #cccccc;
+	height: 36px;
+	width: 100%;
+	-webkit-appearance: none;
+	border-radius: 0;
+	-webkit-border-radius: 0;
+}
+
+input[type='text']:focus, input[type='email']:focus, input[type='url']:focus, input[type='password']:focus, input[type='search']:focus {
+	border: 1px solid #aaaaaa;
+}
+
+textarea:focus {
+	border: 1px solid #aaaaaa;
+}
+
+input[type='text'], input[type='email'], input[type='url'], input[type='password'], input[type='search'] {
+	padding: 3px 6px;
+}
+
+input:focus::placeholder {
+    color:transparent;
+}
+
+
+input.danger {
+    color: #cc2f2e;
+}
+
+textarea {
+	overflow: auto;
+	/* Removes default vertical scrollbar in IE6/7/8/9 */
+	padding-left: 3px;
+	vertical-align: top;
+	/* Improves readability and alignment in all browsers */
+	color: #666666;
+	border: 1px solid #cccccc;
+	height: 160px;
+	max-width: 100%;
+	width: 100%;
+}
+
+* {
+	box-sizing: border-box;
+}
+
+/*-----------------Login/Sign up Form-----------------*/
+.form-wrapper {
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+	justify-content: center;
+	width: 100%;
+	min-height: 100%;
+	padding: 20px;
+}
+
+.form-wrapper form {
+	border-radius: 2px 2px 5px 5px;
+	padding: 10px 20px 80px 20px;
+	width: 500px;
+	height: 400px;
+	background: #fff;
+	position: relative;
+	box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.3);
+}
+
+.form-wrapper .title {
+	color: #444;
+	font-size: 18px;
+	font-weight: bold;
+	margin: 10px 0 30px 0;
+	border-bottom: 1px solid #eee;
+	padding-bottom: 20px;
+}
+
+.form-wrapper .message {
+	width: 100%;
+	padding: 15px 20px 35px;
+}
+
+.form-wrapper .message p {
+	margin: 0;
+}
+
+.form-wrapper input {
+	display: block;
+	padding: 15px 10px;
+	margin-bottom: 20px;
+	width: 100%;
+	height: 55px;
+	border: 1px solid #ddd;
+	transition: border-width 0.2s ease;
+	border-radius: 2px;
+	color: #454545;
+}
+
+.form-wrapper input + i.fa {
+	color: #fff;
+	font-size: 16px;
+	position: absolute;
+	margin-top: -55px;
+	opacity: 0;
+	left: 0;
+	transition: all 0.1s ease-in;
+}
+
+.form-wrapper input:focus {
+	outline: none;
+	color: #444;
+	border-color: #2196f3;
+	border-left-width: 35px;
+}
+
+.form-wrapper input:focus + i.fa {
+	opacity: 1;
+	left: 30px;
+	transition: all 0.25s ease-out;
+}
+
+.form-wrapper .text {
+	margin: 0 10px;
+	padding-top: 10px;
+}
+
+.form-wrapper a {
+	font-size: 14px;
+	color: #2196f3;
+	text-decoration: none;
+}
+
+.form-wrapper .button {
+	width: 100%;
+	height: 100%;
+	padding: 10px 10px;
+	background: #2196f3;
+	color: #fff;
+	display: block;
+	border: none;
+	margin: 20px 0 0;
+	position: absolute;
+	left: 0;
+	bottom: 0;
+	max-height: 60px;
+	border: 0px solid rgba(0, 0, 0, 0.1);
+	border-radius: 0 0 2px 2px;
+	transform: rotateZ(0deg);
+	transition: all 0.1s ease-out;
+	border-bottom-width: 7px;
+}
+
+/*-----------------Search Bar-----------------*/
+.search-bar-wrapper {
+    max-width: 360px;
+    padding: 15px 0;
+    position: relative;
+    margin: auto;
+}
+
+.search-bar-wrapper .search-bar {
+    background-color: white;
+    box-sizing: border-box;
+    outline: none;
+    position: relative;
+    border: 1px solid #DFE1E2;
+    box-shadow: 1px 1px 3px 1px #DFE1E2;
+    border-radius: 20px;
+    padding: 8px 20px;
+    height: 40px;
+    width: 360px;
+    vertical-align: top;
+}
+
+.search-bar-wrapper  .search-bar .search-input {
+    border: none;
+    height: 16px;
+    font-weight: 500;
+}
+
+.search-bar-wrapper  .search-bar .search-input:focus {
+    outline: 0;
+}
+
+.search-bar-wrapper .search-bar .search-button {
+    cursor: pointer;
+    font-family: FontAwesome;
+    font-size: 1.3em;
+    border: none;
+    background: none;
+    color: #cccccc;
+    position: absolute;
+    width: 2.5em;
+    height: 2.5em;
+    right: 0;
+    top: -6px;
+    outline : none
+}
+
+/*-----------------Search Form-----------------*/
+.search-form-wrapper {
+    width: 800px;
+    padding: 15px 0;
+    position: relative;
+	margin: auto;
+	border-radius: 14px;
+}
+
+.search-form-wrapper .search-form {
+    background-color: white;
+    box-sizing: border-box;
+    outline: none;
+    position: relative;
+    border: 1px solid #DFE1E2;
+    box-shadow: 1px 1px 3px 1px #DFE1E2;
+	border-radius: 20px;
+	margin: 0 auto;
+    padding: 8px 20px;
+    height: 40px;
+    width: 360px;
+    vertical-align: top;
+}
+
+.search-form-wrapper  .search-form .search-input {
+    border: none;
+    height: 16px;
+    font-weight: 500;
+}
+
+.search-form-wrapper  .search-form .search-input:focus {
+    outline: 0;
+}
+
+.search-form-wrapper .search-form .search-button {
+    cursor: pointer;
+    font-family: FontAwesome;
+    font-size: 1.3em;
+    border: none;
+    background: none;
+    color: #cccccc;
+    position: absolute;
+    width: 2.5em;
+    height: 2.5em;
+    right: 0;
+    top: -6px;
+    outline : none
+}
+
+.search-form-wrapper .options-section {
+	margin: 50px auto 20px;
+	padding: 10px;
+	text-align: center;
+}
+
+.search-form-wrapper .options-section .option {
+	display: inline-block;
+	vertical-align: top;
+	padding: 10px;
+	margin: auto;
+}
+
+.search-form-wrapper .options-section select {
+	background: rgba(255,255,255,.1);
+	border: none;
+	border-radius: 20px;
+	font-size: 15px;
+	margin: 0;
+	outline: 0;
+	padding: 10px;
+	width: 100%;
+	box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	background-color: #e8eeef;
+	color:#454545;
+	-webkit-box-shadow: 0 1px 0 rgba(0,0,0,0.03) inset;
+	box-shadow: 0 1px 0 rgba(0,0,0,0.03) inset;
+	margin-bottom: 15px;
+	background-color: white;
+}
+
+/*-----------------Book From-----------------*/
+.book-form {
+	max-width: 1000px;
+	margin: 10px auto;
+	padding: 30px;
+	background-color: #eeeeee;
+	border-radius: 10px;
+}
+
+.book-form input[type="submit"] {
+	position: relative;
+	display: block;
+	padding: 15px 39px;
+	color: #FFF;
+	margin: 0 auto;
+	background: #185184;
+	font-size: 18px;
+	text-align: center;
+	font-style: normal;
+	width: 30%;
+	border: 1px solid #154260;
+	border-width: 1px 1px 3px;
+	margin-bottom: 10px;
+	margin-top: 30px;
+}
+
+.book-form input[type="submit"]:hover {
+	background: #123456;
+}
+
+.book-form-image {
+	display: inline-block;
+	width: 30%;
+	vertical-align: top;
+	padding: 0 50px 0 10px;
+	max-width: 260px;
+	height: auto;
+	box-sizing: border-box;
+}
+
+.book-form-image #image, .book-form-image #preview {
+	max-width: 260px;
+	width: 100%;
+	height: auto;
+}
+
+.book-form-text {
+	display: inline-block;
+	vertical-align: top;
+	width: 68%;
+	padding: 20px;
+	background: #f4f7f8;
+	border-radius: 8px;
+	box-sizing: border-box;
+}
+
+.book-form-text .item {
+	display: block
+}
+
+.book-form-text .item label {
+	display: inline-block;
+	margin-bottom: 8px;
+	width: 30%;
+}
+
+.book-form-text .item span {
+	display: inline-block;
+	width: 68%;
+}
+
+.book-form-text input[type="text"], .book-form-text select {
+	background: rgba(255,255,255,.1);
+	border: none;
+	border-radius: 4px;
+	font-size: 15px;
+	margin: 0;
+	outline: 0;
+	padding: 10px;
+	display: inline-block;
+	width: 68%;
+	box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	background-color: #e8eeef;
+	color:#454545;
+	-webkit-box-shadow: 0 1px 0 rgba(0,0,0,0.03) inset;
+	box-shadow: 0 1px 0 rgba(0,0,0,0.03) inset;
+	margin-bottom: 15px;
+	background-color: white;
+}
+
+.book-form-text input[type="text"]:focus, .book-form-text select:focus {
+	background: #d2d9dd;
+}
+
+.book-form-text select {
+	-webkit-appearance: menulist-button;
+	height:35px;
+}
+
+.book-form-text select option {
+	padding: 0;
+}
+
+/*-----------------ISBN Search Form-----------------*/
+.isbn-wrapper{
+	margin: auto;
+	height: 50px;
+	position: relative;
+	width: 350px;
+}
+
+.isbn-form{
+	position:relative;
+	margin-bottom:20px;
+}
+
+.isbn-box{
+	height:50px;
+	width: 300px;
+	padding:0 20px;
+	position:absolute;
+	left:0;
+	top:0;
+	border-radius:5px;
+	outline:0;
+	background:#eee;
+	border: none;
+}
+
+.isbn-btn{
+	height:50px;
+	width:50px;
+	position:absolute;
+	left: calc(100% - 50px);
+	top:0;
+	background:#FFC605;
+	color:#fff;
+	border:none;
+	border-radius:0 5px 5px 0;
+}
+
+.isbn-btn .fa-search{
+	font-size:20px;
+	position:absolute;
+	top:30%;
+	left:30%;
+}
+
+.isbn-btn:before {
+	font-family: FontAwesome;
+}
+
+.isbn-btn:hover{
+	color:#888;
+}
+
+/*--------------------------------------------------------------
+Header
+--------------------------------------------------------------*/
+#site-header {
+    background-color: white;
+}
+
+/*-----------------Main Header-----------------*/
+.main-header {
+    width: 100%;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+    display: flex;
+    justify-content: space-between;
+}
+
+/*-----------------Logo-----------------*/
+.main-logo {
+    padding: 0;
+	display: flex;
+	align-items: center;
+}
+
+.main-logo .logo-image {
+	padding: 20px 0;
+}
+
+.main-logo .logo-image a img {
+	padding: 0;
+}
+
+.main-logo .logo-text {
+    margin-left: 100px;
+    margin-right: 20px;
+}
+
+.main-logo .logo-text .site-title {
+	font-size: 22px;
+	font-weight: 500;
+	padding: 20px;
+}
+
+.main-logo .logo-text .site-title:hover {
+    background-color: whitesmoke;
+}
+
+.main-logo .logo-text .site-title a {
+	text-decoration:none;
+}
+
+/*-----------------Account-----------------*/
+.account-container {
+    min-width: 200px;
+}
+
+.account-container ul {
+    margin: 0;
+    height: 100%;
+    padding: 10px;
+    text-align: center;
+    list-style: none;
+}
+
+.account-container ul li {
+    display: inline-block;
+    text-align: center;
+    text-decoration: none;
+	font-size: 14px;
+}
+
+.account-container ul li a {
+    display: block;
+    text-align: center;
+    text-decoration: none;
+    color: #333333;
+	font-weight: bold;
+	border-radius: 1000px;
+	padding: 15px 20px;
+	margin: 0 5px;
+}
+
+.account-container ul li a:hover {
+    background-color: whitesmoke;
+}
+
+.account-container .fa {
+    font-size: 24px;
+    padding: 0 10px;
+    color: gray;
+}
+
+.account-container span {
+    vertical-align: text-bottom;
+    color: dimgray;
+}
+
+/*-----------------Navigation Header-----------------*/
+.navigation-header {
+	box-shadow: 0 2px 2px rgba(0, 0, 0, 0.3);
+	background-color: lightgray;
+}
+
+.navigation-container {
+    max-width: 980px;
+    height: 100%;
+    margin: 0 auto;
+}
+
+.navigation-container ul {
+    margin: 0;
+    height: 100%;
+    text-align: center;
+    list-style: none;
+}
+
+.navigation-container ul li {
+    display: inline-block;
+    min-width: 90px;
+    width: 20%;
+    margin: 2px;
+    vertical-align: top;
+}
+
+.navigation-container ul li:hover {
+	background-color: #bbbbbb;
+}
+
+.navigation-container ul li a {
+    display: block;
+    text-align: center;
+    text-decoration: none;
+    color: #454545;
+	font-weight: bold;
+	padding: 13px 5px;
+}
+
+/*--------------------------------------------------------------
+Footer
+--------------------------------------------------------------*/
+footer {
+	background-color: #333333;
+	color: white;
+	text-align: center;
+}
+
+.footer-media {
+	padding-top: 30px;
+}
+
+.footer-media ul {
+	text-align: center;
+	list-style: none;
+	margin: 0;
+}
+
+.footer-media ul li {
+	display: inline-block;
+	text-align: center;
+	text-decoration: none;
+	font-size: small;
+}
+
+.footer-media ul li a {
+	color: white;
+	font-size: 30px;
+	padding: 15px;
+}
+
+.footer-media .fa-twitter:hover {
+    color: #00aced
+}
+
+.footer-media .fa-instagram:hover {
+	color: transparent;
+	background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
+	background: -webkit-radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
+	background-clip: text;
+	-webkit-background-clip: text;
+}
+
+.footer-media .fa-youtube:hover {
+	color: #bb0000;
+	background: radial-gradient(circle at 40%, white 0%, white 30%, #333333 40%);
+}
+
+.footer-copyright {
+	padding: 20px;
+	font-size: smaller;
+}
+
+/*--------------------------------------------------------------
+Contents
+--------------------------------------------------------------*/
+
+/*-----------------Common-----------------*/
+.content-wrapper {
+	width: 1200px;
+    margin: 10px auto;
+    background-color: whitesmoke;
+}
+
+.stacked-section {
+	max-width: 1480px;
+	margin: 0 auto;
+    padding: 60px 40px;
+}
+
+.stacked-section-child {
+    padding-bottom: 60px;
+    display: block;
+}
+
+.flash_section {
+	margin: 0 auto 40px;
+}
+
+.flash {
+    margin: 5px auto;
+    padding: 16px;
+    background: #cae6f6;
+	border: 1px solid #377ba8;
+	width: 60%;
+}
+
+/*-----------------Book List-----------------*/
+.book-list {
+    max-width: 1480px;
+}
+
+.book-container {
+    width: 100%;
+    display: block;
+    margin: 20px auto;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 1px 1px 3px 1px #cccccc;
+}
+
+.book-container .book-image {
+    display: inline-block;
+    height: auto;
+    width: 10%;
+    padding: 10px;
+	vertical-align: middle;
+	box-sizing: border-box;
+}
+
+.book-container .book-image img {
+    height: auto;
+	width: 100%;
+	max-width: 60px;
+}
+
+.book-container .book-info {
+    height: 100%;
+    display: inline-block;
+    width: 45%;
+	vertical-align: middle;
+	box-sizing: border-box;
+}
+
+.book-container .book-info .book-title {
+    padding: 5px 10px;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.book-container .book-info .book-author {
+    padding: 5px 10px;
+}
+
+.book-container .book-category {
+    height: 100%;
+    display: inline-block;
+    width: 20%;
+	vertical-align: middle;
+	box-sizing: border-box;
+}
+
+.book-container .book-category p {
+	margin: 0;
+	padding: 10px;
+}
+
+.book-container .book-status {
+	height: 100%;
+	padding: 10px;
+    display: inline-block;
+    width: 23%;
+	vertical-align: middle;
+	box-sizing: border-box;
+}
+
+.book-container .book-status .text {
+	display: flex;
+	justify-content: center;
+}
+
+/*-----------------Search Page-----------------*/
+.content-heading {
+	text-align: center;
+	padding-bottom: 20px;
+}
+
+.pagination {
+	display: inline-block;
+	margin: 0 auto;
+}
+
+.pagination a {
+	color: black;
+	float: left;
+	padding: 8px 16px;
+	text-decoration: none;
+	border-radius: 5px;
+	background-color: white;
+	margin: 20px 10px;
+}
+
+.pagination span {
+	color: black;
+	float: left;
+	padding: 8px 16px;
+	text-decoration: none;
+	margin: 20px 10px;
+}
+
+.pagination a.active {
+	background-color: #4CAF50;
+	color: white;
+	border-radius: 5px;
+}
+
+.pagination a:hover:not(.active) {
+	background-color: #ddd;
+}
+
+/*-----------------Register Page-----------------*/
+.register-page{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+}
+
+.register-page .btn{
+	display: inline-block;
+	color: #FFF;
+	width: 200px;
+	margin-bottom: 5em;
+	padding: 0.8em;
+	text-decoration: none;
+	text-align: center;
+	border-radius: 4px;
+	box-shadow: 0 2px 2px 0 rgba(0,0,0,0.12), 0 1px 5px 0 rgba(0,0,0,0.12), 0 3px 1px -2px rgba(0,0,0,0.2);
+	-webkit-tap-highlight-color: transparent;
+	transition: .3s ease-out;
+}
+
+.register-page .btn:hover{
+	cursor: pointer;
+	text-decoration: none;
+	box-shadow: 0 5px 10px 0 rgba(0,0,0,0.12), 0 3px 20px 0 rgba(0,0,0,0.12), 0 5px 6px -2px rgba(0,0,0,0.2);
+}
+
+.register-page .isbn{
+	background-color: #FFC605;
+}
+
+.register-page .manual{
+	background-color: #666666;
+}
+
+/*-----------------Rental History-----------------*/
+.history-list {
+	margin: 20px auto;
+}
+
+.history-list table {
+	max-width: 960px;
+	border-collapse: collapse;
+	border: 0;
+	border-spacing: 0;
+	margin: 15px auto;
+}
+
+.history-list td {
+	border: 0;
+	margin: 0;
+}
+
+.history-list table thead {
+	background-color: #123456;
+	color: #fff;
+	font-weight: 800;
+}
+
+.history-list table thead tr td {
+	padding: 10px 0;
+	width: 33.3%;
+}
+
+.history-list table tbody {
+	border-bottom: 2px solid #123456;
+}
+
+.history-list table tbody tr td {
+	padding: 20px 0;
+}

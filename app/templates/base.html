@@ -1,25 +1,110 @@
 <!doctype html>
-<title>{% block title %}{% endblock %} - 朋来堂</title>
-<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-<nav>
-    <h1>朋来堂</h1>
-    <ul>
-        {% if g.user %}
-          <li><span>{{ g.user['username'] }}</span>
-          <li><a href="{{ url_for('auth.logout') }}">Log Out</a>
-        {% else %}
-          <li><a href="{{ url_for('auth.signup') }}">Sign Up</a>
-          <li><a href="{{ url_for('auth.login') }}">Log In</a>
-        {% endif %}
-      </ul>
-</nav>
 
-<section class="content">
-    <header>
-        {% block header %}{% endblock %}
-    </header>
-    {% for message in get_flashed_messages() %}
-    <div class="flash">{{ message }}</div>
-    {% endfor %}
-    {% block content %}{% endblock %}
-</section>
+<html>
+
+<head>
+  {% block head %}
+  <meta charset="utf-8">
+
+  <title>{% block title %}{% endblock %} - 朋来堂ライブラリー</title>
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+  <script type="text/javascript" src="{{ url_for('static', filename='js/main.js') }}" defer="defer"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+  {% endblock %}
+</head>
+  <!-- ENHANCE: Add base color -->
+<body>
+  <header id="site-header" class="site-header" role="banner">
+
+    <div class="main-header">
+
+      <div class="main-logo">
+        <figure class="logo-image">
+
+        </figure>
+
+        <div class="logo-text">
+          <h1 class="site-title">
+            <a href="{{ url_for('index') }}" rel="home">朋来堂ライブラリー</a>
+          </h1>
+        </div>
+
+      </div>
+
+      <div class="account-container">
+        <ul>
+          {% if g.user %}
+            <li><a href="{{ url_for('account.index') }}"><i class="fa fa-user"></i><span>{{ g.user['username'] }}</span></a>
+            <li><a href="{{ url_for('auth.logout') }}"><i class="fa fa-sign-out-alt"></i><span>ログアウト</span></a>
+           {% else %}
+            <li><a href="{{ url_for('auth.signup') }}"><i class="fa fa-user-plus"></i><span>新規登録</span></a>
+            <li><a href="{{ url_for('auth.login') }}"><i class="fa fa-sign-in-alt"></i><span>ログイン</span></a>
+          {% endif %}
+        </ul>
+      </div>
+
+    </div>
+
+    <nav class="navigation-header">
+      <div class="navigation-container">
+        <ul>
+          <li><a class="action" href="{{ url_for('index') }}">ホーム</a>
+          <li><a class="action" href="{{ url_for('search') }}">本を探す</a>
+          <li><a class="action" href="{{ url_for('register.index') }}">本を登録する</a>
+          <li><a class="action" href="{{ url_for('return_') }}">本を返す</a>
+        </ul>
+      </div>
+    </nav>
+
+  </header>
+
+  <div id="site-contents" class="site-contents">
+    <div class="stacked-section">
+
+      <div class="flash_section">
+        {% for message in get_flashed_messages() %}
+          <div class="flash">{{ message }}</div>
+        {% endfor %}
+      </div>
+
+      {% block content %}
+
+      {% endblock %}
+
+    </div>
+  </div>
+
+  <footer id="site-footer" class="site-footer">
+    <div class="footer-media">
+      <ul>
+        <li>
+          <a href="https://twitter.com/horaido_j_book">
+            <i class="fab fa-twitter"></i>
+          </a>
+        </li>
+        <li>
+          <a href="https://www.instagram.com/horaido_j_book">
+            <i class="fab fa-instagram"></i>
+          </a>
+        </li>
+        <li>
+          <a href="https://www.youtube.com/c/horaido">
+            <i class="fab fa-youtube"></i>
+          </a>
+        </li>
+      </ul>
+    </div>
+    <div class="footer-copyright">
+      Copyright(C) 朋来堂ライブラリー. All Rights Reserved.
+    </div>
+  </footer>
+
+</body>
+
+</html>

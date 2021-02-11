@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block title %}手動で登録する{% endblock %}
+
+{% block content %}
+  <div class="stacked-section-child">
+    <div class="book-form">
+      <form method="post">
+        {{ form.hidden_tag() }}
+        <div class="book-form-image">画像ファイル<input type="file" name="book_image" id="book_image">
+          <img id="preview">
+        </div>
+
+        <div class="book-form-text">
+          <div class="item">
+            <label for="isbn">ISBN</label>
+            {{ form.isbn() }}
+          </div>
+
+          <div class="item">
+            <label for="title">タイトル</label>
+            {{ form.title(required=true) }}
+          </div>
+
+          <div class="item">
+            <label for="author">著者</label>
+            {{ form.author() }}
+          </div>
+
+          <div class="item">
+            <label for="publisher_name">出版社</label>
+            {{ form.publisher_name() }}
+          </div>
+
+          <div class="item">
+            <label for="sales_date">出版年月日</label>
+            {{ form.sales_date() }}
+          </div>
+        </div>
+        <input type="submit" value="登録する" />
+      </form>
+    </div>
+  </div>
+
+{% endblock %}

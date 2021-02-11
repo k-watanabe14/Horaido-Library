@@ -1,17 +1,21 @@
 {% extends 'base.html' %}
 
-{% block header %}
-<h1>{% block title %}Sign Up{% endblock %}</h1>
-{% endblock %}
+{% block title %}新規登録{% endblock %}
 
 {% block content %}
-<form method="post">
-    <label for="username">Username</label>
-    <input name="username" id="username" required>
-    <label for="email">Email</label>
-    <input name="email" id="email" required>
-    <label for="password">Password</label>
-    <input type="password" name="password" id="password" required>
-    <input type="submit" value="Sign Up">
-  </form>
+  <div class="stacked-section-child">
+    <div class="form-wrapper">
+      <form method="post">
+        {{ form.hidden_tag() }}
+        <p class="title">新規登録</p>
+        {{ form.username(placeholder="ユーザー名", autofocus=true) }}
+        <i class="fa fa-user"></i>
+        {{ form.email(placeholder="メールアドレス") }}
+        <i class="fa fa-envelope"></i>
+        {{ form.password(placeholder="パスワード（英数字8~15文字）") }}
+        <i class="fa fa-key"></i>
+        {{ form.submit(class="button") }}
+      </form>
+    </div>
+  </div>
 {% endblock %}
