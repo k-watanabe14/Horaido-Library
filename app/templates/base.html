@@ -9,7 +9,8 @@
   <title>{% block title %}{% endblock %} - 朋来堂ライブラリー</title>
 
   <!-- Font Awesome -->
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+    integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
 
   <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 
@@ -18,7 +19,8 @@
 
   {% endblock %}
 </head>
-  <!-- ENHANCE: Add base color -->
+<!-- ENHANCE: Add base color -->
+
 <body>
   <header id="site-header" class="site-header" role="banner">
 
@@ -40,12 +42,12 @@
       <div class="account-container">
         <ul>
           {% if g.user %}
-            <li><a href="{{ url_for('account.index') }}"><i class="fa fa-user"></i><span>{{ g.user['username'] }}</span></a>
-            <li><a href="{{ url_for('auth.logout') }}"><i class="fa fa-sign-out-alt"></i><span>ログアウト</span></a>
-           {% else %}
-            <li><a href="{{ url_for('auth.signup') }}"><i class="fa fa-user-plus"></i><span>新規登録</span></a>
-            <li><a href="{{ url_for('auth.login') }}"><i class="fa fa-sign-in-alt"></i><span>ログイン</span></a>
-          {% endif %}
+          <li><a href="{{ url_for('account.index') }}"><i class="fa fa-user"></i><span>{{
+                g.user['username']}}</span></a>
+          <li><a href="{{ url_for('auth.logout') }}"><i class="fa fa-sign-out-alt"></i><span>ログアウト</span></a>
+            {% else %}
+          <li><a href="{{ url_for('auth.login') }}"><i class="fa fa-sign-in-alt"></i><span>ログイン</span></a>
+            {% endif %}
         </ul>
       </div>
 
@@ -56,8 +58,13 @@
         <ul>
           <li><a class="action" href="{{ url_for('index') }}">ホーム</a>
           <li><a class="action" href="{{ url_for('search') }}">本を探す</a>
+            {% if g.user %}
+          <li><a class="action" href="{{ url_for('rental') }}">借りている本</a>
+          <li><a class="action" href="{{ url_for('users.index') }}">朋来堂会員</a>
+            {% if g.user.admin %}
           <li><a class="action" href="{{ url_for('register.index') }}">本を登録する</a>
-          <li><a class="action" href="{{ url_for('return_') }}">本を返す</a>
+            {% endif %}
+            {% endif %}
         </ul>
       </div>
     </nav>
@@ -68,9 +75,13 @@
     <div class="stacked-section">
 
       <div class="flash_section">
-        {% for message in get_flashed_messages() %}
-          <div class="flash">{{ message }}</div>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+        {% for category, message in messages %}
+        <div class="flash {{ category }}">{{ message}}</div>
         {% endfor %}
+        {% endif %}
+        {% endwith %}
       </div>
 
       {% block content %}
@@ -101,7 +112,7 @@
       </ul>
     </div>
     <div class="footer-copyright">
-      Copyright(C) 朋来堂ライブラリー. All Rights Reserved.
+      Copyright © 2021 朋来堂ライブラリー | All Rights Reserved.
     </div>
   </footer>
 
