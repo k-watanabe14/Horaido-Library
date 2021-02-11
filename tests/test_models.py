@@ -3,10 +3,12 @@ import pytest
 from app import app
 from app.models import User, Book, History, TagMaps, Tags
 
+
 @pytest.fixture(scope='module')
 def new_user():
-    user = User('John', 'john@gmail.com', 'FlaskIsAwesome')
+    user = User('John', 'john@gmail.com', 'FlaskIsAwesome', True)
     return user
+
 
 def test_new_user_with_fixture(new_user):
     """

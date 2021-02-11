@@ -4,54 +4,63 @@
 
 {% block content %}
 
-  {% if isbn is not none and book_data is not none %}
-
+{% if isbn is not none and book is not none %}
+<div class="stacked-section-child">
   <div class="book-form">
-    <form method="post">
+    <form method="post" enctype="multipart/form-data">
       {{ form.hidden_tag() }}
       <div class="book-form-image">
-        <img alt="{{ book_data['title'] }}" id="image" src="{{ book_data['largeImageUrl'] }}" width="200" height="200">
+        <span>画像を変更する</span>
+        <input type="file" name="file" id="file">
+        <img id="preview">
+        <img alt="{{ book['title'] }}" id="image" src="{{ book['largeImageUrl'] }}" width="200" height="200">
       </div>
 
       <div class="book-form-text">
         <div class="item">
           <label for="isbn">ISBN</label>
-          {{ form.isbn(value=book_data['isbn']) }}
+          {{ form.isbn(value=book['isbn']) }}
         </div>
 
         <div class="item">
           <label for="title">タイトル</label>
-          {{ form.title(value=book_data['title'], required=true) }}
+          {{ form.title(value=book['title']) }}
         </div>
 
         <div class="item">
           <label for="author">著者</label>
-          {{ form.author(value=book_data['author']) }}
+          {{ form.author(value=book['author']) }}
         </div>
 
         <div class="item">
           <label for="publisher_name">出版社</label>
-          {{ form.publisher_name(value=book_data['publisherName']) }}
+          {{ form.publisher_name(value=book['publisherName']) }}
         </div>
 
         <div class="item">
           <label for="sales_date">出版年月日</label>
-          {{ form.sales_date(value=book_data['salesDate']) }}
+          {{ form.sales_date(value=book['salesDate']) }}
         </div>
 
       </div>
-      <input type="submit" value="登録する" />
+      <div class="book-form-button">
+        <ul>
+          <li><input class="btn save" type="submit" value="登録する"></li>
+          <li><a class="btn back" href="{{ url_for('register.index') }}">戻る</a></li>
+        </ul>
+      </div>
     </form>
   </div>
-
-  {% else %}
+</div>
+{% else %}
+<div class="stacked-section-child">
   <div class="isbn-wrapper">
     <form method="post" class="isbn-form">
       <input name="isbn" class="isbn-box" value="{{ request.form['isbn'] }}" placeholder="ISBNを入力してください。" required>
       <button class="isbn-btn" type="submit"><i class="fas fa-search"></i></button>
     </form>
   </div>
-
-  {% endif %}
+</div>
+{% endif %}
 
 {% endblock %}
