@@ -68,7 +68,7 @@
       <p>この本を貸しますか？</p>
       <form method="post">
         <div class="borrower">
-          借りる人
+          <span>借りる人</span>
           <select id="borrower-options" name="borrower">
             {% for user in users %}
             <option value="{{ user.id }}">{{ user.username }}</option>
