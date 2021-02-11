@@ -65,18 +65,26 @@
     </div>
     <div id="mask-borrow" class="hidden"></div>
     <section id="modal-borrow" class="modal hidden">
-      <p>この本を借りますか？</p>
-      <ul>
-        <li>
-          <form method="post"><button type="submit" name="borrow_button" class="borrow" value="借りる">借りる</button></form>
-        </li>
-        <li><button id="close-borrow" class="close">閉じる</button></li>
-      </ul>
+      <p>この本を貸しますか？</p>
+      <form method="post">
+        <div class="borrower">
+          借りる人
+          <select id="borrower-options" name="borrower">
+            {% for user in users %}
+            <option value="{{ user.id }}">{{ user.username }}</option>
+            {% endfor %}
+          </select>
+        </div>
+        <ul>
+          <li><button type="submit" name="borrow_button" class="borrow" value="貸す">貸す</button></li>
+          <li><button type="button" id="close-borrow" class="close">閉じる</button></li>
+        </ul>
+      </form>
     </section>
 
     <div id="mask-return" class="hidden"></div>
     <section id="modal-return" class="modal hidden">
-      <p>この本を返しますか</p>
+      <p>この本を返しますか？</p>
       <ul>
         <li>
           <form method="post"><button type="submit" name="return_button" class="return" value="返す">返す</button></form>
