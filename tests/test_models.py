@@ -6,7 +6,7 @@ from app.models import User, Book, History, TagMaps, Tags
 
 @pytest.fixture(scope='module')
 def new_user():
-    user = User('John', 'john@gmail.com', 'FlaskIsAwesome')
+    user = User('John', 'john@gmail.com', 'FlaskIsAwesome', True)
     return user
 
 
