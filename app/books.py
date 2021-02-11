@@ -9,7 +9,7 @@ from app.forms import BookForm
 from app.common import display_errors, get_new_image_url
 
 # Define the blueprint: 'register', set its url prefix: app.url/register
-mod_book = Blueprint('book', __name__, url_prefix='/book')
+mod_books = Blueprint('books', __name__, url_prefix='/books')
 
 
 def borrow_book(book, book_id):
@@ -50,7 +50,7 @@ def return_book(book, book_id):
     flash('「' + book.title + '」を返しました。')
 
 
-@mod_book.route('/<int:book_id>', methods=('GET', 'POST'))
+@mod_books.route('/<int:book_id>', methods=('GET', 'POST'))
 def index(book_id):
 
     book = Book.query.get(book_id)
@@ -69,12 +69,12 @@ def index(book_id):
         return redirect(url_for('book.index', book_id=book_id))
 
     # Page for Detail of book
-    return render_template('book/index.html', book=book,
+    return render_template('books/index.html', book=book,
                            tags=tags, histories=histories)
 
 
 # TODO: Add function to edit book tags
-@mod_book.route('/<int:book_id>/edit', methods=('GET', 'POST'))
+@mod_books.route('/<int:book_id>/edit', methods=('GET', 'POST'))
 @login_required
 def edit(book_id):
 
@@ -116,4 +116,4 @@ def edit(book_id):
             app.logger.info('%s failed to edit %s',
                             g.user.username, book.title)
 
-    return render_template('book/edit.html', book=book, form=form, tags=tags)
+    return render_template('books/edit.html', book=book, form=form, tags=tags)

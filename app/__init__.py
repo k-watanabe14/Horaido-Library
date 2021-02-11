@@ -15,13 +15,15 @@ mail = Mail(app)
 from app.auth import mod_auth
 from app.account import mod_account
 from app.register import mod_register
-from app.book import mod_book
+from app.books import mod_books
+from app.users import mod_users
 
 # Register blueprints
 app.register_blueprint(mod_auth)
 app.register_blueprint(mod_account)
 app.register_blueprint(mod_register)
-app.register_blueprint(mod_book)
+app.register_blueprint(mod_books)
+app.register_blueprint(mod_users)
 
 # Import login_required
 from app.auth import login_required
