@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block title %}本の編集 "{{ book['title'] }}"{% endblock %}
+
+{% block content %}
+
+<div class="book-form">
+  <form method="post">
+    <div class="book-form-image">
+      <img alt="{{ book['title'] }}" id="image" src="{{ book['image_url'] }}">
+    </div>
+
+    <div class="book-form-text">
+      <div class="item">
+        <label for="isbn">ISBN</label>
+        <input type="text" name="isbn" value="{{ book['isbn'] }}" id="isbn" required>
+      </div>
+
+      <div class="item">
+        <label for="title">タイトル</label>
+        <input type="text" name="title" value="{{ book['title'] }}" id="title" required>
+      </div>
+
+      <div class="item">
+        <label for="author">著者</label>
+        <input type="text" name="author" value="{{ book['author'] }}" id="author">
+      </div>
+
+      <div class="item">
+        <label for="publisher_name">出版社</label>
+        <input type="text" name="publisher_name" value="{{ book['publisher_name'] }}" id="publisher_name">
+      </div>
+
+      <div class="item">
+        <label for="sales_date">出版年月日</label>
+        <input type="text" name="sales_date" value="{{ book['sales_date'] }}" id="sales_date">
+      </div>
+
+      <div class="item">
+        <label for="tag">タグ</label>
+        <input type="text" name="tag" id="tag">
+      </div>
+
+      </fieldset>
+    </div>
+    <input type="submit" value="登録する" />
+  </form>
+
+{% endblock %}
