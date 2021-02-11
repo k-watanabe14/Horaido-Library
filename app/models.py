@@ -1,5 +1,4 @@
 from app import app, db
-from sqlalchemy import BigInteger
 from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 
 
@@ -11,12 +10,15 @@ class User(db.Model):
     username = db.Column(db.String(128), nullable=False)
     email = db.Column(db.String(128), nullable=False, unique=True)
     password = db.Column(db.String(192), nullable=False)
-    history = db.relationship('History', backref='user', lazy=True)
+    admin = db.Column(db.Boolean)
+    book = db.relationship('Book', backref='auth_user', lazy=True)
+    history = db.relationship('History', backref='auth_user', lazy=True)
 
-    def __init__(self, username, email, password):
+    def __init__(self, username, email, password, admin):
         self.username = username
         self.email = email
         self.password = password
+        self.admin = False
 
     def get_reset_token(self, expires_sec=1800):
         s = Serializer(app.config['SECRET_KEY'], expires_sec)
@@ -27,7 +29,9 @@ class User(db.Model):
         s = Serializer(app.config['SECRET_KEY'])
         try:
             user_id = s.loads(token)['user_id']
-        except:
+        except Exception as e:
+            app.logger.exception(
+                'Someone accessed by wrong token: %s', e)
             return None
         return User.query.get(user_id)
 
@@ -46,12 +50,13 @@ class Book(db.Model):
     publisher_name = db.Column(db.String(128))
     sales_date = db.Column(db.String(128))
     image_url = db.Column(db.String(128))
-    borrower_id = db.Column(db.Integer)
+    borrower_id = db.Column(db.Integer, db.ForeignKey('auth_user.id'))
     checkout_date = db.Column(db.DateTime)
     history = db.relationship('History', backref='book', lazy=True)
     tag_maps = db.relationship('TagMaps', backref='book', lazy=True)
 
-    def __init__(self, isbn, title, author, publisher_name, sales_date, image_url, borrower_id, checkout_date):
+    def __init__(self, isbn, title, author, publisher_name, sales_date,
+                 image_url, borrower_id, checkout_date):
 
         self.isbn = isbn
         self.title = title
@@ -72,7 +77,8 @@ class History(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     book_id = db.Column(db.Integer, db.ForeignKey('book.id'), nullable=False)
-    user_id = db.Column(db.Integer, db.ForeignKey('auth_user.id'), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey(
+        'auth_user.id'), nullable=False)
     checkout_date = db.Column(db.DateTime, nullable=False)
     due_date = db.Column(db.DateTime)
     return_date = db.Column(db.DateTime)
@@ -87,7 +93,7 @@ class History(db.Model):
     def __repr__(self):
         return '<Lent %r>' % self.id
 
-# TODO: Add TagMaps and Tags to books
+
 class TagMaps(db.Model):
 
     __tablename__ = 'tag_maps'

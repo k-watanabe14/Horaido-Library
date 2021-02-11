@@ -146,3 +146,6 @@ cython_debug/
 # AWS
 .aws/
 AWSCLIV2.pkg
+
+# DB migration
+migrations/

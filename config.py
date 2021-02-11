@@ -1,12 +1,30 @@
 import os
+from logging.config import dictConfig
 
 basedir = os.path.abspath(os.path.dirname(__file__))
+
+dictConfig({
+    'version': 1,
+    'formatters': {'default': {
+        'format': '[%(levelname)s] in %(module)s: %(message)s',
+    }},
+    'handlers': {'wsgi': {
+        'class': 'logging.StreamHandler',
+        'stream': 'ext://flask.logging.wsgi_errors_stream',
+        'formatter': 'default'
+    }},
+    'root': {
+        'level': 'INFO',
+        'handlers': ['wsgi']
+    }
+})
+
 
 class Config(object):
     DEBUG = False
     TESTING = False
     CSRF_ENABLED = True
-    SECRET_KEY = 'this-really-needs-to-be-changed'
+    SECRET_KEY = os.environ['FLASK_SECRET_KEY']
 
     # DB settings
     SQLALCHEMY_DATABASE_URI = os.environ['DATABASE_URL']
@@ -21,7 +39,8 @@ class Config(object):
     MAIL_USE_SSL = True
 
     # S3 settings
-    S3_BUCKET = 'horaido-images'
+    S3_BUCKET = os.environ['S3_BUCKET']
+
 
 class ProductionConfig(Config):
     DEBUG = False
