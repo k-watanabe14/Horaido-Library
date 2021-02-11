@@ -60,6 +60,7 @@
           <li><a class="action" href="{{ url_for('search') }}">本を探す</a>
             {% if g.user %}
           <li><a class="action" href="{{ url_for('rental') }}">借りている本</a>
+          <li><a class="action" href="{{ url_for('users.index') }}">朋来堂会員</a>
             {% if g.user.admin %}
           <li><a class="action" href="{{ url_for('register.index') }}">本を登録する</a>
             {% endif %}

@@ -788,7 +788,7 @@ Header
 .navigation-container ul li {
     display: inline-block;
     min-width: 90px;
-    width: 20%;
+    width: 19%;
     margin: 2px;
     vertical-align: top;
 }
@@ -1013,14 +1013,14 @@ Contents
 }
 
 /*-----------------Register Page-----------------*/
-.register-page{
+.register-page {
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	flex-direction: column;
 }
 
-.register-page .btn{
+.register-page .btn {
 	display: inline-block;
 	color: #FFF;
 	width: 200px;
@@ -1034,17 +1034,63 @@ Contents
 	transition: .3s ease-out;
 }
 
-.register-page .btn:hover{
+.register-page .btn:hover {
 	text-decoration: none;
 	box-shadow: 0 5px 10px 0 rgba(0,0,0,0.12), 0 3px 20px 0 rgba(0,0,0,0.12), 0 5px 6px -2px rgba(0,0,0,0.2);
 }
 
-.register-page .isbn{
+.register-page .isbn {
 	background-color: #FFC605;
 }
 
-.register-page .manual{
+.register-page .manual {
 	background-color: #666666;
+}
+
+.register-page .user {
+	background-color: #472ea3;
+}
+
+/*-----------------User List-----------------*/
+.user-list {
+    max-width: 60rem;
+	margin: 0 auto;
+}
+
+.user-list ul {
+    margin: 0 auto;
+}
+
+.user-container {
+    width: 100%;
+	line-height: 5rem;
+    display: block;
+    margin: 2rem auto;
+    background-color: white;
+    border-radius: 1rem;
+    box-shadow: 0.1rem 0.1rem 0.3rem 0.1rem #cccccc;
+}
+
+.user-container .username {
+    height: 100%;
+    display: inline-block;
+    width: 45%;
+	box-sizing: border-box;
+	text-align: center;
+}
+
+.user-container .detail {
+    height: 100%;
+    display: inline-block;
+    width: 45%;
+	box-sizing: border-box;
+	text-align: center;
+}
+
+.user-container .detail span {
+	background-color: #ffb3e5;
+	padding: 0.8rem 2rem;
+	border-radius: 0.4rem;
 }
 
 /*-----------------Rental History-----------------*/
