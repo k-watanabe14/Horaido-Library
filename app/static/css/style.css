@@ -1163,7 +1163,7 @@ Contents
 }
 
 .modal.hidden {
-  transform: translate(0, calc(-50vh - 30rem));
+  transform: translate(0, calc(-60vh - 700rem));
 }
 
 .modal ul {
