@@ -51,7 +51,11 @@ def index():
 
     if request.method == 'POST':
         keyword = request.form['keyword']
-        app.logger.info('%s searched %s', g.user.username, keyword)
+        if g.user:
+            app.logger.info('%s searched %s',
+                            g.user.username, keyword)
+        else:
+            app.logger.info('Someone searched %s', keyword)
 
         return redirect(url_for('search', keyword=keyword))
 
